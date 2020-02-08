@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HostelNepal</string>
+    <string name="Welcome"><u>Welcome!</u></string>
+    <string name="LoginAs">Login As :</string>
+    <string name="hostelowner">Hostel Owner</string>
+    <string name="hostelOwnerlogin">Hostel Owner</string>
+    <string name="guestlogin">Guest</string>
+    <string name="getstarted">Get Started !!!</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="loginwalatext">New Here?</string>
+    <string name="create"><u>Create an Account.</u></string>
+    <string name="logo">logo</string>
+</resources>

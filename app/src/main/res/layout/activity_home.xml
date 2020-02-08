@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:iconifiedByDefault="false"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_style"
+
+        ></SearchView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:layout_margin="20dp"
+        android:text="Search"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:padding="10dp"
+        android:background="@drawable/button_style"
+        />
+
+</LinearLayout>
