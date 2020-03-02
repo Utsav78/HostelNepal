@@ -33,7 +33,7 @@ public class LoginActivityHO extends AppCompatActivity {
         setContentView(R.layout.activity_login_ho);
         hoLoginBtn = findViewById(R.id.loginho);
 
-       
+
     }
 
 

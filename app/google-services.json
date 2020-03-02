@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1092772773732",
+    "firebase_url": "https://hostelnepal-5dbf0.firebaseio.com",
+    "project_id": "hostelnepal-5dbf0",
+    "storage_bucket": "hostelnepal-5dbf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092772773732:android:fc1c54ce8ff66080eb4471",
+        "android_client_info": {
+          "package_name": "com.example.hostelnepal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092772773732-tsrktmcaiagclehbknde2gra915vmbo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hostelnepal",
+            "certificate_hash": "f1cece9fd719e4da44649055540e12c38eee583f"
+          }
+        },
+        {
+          "client_id": "1092772773732-vctvc43kqpd9udqr0ul7h5jbl36ti2ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOGoR_DIoNBrHnOJLCHpKcBQrNI08U81Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092772773732-vctvc43kqpd9udqr0ul7h5jbl36ti2ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,4 +12,8 @@
     <string name="loginwalatext">New Here?</string>
     <string name="create"><u>Create an Account.</u></string>
     <string name="logo">logo</string>
+    <string name="email">E-mail</string>
+    <string name="register">Register</string>
+    <string name="phone">PhoneNumber</string>
+    <string name="alreadyRegistered">Already Registererd ? Login Here</string>
 </resources>
