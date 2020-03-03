@@ -29,32 +29,31 @@ public class LoginActivityG extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_g);
 
-        gEmail = findViewById(R.id.email);
-        gPassword = findViewById(R.id.Password);
-        gLoginBtn = findViewById(R.id.loginho);
-        progressBar = findViewById(R.id.progressBar);
+        gEmail = findViewById(R.id.emailGuest);
+        gPassword = findViewById(R.id.passwordGuestLogin);
+        gLoginBtn = findViewById(R.id.loginG);
+        progressBar = findViewById(R.id.progressBarLoginGuest);
 
         fAuth = FirebaseAuth.getInstance();
 
-        if (fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
         }
 
         gLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = gEmail.getText().toString().trim();
                 String password = gPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
 
                     gEmail.setError("Email is Required");
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
 
                     gPassword.setError("Password is Required ");
                     return;
@@ -65,17 +64,17 @@ public class LoginActivityG extends AppCompatActivity {
 
                 //authenticate the user
 
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
 
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        }
-                            else{
-                            Toast.makeText(LoginActivityG.this, "Error:"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                        } else {
+                            Toast.makeText(LoginActivityG.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
 
                         }
 
@@ -83,19 +82,15 @@ public class LoginActivityG extends AppCompatActivity {
                 });
 
             }
+
+
         });
-
-
-
-
-
-
-
-    }
-    public void studentRegister(View view){
-
-        Intent intent=new Intent(LoginActivityG.this, GuestRegister.class);
-        startActivity(intent);
     }
 
-}
+
+        public void studentRegister(View v){
+
+            Intent intent = new Intent(LoginActivityG.this, GuestRegister.class);
+            startActivity(intent);
+        }
+    }

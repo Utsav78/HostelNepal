@@ -15,7 +15,7 @@
         <activity android:name=".GuestRegister" />
         <activity android:name=".LoginActivityG" />
         <activity android:name=".LoginActivityHO" />
-        <activity android:name=".WelcomeAtivity" />
+        <activity android:name=".WelcomeActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

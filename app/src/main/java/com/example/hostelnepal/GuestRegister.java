@@ -33,7 +33,7 @@ public class GuestRegister extends AppCompatActivity {
         setContentView(R.layout.activity_guest_register);
 
         gFullName = findViewById(R.id.name);
-        gEmail = findViewById(R.id.email);
+        gEmail = findViewById(R.id.emailGuest);
         gPassword = findViewById(R.id.password);
         gPhoneNumber = findViewById(R.id.phoneNumber);
         gRegisterBtn = findViewById(R.id.gRegisterBtn);
@@ -87,13 +87,14 @@ public class GuestRegister extends AppCompatActivity {
 
                         if (task.isSuccessful()){
                             Toast.makeText(GuestRegister.this, "User is Registered", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
 
                         }
                         else{
 
                             Toast.makeText(GuestRegister.this, "Error:"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                            progressBar.setVisibility(View.GONE);
                         }
 
                     }

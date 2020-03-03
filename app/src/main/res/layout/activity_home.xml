@@ -18,16 +18,16 @@
         ></SearchView>
 
     <Button
+        android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAllCaps="false"
         android:layout_margin="20dp"
-        android:text="Search"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:padding="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_style"
-        />
+        android:padding="10dp"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="30dp" />
 
 </LinearLayout>
