@@ -42,13 +42,14 @@
 
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="682dp"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"
             android:rowCount="3">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dash_viewProperty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -60,22 +61,104 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="hoViewProperty"
                     android:layout_gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <ImageView
+
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@drawable/user"
 
-                        />
+                        android:src="@drawable/viewproperty" />
 
 
                     <TextView
-                        android:paddingLeft="40dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="40dp"
+                        android:text="View Property
+"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dash_addProperty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hoAddProperty"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+
+                        android:src="@drawable/addproperty"
+                         />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="35dp"
+                        android:text="Add Property"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dash_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="hoAllUsers"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+
+                        android:src="@drawable/user" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="40dp"
                         android:text="All Users"
                         android:textColor="#000000"
                         android:textSize="18dp" />
@@ -86,6 +169,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dash_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -97,6 +181,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="hoNotification"
                     android:layout_gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -104,16 +189,15 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@drawable/user"
 
-                        />
+                        android:src="@drawable/notification" />
 
 
                     <TextView
-                        android:paddingLeft="40dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="All Users"
+                        android:paddingLeft="20dp"
+                        android:text="Notification"
                         android:textColor="#000000"
                         android:textSize="18dp" />
 
@@ -123,6 +207,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dash_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -134,6 +219,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="hoReview"
                     android:layout_gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -141,16 +227,16 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@drawable/user"
+                        android:src="@drawable/review"
 
                         />
 
 
                     <TextView
-                        android:paddingLeft="40dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="All Users"
+                        android:paddingLeft="40dp"
+                        android:text="Reviews"
                         android:textColor="#000000"
                         android:textSize="18dp" />
 
@@ -160,6 +246,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -172,96 +259,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:onClick="ownerLogout"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@drawable/user"
+                        android:src="@drawable/logout"
 
                         />
 
 
                     <TextView
-                        android:paddingLeft="40dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="All Users"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
-
-                </LinearLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:src="@drawable/user"
-
-                        />
-
-
-                    <TextView
                         android:paddingLeft="40dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="All Users"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
-
-                </LinearLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:src="@drawable/user"
-
-                        />
-
-
-                    <TextView
-                        android:paddingLeft="40dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="All Users"
+                        android:text="Logout
+"
                         android:textColor="#000000"
                         android:textSize="18dp" />
 

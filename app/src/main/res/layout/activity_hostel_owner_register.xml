@@ -32,7 +32,7 @@
 
             />
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/ownerName"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             />
 
         <EditText
-            android:id="@+id/phoneNumber"
+            android:id="@+id/ownerPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -60,7 +60,7 @@
 
             />
         <EditText
-            android:id="@+id/emailGuest"
+            android:id="@+id/emailOwner"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordOwner"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
 
             />
         <Button
-            android:id="@+id/gRegisterBtn"
+            android:id="@+id/hoRegisterBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -104,7 +104,7 @@
 
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarOwnerRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

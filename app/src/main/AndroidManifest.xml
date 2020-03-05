@@ -11,12 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DashboardHO"></activity>
+        <activity android:name=".HoReviews"></activity>
+        <activity android:name=".HoNotification" />
+        <activity android:name=".AllUsers" />
+        <activity android:name=".AddProperty" />
+        <activity android:name=".ViewProperty" />
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DashboardHO" />
+        <activity android:name=".HostelOwnerRegister" />
         <activity android:name=".GuestRegister" />
         <activity android:name=".LoginActivityG" />
         <activity android:name=".LoginActivityHO" />
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -37,7 +37,6 @@ public class GuestRegister extends AppCompatActivity {
         gPassword = findViewById(R.id.password);
         gPhoneNumber = findViewById(R.id.phoneNumber);
         gRegisterBtn = findViewById(R.id.gRegisterBtn);
-        gLoginBtn = findViewById(R.id.alreadyRegistered);
 
         progressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();

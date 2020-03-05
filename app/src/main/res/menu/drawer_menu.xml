@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title ="General">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="Home"/>
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_notifications_active_black_24dp"
+                android:title="Notification"/>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="Account Setting"/>
+
+            <item
+                android:id="@+id/nav_saved"
+                android:icon="@drawable/ic_favorite_black_24dp"
+                android:title="Saved"/>
+
+
+        </menu>
+
+
+
+    </item>
+
+
+    <item android:title="Communication">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_clear_black_24dp"
+                android:title="Logout"/>
+
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="Help"/>
+
+            <item
+                android:id="@+id/nav_aboutUs"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="About Us"/>
+
+
+        </menu>
+
+
+
+    </item>
+
+</menu>
