@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class GuestRegister extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class GuestRegister extends AppCompatActivity {
     TextView gLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
+
 
 
     @Override
@@ -84,7 +89,29 @@ public class GuestRegister extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+
                         if (task.isSuccessful()){
+
+                            //email verification
+                            FirebaseUser fUser = fAuth.getCurrentUser();
+                            fUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(GuestRegister.this, "Verification Email has been Sent.", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG","On Failure: Email verification code not sent"+e.getMessage());
+
+                                }
+                            });
+
+
+
+
+
                             Toast.makeText(GuestRegister.this, "User is Registered", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));

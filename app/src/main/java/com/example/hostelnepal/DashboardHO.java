@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DashboardHO extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -16,6 +19,12 @@ public class DashboardHO extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_ho);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (!user.isEmailVerified()){
+            Toast.makeText(this, "Email isnot verified", Toast.LENGTH_SHORT).show();
+        }
     }
     public void ownerLogout(View view){
         firebaseAuth.signOut();
