@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        drawerLayout.closeDrawer(GravityCompat.START);
 
         if (menuItem.getItemId() == R.id.nav_home){
             fragmentManager =getSupportFragmentManager();

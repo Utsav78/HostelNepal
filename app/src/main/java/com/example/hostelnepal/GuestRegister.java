@@ -21,6 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GuestRegister extends AppCompatActivity {
 
@@ -29,6 +34,9 @@ public class GuestRegister extends AppCompatActivity {
     TextView gLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
+    FirebaseFirestore fStoreGuest;
+    String userID;
+    DocumentReference documentReference;
 
 
 
@@ -44,15 +52,17 @@ public class GuestRegister extends AppCompatActivity {
         gRegisterBtn = findViewById(R.id.gRegisterBtn);
 
         progressBar = findViewById(R.id.progressBar);
+        fStoreGuest = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+
 
         gRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = gEmail.getText().toString().trim();
-                String password = gPassword.getText().toString().trim();
-                String name =gFullName.getText().toString().trim();
-                String phonenumber = gPhoneNumber.getText().toString().trim();
+                final String email = gEmail.getText().toString().trim();
+                final String password = gPassword.getText().toString().trim();
+                final String name =gFullName.getText().toString().trim();
+                final String phonenumber = gPhoneNumber.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
 
@@ -113,6 +123,30 @@ public class GuestRegister extends AppCompatActivity {
 
 
                             Toast.makeText(GuestRegister.this, "User is Registered", Toast.LENGTH_SHORT).show();
+
+
+                            userID = fAuth.getCurrentUser().getUid();
+                            documentReference = fStoreGuest.collection("Guest").document("userID");
+
+                            Map<String,Object> guest= new HashMap<>();
+                            guest.put("FullName",name);
+                            guest.put("Email",email);
+                            guest.put("PhoneNumber",phonenumber);
+                            guest.put("Password",password);
+                            documentReference.set(guest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG", "onSuccess:User Profile is created  "+userID);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG", "onFailure: "+e.toString());
+
+                                }
+                            });
+
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
 

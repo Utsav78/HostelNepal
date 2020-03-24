@@ -21,6 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HostelOwnerRegister extends AppCompatActivity {
 
@@ -30,6 +35,9 @@ public class HostelOwnerRegister extends AppCompatActivity {
     TextView hoLoginBtn;
     FirebaseAuth fAuthHO;
     ProgressBar progressBar;
+    FirebaseFirestore fStore;
+    DocumentReference documentReference;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +52,15 @@ public class HostelOwnerRegister extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBarOwnerRegister);
         fAuthHO = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
         hoRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailho = hoEmail.getText().toString().trim();
-                String passwordho = hoPassword.getText().toString().trim();
-                String nameho =hoFullName.getText().toString().trim();
-                String phonenumberho = hoPhoneNumber.getText().toString().trim();
+                final String emailho = hoEmail.getText().toString().trim();
+                final String passwordho = hoPassword.getText().toString().trim();
+                final String nameho =hoFullName.getText().toString().trim();
+                final String phonenumberho = hoPhoneNumber.getText().toString().trim();
 
                 if(TextUtils.isEmpty(emailho)){
 
@@ -109,6 +118,31 @@ public class HostelOwnerRegister extends AppCompatActivity {
 
 
                             Toast.makeText(HostelOwnerRegister.this, "User is Registered", Toast.LENGTH_SHORT).show();
+
+                            userID= fAuthHO.getCurrentUser().getUid();
+                            documentReference= fStore.collection("HostelOwner").document("userID");
+
+                            Map<String,Object> hostelOwner= new HashMap<>();
+                            hostelOwner.put("FullName",nameho);
+                            hostelOwner.put("Email",emailho);
+                            hostelOwner.put("PhoneNumber",phonenumberho);
+                            hostelOwner.put("Password",passwordho);
+                            documentReference.set(hostelOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG", "onSuccess:User Profile is created  "+userID);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG", "onFailure: "+e.toString());
+
+                                }
+                            });
+
+
+
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),DashboardHO.class));
 
