@@ -33,4 +33,6 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="tag">TAG</string>
+    <string name="my_dashboard">MY DASHBOARD</string>
+    <string name="_6_items">6 items</string>
 </resources>

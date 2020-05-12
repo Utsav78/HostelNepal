@@ -29,6 +29,11 @@ import java.util.Map;
 
 public class GuestRegister extends AppCompatActivity {
 
+    public static final String FULL_NAME = "FullName";
+    public static final String EMAIL = "Email";
+    public static final String PHONE_NUMBER = "PhoneNumber";
+    public static final String PASSWORD = "Password";
+    public static final String TAG = "TAG";
     EditText gFullName,gEmail,gPassword,gPhoneNumber;
     Button gRegisterBtn;
     TextView gLoginBtn;
@@ -89,6 +94,7 @@ public class GuestRegister extends AppCompatActivity {
                 if (password.length()<6){
 
                     gPassword.setError("Password is less than 6 Character");
+                    return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -126,17 +132,17 @@ public class GuestRegister extends AppCompatActivity {
 
 
                             userID = fAuth.getCurrentUser().getUid();
-                            documentReference = fStoreGuest.collection("Guest").document("userID");
+                            documentReference = fStoreGuest.collection("Guest").document(userID);
 
                             Map<String,Object> guest= new HashMap<>();
-                            guest.put("FullName",name);
-                            guest.put("Email",email);
-                            guest.put("PhoneNumber",phonenumber);
-                            guest.put("Password",password);
+                            guest.put(FULL_NAME,name);
+                            guest.put(EMAIL,email);
+                            guest.put(PHONE_NUMBER,phonenumber);
+                            guest.put(PASSWORD,password);
                             documentReference.set(guest).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("TAG", "onSuccess:User Profile is created  "+userID);
+                                    Log.d(TAG, "onSuccess:User Profile is created  "+userID);
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

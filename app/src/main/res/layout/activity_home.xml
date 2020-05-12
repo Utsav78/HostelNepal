@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:id="@+id/drawer">
+    android:id="@+id/drawer"
+    android:fitsSystemWindows="true"
+
+    tools:openDrawer="start"
+    >
 
     <include
         layout="@layout/drawer_toolbar"
@@ -20,7 +24,7 @@
 
 
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/navigationView"
         app:menu="@menu/drawer_menu"
@@ -28,6 +32,47 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         />
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_style"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:queryHint="Search"
+
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hostel_location"/>
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+   
+
+
+
 
 
 

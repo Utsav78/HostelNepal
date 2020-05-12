@@ -4,7 +4,7 @@
 
     <solid
 
-        android:color="@color/colorBackground"
+        android:color="@color/appColor"
 
 
         />

@@ -25,7 +25,7 @@
         android:layout_marginBottom="280dp"
         android:fontFamily="sans-serif"
         android:text="HostelNepal"
-        android:textColor="@color/colorBackground"
+        android:textColor="@color/appColor"
         android:textSize="50sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"

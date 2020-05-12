@@ -120,7 +120,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
                             Toast.makeText(HostelOwnerRegister.this, "User is Registered", Toast.LENGTH_SHORT).show();
 
                             userID= fAuthHO.getCurrentUser().getUid();
-                            documentReference= fStore.collection("HostelOwner").document("userID");
+                            documentReference= fStore.collection("HostelOwner").document(userID);
 
                             Map<String,Object> hostelOwner= new HashMap<>();
                             hostelOwner.put("FullName",nameho);
