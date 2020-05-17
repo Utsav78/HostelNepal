@@ -35,4 +35,5 @@
     <string name="tag">TAG</string>
     <string name="my_dashboard">MY DASHBOARD</string>
     <string name="_6_items">6 items</string>
+    <string name="dummy_email">abc@gmail.com</string>
 </resources>

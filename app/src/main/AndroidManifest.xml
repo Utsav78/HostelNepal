@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DashboardHO"></activity>
+        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".DashboardHO" />
         <activity android:name=".HoReviews" />
         <activity android:name=".HoNotification" />
         <activity android:name=".AllUsers" />

@@ -38,8 +38,8 @@ import static com.example.hostelnepal.GuestRegister.FULL_NAME;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-    Toolbar toolbar;
+
+
     TextView mGuestEmail,mFullNameOfGuest;
     ImageView mProfilePicture;
     NavigationView navigationView;
@@ -57,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     String userID;
     View view;
 
+    ImageView hamburgerIcon;
+
 
 
     @Override
@@ -72,12 +74,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         hostelLocation = findViewById(R.id.hostel_location);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        drawerLayout = findViewById(R.id.drawer);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
-        navigationView.setNavigationItemSelectedListener(this);
+        hamburgerIcon = findViewById(R.id.hamburgerIcon);
 
         //This isnot the right way
       /*  mGuestEmail = navigationView.findViewById(R.id.guestEmail);
@@ -85,10 +86,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mProfilePicture =navigationView.findViewById(R.id.imageView3);*/
 
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+      /*  actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);//to enable hamburger icon
-        actionBarDrawerToggle.syncState();
+        actionBarDrawerToggle.syncState();*/
 
 /*      This is also wrong way of doing.
         view= navigationView.getHeaderView(0);
@@ -97,6 +98,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mProfilePicture =findViewById(R.id.imageView3);
 
       mFullNameOfGuest.setText("Utsav Budathoki");*/
+
+        view = navigationView.getHeaderView(0);
+        mFullNameOfGuest = view.findViewById(R.id.fullNameOfGuest);
+        mGuestEmail = view.findViewById(R.id.guestEmail);
+
+
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+
+
+        //hamburgerIcon reaction
+        hamburgerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else
+                    drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+
+
 
 
 
@@ -111,8 +137,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-           //    mFullNameOfGuest.setText(documentSnapshot.getString(FULL_NAME));
-           //    mGuestEmail.setText(documentSnapshot.getString(EMAIL));
+             mFullNameOfGuest.setText(documentSnapshot.getString(FULL_NAME));
+             mGuestEmail.setText(documentSnapshot.getString(EMAIL));
             }
         });
 
@@ -154,9 +180,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (menuItem.getItemId() == R.id.nav_home){
 
 
+
         }
 
-        if (menuItem.getItemId() == R.id.nav_notification){
+        if (menuItem.getItemId() == R.id.nav_logout){
+            mFirebaseAuth.signOut();
+            startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+            finish();
 
 
         }
@@ -165,5 +195,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (drawerLayout.isDrawerVisible(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
 }
