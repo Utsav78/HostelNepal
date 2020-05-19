@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -34,10 +35,12 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.util.Patterns.EMAIL_ADDRESS;
+import static com.example.hostelnepal.EditProfileActivity.PICK_IMAGES_REQUEST_CODE;
+import static com.example.hostelnepal.GuestRegister.EMAIL;
+import static com.example.hostelnepal.GuestRegister.FULL_NAME;
+import static com.example.hostelnepal.GuestRegister.PHONE_NUMBER;
 
-public class EditProfileActivity extends AppCompatActivity {
-    public static final int PICK_IMAGES_REQUEST_CODE = 1;
+public class EditProfileOfGuest extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
@@ -52,11 +55,13 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_edit_profile_of_guest);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        userID = firebaseAuth.getCurrentUser().getUid();
+
+        storageReference = FirebaseStorage.getInstance().getReference("Guest/"+userID+"/"+"ProfilePicture");
 
         mEditName = findViewById(R.id.editTextName);
         mEditPhone = findViewById(R.id.editTextPhoneNumber);
@@ -64,21 +69,19 @@ public class EditProfileActivity extends AppCompatActivity {
         mEditSave = findViewById(R.id.btnSave);
         mEditProfilePicture= findViewById(R.id.editProfilePicture);
         user = firebaseAuth.getCurrentUser();
-        userID = firebaseAuth.getCurrentUser().getUid();
 
-        documentReference = firebaseFirestore.document("HostelOwner"+"/"+userID);
-        documentReference.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+        documentReference = firebaseFirestore.document("Guest/"+userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-               mEditName.setText(documentSnapshot.getString("FullName"));
-               mEditPhone.setText(documentSnapshot.getString("PhoneNumber"));
-               mEditEmail.setText(documentSnapshot.getString("Email"));
+                mEditName.setText(documentSnapshot.getString(FULL_NAME));
+                mEditEmail.setText(documentSnapshot.getString(EMAIL));
+                mEditPhone.setText(documentSnapshot.getString(PHONE_NUMBER));
+
 
             }
         });
-
-        StorageReference docRef = storageReference.child("HostelOwner/"+userID+"/"+"ProfilePicture");
-        docRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(mEditProfilePicture);
@@ -87,16 +90,16 @@ public class EditProfileActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditProfileOfGuest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
-
 
         mEditProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, PICK_IMAGES_REQUEST_CODE);
+                startActivityForResult(openGalleryIntent,PICK_IMAGES_REQUEST_CODE);
             }
         });
 
@@ -104,8 +107,8 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mEditEmail.getText().toString().trim().isEmpty() || mEditName.getText().toString().trim().isEmpty()
-                || mEditPhone.getText().toString().trim().isEmpty()){
-                    Toast.makeText(EditProfileActivity.this, "Some field is empty", Toast.LENGTH_SHORT).show();
+                        || mEditPhone.getText().toString().trim().isEmpty()){
+                    Toast.makeText(EditProfileOfGuest.this, "Some field is empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String email = mEditEmail.getText().toString().trim();
@@ -113,24 +116,24 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Map<String,Object> edited =new HashMap<>();
-                        edited.put("FullName",mEditName.getText().toString());
-                        edited.put("PhoneNumber",mEditPhone.getText().toString());
-                        edited.put("Email",mEditEmail.getText().toString());
+                        edited.put(FULL_NAME,mEditName.getText().toString());
+                        edited.put(PHONE_NUMBER,mEditPhone.getText().toString());
+                        edited.put(EMAIL,mEditEmail.getText().toString());
                         documentReference.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),DashboardHO.class));
+                                Toast.makeText(EditProfileOfGuest.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                 finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(EditProfileActivity.this, "Profile not Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditProfileOfGuest.this, "Profile not Updated", Toast.LENGTH_SHORT).show();
 
                             }
                         });
-                        Toast.makeText(EditProfileActivity.this, "Email is Updated.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileOfGuest.this, "Email is Updated.", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -138,7 +141,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         //This has some problem . wh
-                        new AlertDialog.Builder(EditProfileActivity.this).setTitle("Problem").setMessage(e.toString()).setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                        new AlertDialog.Builder(EditProfileOfGuest.this).setTitle("Problem").setMessage(e.toString()).setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 firebaseAuth.signOut();
@@ -168,21 +171,20 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGES_REQUEST_CODE && resultCode == RESULT_OK
-                 && data != null && data.getData() != null){
+        if (requestCode == PICK_IMAGES_REQUEST_CODE && resultCode == Activity.RESULT_OK
+        && data !=null && data.getData() != null){
             Uri imageUri = data.getData();
             uploadFileToFirebase(imageUri);
         }
     }
 
-    private void uploadFileToFirebase(final Uri imageUri) {
+    private void uploadFileToFirebase(Uri imageUri) {
         if (imageUri != null){
-            final StorageReference storeRef = storageReference.child("HostelOwner/"+userID+"/"+"ProfilePicture");
-            storeRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(EditProfileActivity.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
-                    storeRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    Toast.makeText(EditProfileOfGuest.this, "Profile Picture Updated.", Toast.LENGTH_SHORT).show();
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Picasso.get().load(uri).into(mEditProfilePicture);
@@ -191,16 +193,15 @@ public class EditProfileActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditProfileActivity.this,"Loading Failed: "+e.getMessage(),Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(EditProfileOfGuest.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     });
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });

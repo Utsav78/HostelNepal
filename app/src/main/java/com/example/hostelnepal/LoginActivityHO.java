@@ -37,10 +37,7 @@ public class LoginActivityHO extends AppCompatActivity {
 
         fAuthHO = FirebaseAuth.getInstance();
 
-        if (fAuthHO.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(),DashboardHO.class));
-            finish();
-        }
+
 
         hoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

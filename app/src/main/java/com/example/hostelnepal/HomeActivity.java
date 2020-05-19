@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,10 +31,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.hostelnepal.GuestRegister.EMAIL;
 import static com.example.hostelnepal.GuestRegister.FULL_NAME;
@@ -41,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     TextView mGuestEmail,mFullNameOfGuest;
-    ImageView mProfilePicture;
+    CircleImageView mProfilePicture;
     NavigationView navigationView;
     RecyclerView hostelLocation;
     ArrayList<Integer> locationImages;
@@ -55,9 +64,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore db;
     DocumentReference documentReference;
     String userID;
+    StorageReference storageReference;
     View view;
 
     ImageView hamburgerIcon;
+    ConstraintLayout header;
 
 
 
@@ -70,45 +81,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         locationNames = new ArrayList<>();
         mFirebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-
-
         hostelLocation = findViewById(R.id.hostel_location);
-
-
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
         hamburgerIcon = findViewById(R.id.hamburgerIcon);
+        userID = mFirebaseAuth.getCurrentUser().getUid();
 
-        //This isnot the right way
-      /*  mGuestEmail = navigationView.findViewById(R.id.guestEmail);
-        mFullNameOfGuest = navigationView.findViewById(R.id.fullNameOfGuest);
-        mProfilePicture =navigationView.findViewById(R.id.imageView3);*/
+        storageReference = FirebaseStorage.getInstance().getReference("Guest/"+userID+"/"+"ProfilePicture");
 
-
-      /*  actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);//to enable hamburger icon
-        actionBarDrawerToggle.syncState();*/
-
-/*      This is also wrong way of doing.
-        view= navigationView.getHeaderView(0);
-        mGuestEmail = view.findViewById(R.id.guestEmail);
-        mFullNameOfGuest = findViewById(R.id.fullNameOfGuest);
-        mProfilePicture =findViewById(R.id.imageView3);
-
-      mFullNameOfGuest.setText("Utsav Budathoki");*/
 
         view = navigationView.getHeaderView(0);
         mFullNameOfGuest = view.findViewById(R.id.fullNameOfGuest);
         mGuestEmail = view.findViewById(R.id.guestEmail);
-
-
+        mProfilePicture=view.findViewById(R.id.imageView3);
+        header = view.findViewById(R.id.header);
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-
-
         //hamburgerIcon reaction
         hamburgerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,17 +111,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-
-
-
-
-
-
-
-
-        userID = mFirebaseAuth.getCurrentUser().getUid();
-        documentReference = db.document("Guest/"+userID);
-      //  mFullNameOfGuest.setText("Utsav Budathoki");//this is the problem. You cannot reference the view in navigation directly.
+        documentReference = db.document("Guest"+"/"+userID);
 
        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -141,16 +120,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
              mGuestEmail.setText(documentSnapshot.getString(EMAIL));
             }
         });
+       storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+           @Override
+           public void onSuccess(Uri uri) {
+               Picasso.get().load(uri).into(mProfilePicture);
+
+           }
+       }).addOnFailureListener(new OnFailureListener() {
+           @Override
+           public void onFailure(@NonNull Exception e) {
+
+           }
+       });
+
 
         initImagesAndNames();
 
 
-
-
-
-
-
-
+        //Header onclick reaction
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(getApplicationContext(),EditProfileOfGuest.class));
+            }
+        });
 
     }
 

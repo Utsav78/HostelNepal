@@ -44,12 +44,12 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_style"
-        android:padding="20dp"
+        android:padding="15dp"
         android:onClick="hostelOwnerLogin"
 
         android:text="@string/hostelOwnerlogin"
         android:textColor="@color/colorWhite"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,10 +65,10 @@
 
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_style"
-        android:padding="20dp"
+        android:padding="15dp"
         android:text="@string/guestlogin"
         android:textColor="@color/colorWhite"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hostelOwnerLogin" />
