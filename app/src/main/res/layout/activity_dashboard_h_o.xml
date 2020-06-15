@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,7 +8,7 @@
     <LinearLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -35,10 +36,11 @@
                     android:textSize="20sp"
                     android:fontFamily="sans-serif"
                     android:textStyle="bold"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/colorBlack"
-                    android:text="My Dashboard"/>
+                    android:text="@string/Username"
+                    tools:ignore="RelativeOverlap" />
                 <TextView
                     android:id="@+id/textItem"
                     android:layout_below="@id/fullNameOfOwner"
@@ -47,7 +49,7 @@
                     android:textSize="14sp"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/colorBlack"
-                    android:text="6 Items"/>
+                    android:text="@string/_6_items"/>
 
 
 
@@ -55,8 +57,8 @@
                     android:id="@+id/profilePictureOfOwner"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/chris"
-                    android:layout_alignParentRight="true"
+                    android:src="@drawable/user"
+                    android:layout_alignParentEnd="true"
                     />
 
 
@@ -80,6 +82,7 @@
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
+                android:onClick="addProperty"
 
 
                 >
@@ -89,19 +92,21 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/add_property"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/addproperty"
-                        />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="Add Property"/>
+                        android:textSize="18sp"
+                        android:text="@string/add_property"/>
                 </LinearLayout>
 
 
@@ -125,9 +130,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/view_property"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/viewproperty"
@@ -136,8 +143,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="View Property"/>
+                        android:textSize="18sp"
+                        android:text="@string/view_property"/>
                 </LinearLayout>
 
 
@@ -161,9 +168,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/all_users"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/user"
@@ -172,8 +181,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="All Users"/>
+                        android:textSize="18sp"
+                        android:text="@string/all_users"/>
                 </LinearLayout>
 
 
@@ -197,9 +206,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/notification"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/notification"
@@ -208,8 +219,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="Notification"/>
+                        android:textSize="18sp"
+                        android:text="@string/notification"/>
                 </LinearLayout>
 
 
@@ -233,9 +244,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/reviews"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/review"
@@ -244,8 +257,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="Reviews"/>
+                        android:textSize="18sp"
+                        android:text="@string/reviews"/>
                 </LinearLayout>
 
 
@@ -270,9 +283,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
+                        android:contentDescription="@string/logout"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/logout"
@@ -281,8 +296,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textSize="18dp"
-                        android:text="Logout"/>
+                        android:textSize="18sp"
+                        android:text="@string/logout"/>
                 </LinearLayout>
 
 

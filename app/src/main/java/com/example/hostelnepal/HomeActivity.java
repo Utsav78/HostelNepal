@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     View view;
 
     ImageView hamburgerIcon;
-    ConstraintLayout header;
+    LinearLayout header;
 
 
 

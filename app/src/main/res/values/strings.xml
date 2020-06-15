@@ -15,7 +15,7 @@
     <string name="email">E-mail</string>
     <string name="register">Register</string>
     <string name="phone">PhoneNumber</string>
-    <string name="alreadyRegistered">Already Registererd ? Login Here</string>
+    <string name="alreadyRegistered">Already Registered ? Login Here</string>
     <string name="title_activity_dashboard_ho">DashboardHO</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -36,4 +36,53 @@
     <string name="my_dashboard">MY DASHBOARD</string>
     <string name="_6_items">6 items</string>
     <string name="dummy_email">abc@gmail.com</string>
+
+
+
+    <string name="price">Price*</string>
+    <string name="picture">Picture*</string>
+    <string name="name_of_hostel">Name Of Hostel*</string>
+    <string name="type_of_hostel">Type Of Hostel*</string>
+    <string name="boys">Boys</string>
+    <string name="girls">Girls</string>
+    <string name="city">City*</string>
+    <string name="locality">Locality*</string>
+    <string name="room_description">Room Description</string>
+    <string name="room_1">Room #1</string>
+    <string name="room_2">Room #2</string>
+    <string name="room_3">Room #3</string>
+    <string name="room_4">Room #4</string>
+    <string name="documents">Documents</string>
+    <string name="document_info">Please Attach The Scan Copy Of Your Hostel\'s Document Provided By Hostel Association Nepal</string>
+    <string name="document_vip">Document*</string>
+    <string name="specific_pictures">Some Specific Picture Of Hostel</string>
+    <string name="washroom">Washroom</string>
+    <string name="building">Building</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="surrounding">Surrounding</string>
+    <string name="facilities">Facilities</string>
+    <string name="wi_fi">Wi-Fi</string>
+    <string name="laundry">Laundry</string>
+    <string name="_24_hrs_electricity">24 Hrs Electricity</string>
+    <string name="parking_space">Parking Space</string>
+    <string name="cctv_surveillance">CCTV Surveillance</string>
+    <string name="hot_amp_cold_water"><![CDATA[Hot & Cold Water]]></string>
+    <string name="playground">Playground</string>
+    <string name="security">Security</string>
+
+
+    <string name="your_name">Your Name</string>
+    <string name="your_email">Your Email</string>
+    <string name="your_phonenumber">Your PhoneNumber</string>
+    <string name="save">Save</string>
+    <string name="dialog_message">Please wait...\nThis may take few minutes</string>
+    <string name="add_property">Add Property</string>
+    <string name="view_property">View Property</string>
+    <string name="all_users">All Users</string>
+    <string name="notification">Notification</string>
+    <string name="reviews">Reviews</string>
+    <string name="logout">Logout</string>
+    <string name="your_password">Your Password</string>
+
+
 </resources>

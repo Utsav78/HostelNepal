@@ -101,4 +101,8 @@ public class DashboardHO extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void addProperty(View view) {
+        startActivity(new Intent(this,AddProperty.class));
+    }
 }

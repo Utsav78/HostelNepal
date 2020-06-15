@@ -13,14 +13,14 @@
         android:layout_marginStart="130dp"
         android:layout_marginTop="53dp"
         android:layout_marginEnd="131dp"
-        android:src="@drawable/chris"
+        android:src="@drawable/user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:hint="Your Name"
+        android:hint="@string/your_name"
         android:background="@drawable/edit_text_background"
         android:padding="10dp"
         android:id="@+id/editTextName"
@@ -33,14 +33,16 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfilePicture"
+        android:autofillHints="AUTOFILL_HINT_NAME" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:background="@drawable/edit_text_background"
         android:padding="10dp"
-        android:hint="Your Email"
+        android:hint="@string/your_email"
         android:layout_width="0dp"
+        android:autofillHints="AUTOFILL_HINT_EMAIL_ADDRESS"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
@@ -55,17 +57,20 @@
         android:background="@drawable/edit_text_background"
         android:id="@+id/editTextPhoneNumber"
         android:padding="10dp"
-        android:hint="Your PhoneNumber"
+        android:hint="@string/your_phonenumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
+        android:autofillHints="AUTOFILL_HINT_PHONE"
+
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btnSave"
@@ -74,7 +79,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:text="Save"
+        android:text="@string/save"
         android:padding="10dp"
         android:background="@drawable/button_style"
         android:textColor="@color/colorWhite"
@@ -82,5 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
