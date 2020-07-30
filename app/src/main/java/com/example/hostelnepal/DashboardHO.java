@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class DashboardHO extends AppCompatActivity {
     CircleImageView mProfilePictureOfOwner;
     DocumentReference documentReference;
     StorageReference storageReference;
+    ScrollView scrollView;
 
 
 
@@ -46,6 +48,7 @@ public class DashboardHO extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_h_o);
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        scrollView = findViewById(R.id.scrollView);
 
 
 
@@ -68,12 +71,13 @@ public class DashboardHO extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(mProfilePictureOfOwner);
+                scrollView.setVisibility(View.VISIBLE);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DashboardHO.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardHO.this, "Please Add Your Profile Image", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -104,5 +108,9 @@ public class DashboardHO extends AppCompatActivity {
 
     public void addProperty(View view) {
         startActivity(new Intent(this,AddProperty.class));
+    }
+
+    public void viewProperty(View view) {
+        startActivity(new Intent(this,ViewProperty.class));
     }
 }

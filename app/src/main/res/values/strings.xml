@@ -38,7 +38,6 @@
     <string name="dummy_email">abc@gmail.com</string>
 
 
-
     <string name="price">Price*</string>
     <string name="picture">Picture*</string>
     <string name="name_of_hostel">Name Of Hostel*</string>
@@ -75,7 +74,7 @@
     <string name="your_email">Your Email</string>
     <string name="your_phonenumber">Your PhoneNumber</string>
     <string name="save">Save</string>
-    <string name="dialog_message">Please wait...\nThis may take few minutes</string>
+    <string name="dialog_message">Please wait...\nThis takes few Seconds</string>
     <string name="add_property">Add Property</string>
     <string name="view_property">View Property</string>
     <string name="all_users">All Users</string>

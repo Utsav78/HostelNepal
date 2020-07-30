@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    android:elevation="20dp"
+    app:cardCornerRadius="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/name_of_hostel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_of_hostel"
+            android:fontFamily="@font/viga"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/location_of_hostel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/locality"
+            android:fontFamily="@font/viga"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="3dp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/type_of_hostel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/viga"
+            android:textSize="12sp"
+            android:padding="5dp"
+            android:textColor="@color/colorBlack"
+            android:text="@string/type_of_hostel"/>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
