@@ -1,4 +1,4 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Model;
 
 public class PropertyModel {
     public String nameOfHostel,hostelType,city,locality;

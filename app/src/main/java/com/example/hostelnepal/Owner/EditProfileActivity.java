@@ -1,4 +1,4 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Owner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Common.WelcomeActivity;
+import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class EditProfileActivity extends AppCompatActivity {
     public static final int PICK_IMAGES_REQUEST_CODE = 1;
@@ -147,7 +147,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 firebaseAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+                                startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
                                 finish();
 
 

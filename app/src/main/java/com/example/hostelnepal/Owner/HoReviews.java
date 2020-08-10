@@ -1,8 +1,10 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Owner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.hostelnepal.R;
 
 public class HoReviews extends AppCompatActivity {
 

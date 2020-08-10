@@ -78,10 +78,17 @@
     <string name="add_property">Add Property</string>
     <string name="view_property">View Property</string>
     <string name="all_users">All Users</string>
-    <string name="notification">Notification</string>
     <string name="reviews">Reviews</string>
     <string name="logout">Logout</string>
     <string name="your_password">Your Password</string>
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="saved">Saved</string>
+    <string name="communication">Communication</string>
+    <string name="help">Help</string>
+    <string name="about_us">About Us</string>
+    <string name="for_you">For You</string>
 
 
 </resources>

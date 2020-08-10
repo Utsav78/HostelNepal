@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:padding="5dp"
-    tools:context=".ViewProperty">
+    tools:context=".Owner.ViewProperty">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -12,24 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PropertyDetails"></activity>
-        <activity android:name=".EditProfileOfGuest" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".DashboardHO" />
-        <activity android:name=".HoReviews" />
-        <activity android:name=".HoNotification" />
-        <activity android:name=".AllUsers" />
-        <activity android:name=".AddProperty" />
-        <activity android:name=".ViewProperty" />
+        <activity android:name=".Owner.PropertyDetails"></activity>
+        <activity android:name=".Guest.EditProfileOfGuest" />
+        <activity android:name=".Owner.EditProfileActivity" />
+        <activity android:name=".Owner.DashboardHO" />
+        <activity android:name=".Owner.HoReviews" />
+        <activity android:name=".Owner.HoNotification" />
+        <activity android:name=".Owner.AllUsers" />
+        <activity android:name=".Owner.AddProperty" />
+        <activity android:name=".Owner.ViewProperty" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".Guest.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HostelOwnerRegister" />
-        <activity android:name=".GuestRegister" />
-        <activity android:name=".LoginActivityG" />
-        <activity android:name=".LoginActivityHO" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Owner.HostelOwnerRegister" />
+        <activity android:name=".Guest.GuestRegister" />
+        <activity android:name=".Guest.LoginActivityG" />
+        <activity android:name=".Owner.LoginActivityHO" />
+        <activity android:name=".Common.WelcomeActivity" />
+        <activity android:name=".Common.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

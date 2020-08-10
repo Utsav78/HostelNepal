@@ -1,4 +1,4 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Owner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.hostelnepal.Model.PropertyModel;
+import com.example.hostelnepal.R;
+import com.example.hostelnepal.Adapter.ViewPropertyAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -42,7 +46,7 @@ public class ViewProperty extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String path = documentSnapshot.getReference().getPath();
-                Intent intent = new Intent(ViewProperty.this,PropertyDetails.class);
+                Intent intent = new Intent(ViewProperty.this, PropertyDetails.class);
                 intent.putExtra("path",path);
                 startActivity(intent);
             }

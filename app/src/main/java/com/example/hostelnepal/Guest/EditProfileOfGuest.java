@@ -1,21 +1,21 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Guest;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Common.WelcomeActivity;
+import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,10 +37,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.hostelnepal.EditProfileActivity.PICK_IMAGES_REQUEST_CODE;
-import static com.example.hostelnepal.GuestRegister.EMAIL;
-import static com.example.hostelnepal.GuestRegister.FULL_NAME;
-import static com.example.hostelnepal.GuestRegister.PHONE_NUMBER;
+import static com.example.hostelnepal.Guest.GuestRegister.EMAIL;
+import static com.example.hostelnepal.Guest.GuestRegister.FULL_NAME;
+import static com.example.hostelnepal.Guest.GuestRegister.PHONE_NUMBER;
 
 public class EditProfileOfGuest extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -150,7 +149,7 @@ public class EditProfileOfGuest extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 firebaseAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+                                startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
                                 finish();
 
 

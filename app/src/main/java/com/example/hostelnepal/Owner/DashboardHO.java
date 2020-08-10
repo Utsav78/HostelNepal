@@ -1,20 +1,19 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Owner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Common.WelcomeActivity;
+import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,7 +91,7 @@ public class DashboardHO extends AppCompatActivity {
 
     public void logout(View view) {
         firebaseAuth.signOut();
-        startActivity(new Intent(getApplicationContext(),WelcomeActivity.class));
+        startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
         finish();
 
 

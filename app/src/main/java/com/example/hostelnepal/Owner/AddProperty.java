@@ -1,4 +1,4 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Owner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,15 +18,17 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.example.hostelnepal.Model.PropertyModel;
+import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -57,7 +59,9 @@ public class AddProperty extends AppCompatActivity {
     private Boolean[] booleanCheckBox;
 
     FirebaseAuth aFirebaseAuth;
+    FirebaseFirestore db;
     DocumentReference addPropertyDocumentReference;
+    DocumentReference allHostel;
     StorageReference addPropertyStorageReference;
     PropertyModel propertyModel;
     Dialog dialog;
@@ -68,6 +72,8 @@ public class AddProperty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
+
+        db = FirebaseFirestore.getInstance();
 
         editTextNameOfHostel = findViewById(R.id.edit_text_name_of_hostel);
         editTextLocality = findViewById(R.id.edit_text_locality);
@@ -102,8 +108,8 @@ public class AddProperty extends AppCompatActivity {
       */
 
         aFirebaseAuth = FirebaseAuth.getInstance();
-        addPropertyDocumentReference = FirebaseFirestore.getInstance().document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid() + "/" + "Property Details/" + System.currentTimeMillis());
-
+        addPropertyDocumentReference = db.document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid() + "/" + "Property Details/" + System.currentTimeMillis());
+        allHostel =db.document("All Hostels/"+System.currentTimeMillis());
         imagesName = new String[]{"Room1", "Room2", "Room3", "Room4", "Document", "Washroom",
                 "Building", "Kitchen", "Surrounding"};
 
@@ -126,6 +132,7 @@ public class AddProperty extends AppCompatActivity {
                         && editTextPrice4.getText().toString().trim().length() != 0 && downloadableUri[0] != null && downloadableUri[1] != null && downloadableUri[2] != null && downloadableUri[3] != null &&
                         downloadableUri[4] != null && downloadableUri[5] != null && downloadableUri[6] != null && downloadableUri[7] != null && downloadableUri[8] != null) {
 
+
                     dialog.show();
 
 
@@ -144,8 +151,8 @@ public class AddProperty extends AppCompatActivity {
                             booleanCheckBox[6], booleanCheckBox[7]);
 
 
-                    addPropertyDocumentReference = FirebaseFirestore.getInstance().document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid()
-                            + "/" + "Property Details/" + System.currentTimeMillis());
+                   // addPropertyDocumentReference = FirebaseFirestore.getInstance().document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid()
+                   //         + "/" + "Property Details/" + System.currentTimeMillis());
 
                     addPropertyDocumentReference.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -160,6 +167,20 @@ public class AddProperty extends AppCompatActivity {
                             Toast.makeText(AddProperty.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
 
+
+                        }
+                    });
+
+                    allHostel.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(AddProperty.this, "Your Hostel is added Successfully in our App.", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AddProperty.this, "Something went wrong!!", Toast.LENGTH_SHORT).show();
 
                         }
                     });

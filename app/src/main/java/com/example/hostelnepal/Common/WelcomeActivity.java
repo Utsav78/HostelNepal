@@ -1,4 +1,4 @@
-package com.example.hostelnepal;
+package com.example.hostelnepal.Common;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,8 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.hostelnepal.Owner.DashboardHO;
+import com.example.hostelnepal.Guest.HomeActivity;
+import com.example.hostelnepal.Guest.LoginActivityG;
+import com.example.hostelnepal.Owner.LoginActivityHO;
+import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -21,8 +25,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import static com.example.hostelnepal.GuestRegister.EMAIL;
-import static com.example.hostelnepal.GuestRegister.PASSWORD;
+import static com.example.hostelnepal.Guest.GuestRegister.EMAIL;
+import static com.example.hostelnepal.Guest.GuestRegister.PASSWORD;
 
 public class WelcomeActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -56,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(WelcomeActivity.this,DashboardHO.class));
+                                startActivity(new Intent(WelcomeActivity.this, DashboardHO.class));
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -77,7 +81,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     }else{
 
-                        startActivity(new Intent(WelcomeActivity.this,LoginActivityHO.class));
+                        startActivity(new Intent(WelcomeActivity.this, LoginActivityHO.class));
                     }
                 }
             });
@@ -102,7 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
+                                startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -122,7 +126,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
                     }else{
-                        startActivity(new Intent(WelcomeActivity.this,LoginActivityG.class));
+                        startActivity(new Intent(WelcomeActivity.this, LoginActivityG.class));
 
                     }
                 }

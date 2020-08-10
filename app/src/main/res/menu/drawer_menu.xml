@@ -5,26 +5,22 @@
         <menu>
 
             <item
-                android:checkable="true"
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_home_black_24dp"
-                android:title="Home"/>
+                android:title="@string/home"/>
             <item
-                android:checkable="true"
                 android:id="@+id/nav_notification"
                 android:icon="@drawable/ic_notifications_active_black_24dp"
-                android:title="Notification"/>
+                android:title="@string/notification"/>
             <item
-                android:checkable="true"
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_settings_black_24dp"
-                android:title="Account Setting"/>
+                android:title="@string/account_settings"/>
 
             <item
-                android:checkable="true"
                 android:id="@+id/nav_saved"
                 android:icon="@drawable/ic_favorite_black_24dp"
-                android:title="Saved"/>
+                android:title="@string/saved"/>
 
 
         </menu>
@@ -34,27 +30,25 @@
     </item>
 
 
-    <item android:title="Communication">
+    <item android:title="@string/communication">
 
         <menu>
 
             <item
-                android:checkable="true"
+
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_clear_black_24dp"
-                android:title="Logout"/>
+                android:title="@string/logout"/>
 
             <item
-                android:checkable="true"
                 android:id="@+id/nav_help"
                 android:icon="@drawable/ic_help_black_24dp"
-                android:title="Help"/>
+                android:title="@string/help"/>
 
             <item
-                android:checkable="true"
                 android:id="@+id/nav_aboutUs"
                 android:icon="@drawable/ic_info_black_24dp"
-                android:title="About Us"/>
+                android:title="@string/about_us"/>
 
 
         </menu>
