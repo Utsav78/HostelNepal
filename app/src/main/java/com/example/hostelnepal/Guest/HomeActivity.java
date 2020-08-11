@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,6 +51,7 @@ import static com.example.hostelnepal.Guest.GuestRegister.FULL_NAME;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public static final String TAG = "TAG";
     DrawerLayout drawerLayout;
     TextView mGuestEmail,mFullNameOfGuest;
     CircleImageView mProfilePicture;
@@ -73,9 +75,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout header;
     RecyclerView rvForYou;
 
-    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private CollectionReference colRef = firestore.collection("All Hostels");
-    private ForYouAdapter homeAdapter;
+
+    private CollectionReference colRef;
+    ForYouAdapter homeAdapter;
 
 
 
@@ -89,6 +91,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         locationNames = new ArrayList<>();
         mFirebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        colRef = db.collection("All Hostels");
         hostelLocation = findViewById(R.id.hostel_location);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
@@ -142,6 +145,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         initImagesAndNames();
+        initForYouRecyclerView();
 
 
         //Header onclick reaction
@@ -153,22 +157,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        initForYouRecyclerView();
+
 
     }
 
     private void initForYouRecyclerView() {
-        Query query = colRef.orderBy("nameOfHostel", Query.Direction.DESCENDING);
+        Query query = colRef.orderBy("nameOfHostel", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<PropertyModel> options = new FirestoreRecyclerOptions.Builder<PropertyModel>().
                 setQuery(query,PropertyModel.class).build();
         homeAdapter = new ForYouAdapter(options);
         rvForYou = findViewById(R.id.recycler_view_for_you);
-        rvForYou.setHasFixedSize(true);
-       // GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
+       // rvForYou.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
 
-        //rvForYou.setLayoutManager(gridLayoutManager);
-        rvForYou.setLayoutManager(new LinearLayoutManager(this));
+        rvForYou.setLayoutManager(gridLayoutManager);
+       // rvForYou.setLayoutManager(new LinearLayoutManager(this));
         rvForYou.setAdapter(homeAdapter);
+        Log.d(TAG, "initForYouRecyclerView:  ");
     }
 
     private void initImagesAndNames() {

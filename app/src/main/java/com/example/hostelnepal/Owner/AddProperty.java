@@ -308,7 +308,7 @@ public class AddProperty extends AppCompatActivity {
 
     private void uploadImage(Uri data, String s, final int k) {
         dialog.show();
-        addPropertyStorageReference = FirebaseStorage.getInstance().getReference("AddProperty/" + s);
+        addPropertyStorageReference = FirebaseStorage.getInstance().getReference("AddProperty/" +s+"/"+System.currentTimeMillis());
         addPropertyStorageReference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
