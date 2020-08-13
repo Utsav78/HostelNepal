@@ -597,109 +597,19 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <CheckBox
-                    android:id="@+id/checkbox_wifi"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_facilities"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/wi_fi"
-                    android:padding="4dp"
-                    android:onClick="checkingCheckBox"
-                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
                     android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_laundry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/laundry"
-                    android:padding="4dp"
-                    android:onClick="checkingCheckBox"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_electricity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_24_hrs_electricity"
-                    android:padding="4dp"
-                    android:onClick="checkingCheckBox"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_parking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/parking_space"
-                    android:onClick="checkingCheckBox"
-                    android:padding="4dp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_cctv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cctv_surveillance"
-                    android:onClick="checkingCheckBox"
-                    android:padding="4dp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_water"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hot_amp_cold_water"
-                    android:onClick="checkingCheckBox"
-                    android:padding="4dp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_playground"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/playground"
-                    android:onClick="checkingCheckBox"
-                    android:padding="4dp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga"
-                    />
-                <CheckBox
-                    android:id="@+id/checkbox_security"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/security"
-                    android:onClick="checkingCheckBox"
-                    android:padding="4dp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/viga" />
+                    android:textColor="@color/colorBlack"/>
+
+
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:padding="15dp"
-            android:textSize="24sp"
-            android:layout_below="@id/card_view_facilities"
-            android:background="@drawable/button_style"
-            android:textStyle="bold"
-            android:fontFamily="@font/viga"
-            android:textColor="@color/colorWhite"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            />
-
 
 
     </RelativeLayout>

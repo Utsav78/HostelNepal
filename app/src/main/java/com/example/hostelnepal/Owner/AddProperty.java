@@ -150,10 +150,6 @@ public class AddProperty extends AppCompatActivity {
                             downloadableUri[7], downloadableUri[8], booleanCheckBox[0], booleanCheckBox[1], booleanCheckBox[2], booleanCheckBox[3], booleanCheckBox[4], booleanCheckBox[5],
                             booleanCheckBox[6], booleanCheckBox[7]);
 
-
-                   // addPropertyDocumentReference = FirebaseFirestore.getInstance().document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid()
-                   //         + "/" + "Property Details/" + System.currentTimeMillis());
-
                     addPropertyDocumentReference.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

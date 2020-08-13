@@ -12,13 +12,18 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Owner.DashboardHO;
+import com.example.hostelnepal.Owner.LoginActivityHO;
 import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivityG extends AppCompatActivity {
 
@@ -65,30 +70,58 @@ public class LoginActivityG extends AppCompatActivity {
 
 
                 progressBar.setVisibility(View.VISIBLE);
-              //  userID = fAuth.getCurrentUser().getUid();//This isnot possible because to have an userID it must be authenticated first.
+                loginUser(email,password);
 
-                //authenticate the user
 
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        progressBar.setVisibility(View.GONE);
-
-                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                    } else {
-                                        Toast.makeText(LoginActivityG.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
 
                 }
             });
         }
 
+    private void loginUser(final String email, final String password) {
+        FirebaseFirestore.getInstance().collection("Guest").whereEqualTo("Email", email).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-    public void studentRegister(View v) {
+                        if (!queryDocumentSnapshots.isEmpty()){
+
+                            fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    progressBar.setVisibility(View.GONE);
+
+                                    startActivity(new Intent(LoginActivityG.this, HomeActivity.class));
+
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(LoginActivityG.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                    }else{
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(LoginActivityG.this, "User Credential is invalid", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(LoginActivityG.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+        public void studentRegister(View v) {
 
                 Intent intent = new Intent(LoginActivityG.this, GuestRegister.class);
                 startActivity(intent);
