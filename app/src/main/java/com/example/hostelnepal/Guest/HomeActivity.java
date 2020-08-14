@@ -51,7 +51,6 @@ import static com.example.hostelnepal.Guest.GuestRegister.FULL_NAME;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    public static final String TAG = "TAG";
     DrawerLayout drawerLayout;
     TextView mGuestEmail,mFullNameOfGuest;
     CircleImageView mProfilePicture;
@@ -63,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ,"Lalitpur");
     Integer[] images = {R.drawable.naya_baneshwor,R.drawable.gausala,R.drawable.kalanki,
     R.drawable.sankhamul,R.drawable.maitighar,R.drawable.tripureshwor,R.drawable.lalitpur};
+    HostelLocationAdapter adapter;
 
     FirebaseAuth mFirebaseAuth;
     FirebaseFirestore db;
@@ -75,11 +75,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     LinearLayout header;
     RecyclerView rvForYou;
 
-
     private CollectionReference colRef;
     ForYouAdapter homeAdapter;
-
-
 
 
     @Override
@@ -167,13 +164,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 setQuery(query,PropertyModel.class).build();
         homeAdapter = new ForYouAdapter(options);
         rvForYou = findViewById(R.id.recycler_view_for_you);
-       // rvForYou.setHasFixedSize(true);
+       // rvForYou.setHasFixedSize(true); This has created the problem
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
 
         rvForYou.setLayoutManager(gridLayoutManager);
-       // rvForYou.setLayoutManager(new LinearLayoutManager(this));
         rvForYou.setAdapter(homeAdapter);
-        Log.d(TAG, "initForYouRecyclerView:  ");
     }
 
     private void initImagesAndNames() {
@@ -188,9 +183,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void initRecyclerView() {
         hostelLocation = findViewById(R.id.hostel_location);
-        HostelLocationAdapter adapter = new HostelLocationAdapter(this,locationImages,locationNames);
+         adapter = new HostelLocationAdapter(this,locationImages,locationNames);
         hostelLocation.setAdapter(adapter);
         hostelLocation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        adapter.setOnClickListener(new HostelLocationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String name) {
+                Intent intent = new Intent(HomeActivity.this,RecyclerLocationActivity.class);
+                intent.putExtra("Name",name);
+                startActivity(intent);
+            }
+        });
 
     }
 

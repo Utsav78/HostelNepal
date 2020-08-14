@@ -32,8 +32,6 @@ public class LoginActivityG extends AppCompatActivity {
     Button gLoginBtn;
     ProgressBar progressBar;
     FirebaseFirestore db;
-    DocumentReference docRef;
-    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +123,7 @@ public class LoginActivityG extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivityG.this, GuestRegister.class);
                 startActivity(intent);
+
             }
 
     }

@@ -1,11 +1,13 @@
 package com.example.hostelnepal.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,8 @@ public class HostelLocationAdapter extends RecyclerView.Adapter<HostelLocationAd
     Context context;
     ArrayList<Integer> locationImages = new ArrayList<>();
     ArrayList<String> locationNames = new ArrayList<>();
+    OnItemClickListener listener;
+
 
     public HostelLocationAdapter(Context context, ArrayList<Integer> locationImages, ArrayList<String> locationNames) {
         this.context = context;
@@ -37,9 +41,10 @@ public class HostelLocationAdapter extends RecyclerView.Adapter<HostelLocationAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HostelLocationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HostelLocationViewHolder holder, final int position) {
         holder.imgIcon.setImageResource(locationImages.get(position));
         holder.txtName.setText(locationNames.get(position));
+
 
     }
 
@@ -58,6 +63,20 @@ public class HostelLocationAdapter extends RecyclerView.Adapter<HostelLocationAd
             imgIcon = itemView.findViewById(R.id.imgIcon);
             txtName = itemView.findViewById(R.id.txtName);
             parent_layout = itemView.findViewById(R.id.parent_layout);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = locationNames.get(getAdapterPosition());
+                    listener.onItemClick(name);
+                }
+            });
         }
+    }
+    public interface OnItemClickListener{
+        void onItemClick(String name);
+    }
+    public void setOnClickListener(OnItemClickListener listener){
+        this.listener = listener;
+
     }
 }
