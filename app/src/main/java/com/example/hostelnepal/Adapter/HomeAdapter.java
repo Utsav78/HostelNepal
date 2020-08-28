@@ -15,16 +15,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-public class ForYouAdapter extends FirestoreRecyclerAdapter<PropertyModel,ForYouAdapter.ViewHolder> {
+public class HomeAdapter extends FirestoreRecyclerAdapter<PropertyModel, HomeAdapter.ViewHolder> {
 
-
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public ForYouAdapter(@NonNull FirestoreRecyclerOptions<PropertyModel> options) {
+    public HomeAdapter(@NonNull FirestoreRecyclerOptions<PropertyModel> options) {
         super(options);
     }
 

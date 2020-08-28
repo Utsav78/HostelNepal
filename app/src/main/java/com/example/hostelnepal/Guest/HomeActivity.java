@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.hostelnepal.Adapter.ForYouAdapter;
+import com.example.hostelnepal.Adapter.HomeAdapter;
 import com.example.hostelnepal.Common.WelcomeActivity;
 import com.example.hostelnepal.Adapter.HostelLocationAdapter;
 import com.example.hostelnepal.Model.PropertyModel;
@@ -76,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView rvForYou;
 
     private CollectionReference colRef;
-    ForYouAdapter homeAdapter;
+    HomeAdapter homeAdapter;
 
 
     @Override
@@ -117,7 +116,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         documentReference = db.document("Guest"+"/"+userID);
 
        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -140,10 +138,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
            }
        });
 
-
         initImagesAndNames();
         initForYouRecyclerView();
-
 
         //Header onclick reaction
         header.setOnClickListener(new View.OnClickListener() {
@@ -153,20 +149,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(),EditProfileOfGuest.class));
             }
         });
-
-
-
     }
 
     private void initForYouRecyclerView() {
         Query query = colRef.orderBy("nameOfHostel", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<PropertyModel> options = new FirestoreRecyclerOptions.Builder<PropertyModel>().
                 setQuery(query,PropertyModel.class).build();
-        homeAdapter = new ForYouAdapter(options);
+        homeAdapter = new HomeAdapter(options);
         rvForYou = findViewById(R.id.recycler_view_for_you);
        // rvForYou.setHasFixedSize(true); This has created the problem
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
-
         rvForYou.setLayoutManager(gridLayoutManager);
         rvForYou.setAdapter(homeAdapter);
     }
@@ -174,10 +166,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void initImagesAndNames() {
         locationNames.addAll(lNames);
         locationImages.addAll(Arrays.asList(images));
-
         initRecyclerView();
-
-
 
     }
 
@@ -194,9 +183,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -210,8 +197,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             mFirebaseAuth.signOut();
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
             finish();
-
-
         }
 
         return true;

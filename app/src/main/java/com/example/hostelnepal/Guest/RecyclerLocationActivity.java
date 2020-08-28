@@ -4,24 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.example.hostelnepal.Adapter.ForYouAdapter;
+import com.example.hostelnepal.Adapter.HomeAdapter;
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import org.w3c.dom.Text;
-
 public class RecyclerLocationActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ForYouAdapter adapter;
+    private HomeAdapter adapter;
 
 
     @Override
@@ -42,7 +38,7 @@ public class RecyclerLocationActivity extends AppCompatActivity {
         FirestoreRecyclerOptions<PropertyModel> options = new FirestoreRecyclerOptions.Builder<PropertyModel>()
                 .setQuery(query,PropertyModel.class)
                 .build();
-         adapter = new ForYouAdapter(options);
+        adapter = new HomeAdapter(options);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(RecyclerLocationActivity.this,2,GridLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);

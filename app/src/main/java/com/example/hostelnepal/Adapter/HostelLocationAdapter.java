@@ -56,13 +56,12 @@ public class HostelLocationAdapter extends RecyclerView.Adapter<HostelLocationAd
     public class HostelLocationViewHolder extends RecyclerView.ViewHolder{
         CircleImageView imgIcon;
         TextView txtName;
-        LinearLayout parent_layout;
 
         public HostelLocationViewHolder(@NonNull View itemView) {
             super(itemView);
             imgIcon = itemView.findViewById(R.id.imgIcon);
             txtName = itemView.findViewById(R.id.txtName);
-            parent_layout = itemView.findViewById(R.id.parent_layout);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
