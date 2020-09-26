@@ -62,18 +62,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Integer[] images = {R.drawable.naya_baneshwor,R.drawable.gausala,R.drawable.kalanki,
     R.drawable.sankhamul,R.drawable.maitighar,R.drawable.tripureshwor,R.drawable.lalitpur};
     HostelLocationAdapter adapter;
-
     FirebaseAuth mFirebaseAuth;
     FirebaseFirestore db;
     DocumentReference documentReference;
     String userID;
     StorageReference storageReference;
     View view;
-
     ImageView hamburgerIcon;
     LinearLayout header;
     RecyclerView rvForYou;
-
     private CollectionReference colRef;
     HomeAdapter homeAdapter;
 
@@ -221,5 +218,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onStop() {
         super.onStop();
         homeAdapter.stopListening();
+    }
+
+    public void openSearchActivity(View view) {
+        startActivity(new Intent(HomeActivity.this,SearchActivity.class));
     }
 }

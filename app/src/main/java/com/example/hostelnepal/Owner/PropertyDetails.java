@@ -3,7 +3,6 @@ package com.example.hostelnepal.Owner;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,20 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hostelnepal.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PropertyDetails extends AppCompatActivity {
     TextView tvNameOfHostel,tvLocality,tvTypeOfHostel,tvCity,tvPrice1,tvPrice2,tvPrice3,tvPrice4,tvFacilities;
@@ -34,7 +26,6 @@ public class PropertyDetails extends AppCompatActivity {
     String[] facilities;
     String[] field;
     StringBuffer stringBuffer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

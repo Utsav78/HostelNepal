@@ -38,9 +38,6 @@ public class DashboardHO extends AppCompatActivity {
     StorageReference storageReference;
     ScrollView scrollView;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +46,10 @@ public class DashboardHO extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         scrollView = findViewById(R.id.scrollView);
 
-
-
         mFullNameOfOwner = findViewById(R.id.fullNameOfOwner);
         mProfilePictureOfOwner = findViewById(R.id.profilePictureOfOwner);
 
-
         userID= firebaseAuth.getCurrentUser().getUid();
-
         documentReference  = db.collection("HostelOwner").document(userID);
 
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -81,22 +74,12 @@ public class DashboardHO extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
     }
 
     public void logout(View view) {
         firebaseAuth.signOut();
         startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
         finish();
-
-
-
-
     }
 
     public void openEditProfileActivity(View view) {

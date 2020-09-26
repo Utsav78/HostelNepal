@@ -33,16 +33,12 @@ public class WelcomeActivity extends AppCompatActivity {
     FirebaseFirestore db;
     String userID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_activity);
         firebaseAuth = FirebaseAuth.getInstance();
         db= FirebaseFirestore.getInstance();
-
-
 
     }
 
