@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.SearchView;
 
@@ -14,6 +15,7 @@ import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -47,6 +49,14 @@ public class SearchActivity extends AppCompatActivity {
                searchAdapter.updateOptions(recyclerOptions);
 
                return true;
+           }
+       });
+
+       searchAdapter.setOnClickListener(new SearchAdapter.OnItemClickListener() {
+           @Override
+           public void onClick(DocumentSnapshot documentSnapshot, int position) {
+               String path = documentSnapshot.getReference().getPath();
+               startActivity(new Intent(SearchActivity.this,BookingActivity.class).putExtra("path",path));
            }
        });
 

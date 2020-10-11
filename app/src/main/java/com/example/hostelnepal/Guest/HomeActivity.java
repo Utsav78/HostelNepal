@@ -158,6 +158,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
         rvForYou.setLayoutManager(gridLayoutManager);
         rvForYou.setAdapter(homeAdapter);
+
+        homeAdapter.setOnClickListener(new HomeAdapter.OnClickListener() {
+            @Override
+            public void onClick(DocumentSnapshot documentSnapshot, int position) {
+                Intent newIntent = new Intent(HomeActivity.this,BookingActivity.class);
+                newIntent.putExtra("path",documentSnapshot.getReference().getPath());
+                startActivity(newIntent);
+            }
+        });
     }
 
     private void initImagesAndNames() {
