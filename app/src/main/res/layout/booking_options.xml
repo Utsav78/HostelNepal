@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:gravity="center">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="110dp"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <RadioButton
+            android:id="@+id/one_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:onClick="checkRadioButton"
+            android:checked="true"
+            android:text="1 Sitter" />
+
+        <RadioButton
+            android:id="@+id/two_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:onClick="checkRadioButton"
+            android:text="2 Sitter" />
+
+        <RadioButton
+            android:id="@+id/three_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:onClick="checkRadioButton"
+            android:text="3 Sitter" />
+
+        <RadioButton
+            android:id="@+id/four_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:onClick="checkRadioButton"
+            android:text="4 Sitter" />
+
+    </RadioGroup>
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="110dp"
+        android:layout_height="250dp"
+        android:layout_toEndOf="@id/radio_group"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="RS 0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="RS 0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="RS 0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="RS 0"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:text="Cancel"
+        android:layout_marginStart="5dp"
+        android:padding="8dp"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/dialog_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:text="Book"
+        android:layout_toEndOf="@+id/cancel"
+        android:layout_marginStart="24dp"
+        android:padding="8dp"
+        android:textColor="@color/colorWhite"
+        android:textAllCaps="false"/>
+
+
+
+</RelativeLayout>

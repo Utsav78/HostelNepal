@@ -22,12 +22,99 @@
                 android:background="@color/colorAccent"
                 android:layout_height="300dp"/>
 
+            <TextView
+                android:id="@+id/hostel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hostel_image_view_pager"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/viga"
+                android:layout_marginStart="8dp"
+                android:text="@string/name_of_hostel"/>
+            <TextView
+                android:id="@+id/hostel_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hostel_name"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/viga"
+                android:textColor="@color/colorBlack"
+                android:layout_marginStart="8dp"
+                android:text="@string/type_of_hostel"/>
+            <ImageView
+                android:id="@+id/image_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/hostel_image_view_pager"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_map"
+                android:layout_alignParentEnd="true"
+                android:text="@string/map"
+                android:layout_marginEnd="12dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/facilities_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/map"
+                android:layout_margin="15dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/facilities"
+                        android:textSize="24sp"
+                        android:layout_margin="8dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@font/viga"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/facilities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/viga"
+                        android:layout_margin="4dp"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
         </RelativeLayout>
 
     </ScrollView>
 
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,10 +122,30 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
+        android:background="#FFEBEE"
         android:fontFamily="@font/viga"
         android:padding="8dp"
         android:text="@string/book_now"
         android:textAlignment="center"
+        android:theme="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textSize="16sp" />
+        -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/book_now"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="openDialogBox"
+        android:fontFamily="@font/viga"
+        android:text="             Book Now"
+        android:padding="8dp"
+        android:textSize="12sp"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/colorWhite"/>
+
 
 </RelativeLayout>
