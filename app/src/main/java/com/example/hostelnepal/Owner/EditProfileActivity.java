@@ -100,7 +100,6 @@ public class EditProfileActivity extends AppCompatActivity {
                // startActivityForResult(openGalleryIntent, PICK_IMAGES_REQUEST_CODE);
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-
                         .start(EditProfileActivity.this);
             }
         });

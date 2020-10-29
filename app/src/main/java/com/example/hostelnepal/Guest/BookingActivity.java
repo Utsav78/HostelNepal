@@ -18,7 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.squareup.picasso.Picasso;
+
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -63,6 +63,10 @@ public class BookingActivity extends AppCompatActivity {
         docRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null){
+                    Log.d(TAG, "onEvent: "+error.getMessage());
+                    return;
+                }
                 imageUrls[0]=value.getString("uriOfBuilding");
                 imageUrls[1]=value.getString("uriOfEnvironment");
                 imageUrls[2]=value.getString("uriOfKitchen");
@@ -99,6 +103,12 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+        dialogBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

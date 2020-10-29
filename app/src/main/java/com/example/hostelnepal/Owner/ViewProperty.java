@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
@@ -45,6 +46,8 @@ public class ViewProperty extends AppCompatActivity {
         adapter.setOnClickListener(new ViewPropertyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+               // String id =documentSnapshot.getId();
+               // Toast.makeText(ViewProperty.this, id, Toast.LENGTH_SHORT).show();
                 String path = documentSnapshot.getReference().getPath();
                 Intent intent = new Intent(ViewProperty.this, PropertyDetails.class);
                 intent.putExtra("path",path);

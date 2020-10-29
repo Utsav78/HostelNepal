@@ -1,12 +1,16 @@
 package com.example.hostelnepal.Model;
 
+import com.google.firebase.firestore.Exclude;
+
 public class PropertyModel {
     public String nameOfHostel,hostelType,city,locality;
     public Integer priceOfRoom1,priceOfRoom2,priceOfRoom3,priceOfRoom4;
+    public String userID;
     public String uriOfRoom1,uriOfRoom2,uriOfRoom3,
             uriOfRoom4,uriOfWashroom,uriOfEnvironment,uriOfBuilding,uriOfDocument,uriOfKitchen;
     public Boolean checkBoxOfWifi,checkBoxOfElectricity,checkBoxOfWater,
             checkBoxOfLaundry,checkBoxOfParking,checkBoxOfCCTV,checkBoxOfSecurity,checkBoxOfPlayground;
+    public Integer availableBeds1,availableBeds2,availableBeds3,availableBeds4;
 
     public PropertyModel(){}
 
@@ -16,7 +20,8 @@ public class PropertyModel {
                          String uriOfBuilding,String uriOfKitchen,String uriOfEnvironment,
                          Boolean checkBoxOfWifi, Boolean checkBoxOfElectricity, Boolean checkBoxOfWater,
                          Boolean checkBoxOfLaundry, Boolean checkBoxOfParking, Boolean checkBoxOfCCTV,
-                         Boolean checkBoxOfSecurity, Boolean checkBoxOfPlayground) {
+                         Boolean checkBoxOfSecurity, Boolean checkBoxOfPlayground,String userID,Integer availableBeds1
+                        ,Integer availableBeds2,Integer availableBeds3,Integer availableBeds4) {
         this.nameOfHostel = nameOfHostel;
         this.hostelType = hostelType;
         this.city = city;
@@ -42,6 +47,11 @@ public class PropertyModel {
         this.checkBoxOfCCTV = checkBoxOfCCTV;
         this.checkBoxOfSecurity = checkBoxOfSecurity;
         this.checkBoxOfPlayground = checkBoxOfPlayground;
+        this.userID = userID;
+        this.availableBeds1=availableBeds1;
+        this.availableBeds2=availableBeds2;
+        this.availableBeds3 = availableBeds3;
+        this.availableBeds4=availableBeds4;
     }
 
     public String getNameOfHostel() {
@@ -243,4 +253,14 @@ public class PropertyModel {
     public void setCheckBoxOfPlayground(Boolean checkBoxOfPlayground) {
         this.checkBoxOfPlayground = checkBoxOfPlayground;
     }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+
 }

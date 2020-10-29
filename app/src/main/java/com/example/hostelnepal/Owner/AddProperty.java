@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -50,15 +51,18 @@ public class AddProperty extends AppCompatActivity {
     private Button buttonSave;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
+    private EditText room1Beds,room2Beds,room3Beds,room4Beds;
 
     private String nameOfHostel, locality, city, typeOfHostel;
     private Integer priceOfRoom1, priceOfRoom2, priceOfRoom3, priceOfRoom4;
+    private Integer availableBeds1,availableBeds2,availableBeds3,availableBeds4;
     private String[] imagesName;
 
     private String[] downloadableUri;
     private Boolean[] booleanCheckBox;
 
     FirebaseAuth aFirebaseAuth;
+    String userID;
     FirebaseFirestore db;
     DocumentReference addPropertyDocumentReference;
     DocumentReference allHostel;
@@ -82,6 +86,12 @@ public class AddProperty extends AppCompatActivity {
         editTextPrice2 = findViewById(R.id.edit_text_price2);
         editTextPrice3 = findViewById(R.id.edit_text_price3);
         editTextPrice4 = findViewById(R.id.edit_text_price4);
+
+        room1Beds = findViewById(R.id.room1_available_beds);
+        room2Beds = findViewById(R.id.room2_available_beds);
+        room3Beds = findViewById(R.id.room3_available_beds);
+        room4Beds = findViewById(R.id.room4_available_beds);
+
 
         imageViewRoom1 = findViewById(R.id.image_view_1);
         imageViewRoom2 = findViewById(R.id.image_view_2);
@@ -108,7 +118,8 @@ public class AddProperty extends AppCompatActivity {
       */
 
         aFirebaseAuth = FirebaseAuth.getInstance();
-        addPropertyDocumentReference = db.document("HostelOwner/" + aFirebaseAuth.getCurrentUser().getUid() + "/" + "Property Details/" + System.currentTimeMillis());
+        userID = aFirebaseAuth.getCurrentUser().getUid();
+        addPropertyDocumentReference = db.document("HostelOwner/" + userID + "/" + "Property Details/" + System.currentTimeMillis());
         allHostel =db.document("All Hostels/"+System.currentTimeMillis());
         imagesName = new String[]{"Room1", "Room2", "Room3", "Room4", "Document", "Washroom",
                 "Building", "Kitchen", "Surrounding"};
@@ -125,36 +136,47 @@ public class AddProperty extends AppCompatActivity {
             public void onClick(View v) {
                 int radioID = radioGroup.getCheckedRadioButtonId();
                 radioButton = findViewById(radioID);
+                nameOfHostel = editTextNameOfHostel.getText().toString();
+                locality = editTextLocality.getText().toString();
+                city = editTextCity.getText().toString();
+                priceOfRoom1 = Integer.parseInt(editTextPrice1.getText().toString());
+                priceOfRoom2 = Integer.parseInt(editTextPrice2.getText().toString());
+                priceOfRoom3 = Integer.parseInt(editTextPrice3.getText().toString());
+                priceOfRoom4 = Integer.parseInt(editTextPrice4.getText().toString());
+                typeOfHostel = radioButton.getText().toString();
+                availableBeds1 = Integer.parseInt(room1Beds.getText().toString());
+                availableBeds2 = Integer.parseInt(room2Beds.getText().toString());
+                availableBeds3 = Integer.parseInt(room3Beds.getText().toString());
+                availableBeds4 = Integer.parseInt(room4Beds.getText().toString());
 
                 if (editTextNameOfHostel.getText().toString().trim().length() != 0 && editTextCity.getText().toString().trim().length() != 0 &&
                         editTextLocality.getText().toString().trim().length() != 0 && editTextPrice1.getText().toString().length() != 0
                         && editTextPrice2.getText().toString().trim().length() != 0 && editTextPrice3.getText().toString().trim().length() != 0
                         && editTextPrice4.getText().toString().trim().length() != 0 && downloadableUri[0] != null && downloadableUri[1] != null && downloadableUri[2] != null && downloadableUri[3] != null &&
-                        downloadableUri[4] != null && downloadableUri[5] != null && downloadableUri[6] != null && downloadableUri[7] != null && downloadableUri[8] != null) {
+                        downloadableUri[4] != null && downloadableUri[5] != null && downloadableUri[6] != null &&
+                        downloadableUri[7] != null && downloadableUri[8] != null
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds1))
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds2))
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds3))
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds4))) {
 
 
                     dialog.show();
 
-
-                    nameOfHostel = editTextNameOfHostel.getText().toString();
-                    locality = editTextLocality.getText().toString();
-                    city = editTextCity.getText().toString();
-                    priceOfRoom1 = Integer.parseInt(editTextPrice1.getText().toString());
-                    priceOfRoom2 = Integer.parseInt(editTextPrice2.getText().toString());
-                    priceOfRoom3 = Integer.parseInt(editTextPrice3.getText().toString());
-                    priceOfRoom4 = Integer.parseInt(editTextPrice4.getText().toString());
-                    typeOfHostel = radioButton.getText().toString();
-
                     propertyModel = new PropertyModel(nameOfHostel, typeOfHostel, city, locality, priceOfRoom1, priceOfRoom2, priceOfRoom3, priceOfRoom4,
                             downloadableUri[0], downloadableUri[1], downloadableUri[2], downloadableUri[3], downloadableUri[4], downloadableUri[5], downloadableUri[6],
                             downloadableUri[7], downloadableUri[8], booleanCheckBox[0], booleanCheckBox[1], booleanCheckBox[2], booleanCheckBox[3], booleanCheckBox[4], booleanCheckBox[5],
-                            booleanCheckBox[6], booleanCheckBox[7]);
+                            booleanCheckBox[6], booleanCheckBox[7],userID,availableBeds1,availableBeds2,availableBeds3,availableBeds4);
 
                     addPropertyDocumentReference.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddProperty.this, "Profile is completely ready. Look in View Property to know the details", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
+                          //  propertyModel.setDocumentID(addPropertyDocumentReference.getId());
+                           // propertyModel.setUserID(userID);
+                           // Toast.makeText(AddProperty.this, "Document id is :"+addPropertyDocumentReference.getId(), Toast.LENGTH_SHORT).show();
+
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -166,6 +188,7 @@ public class AddProperty extends AppCompatActivity {
 
                         }
                     });
+
 
                     allHostel.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -379,59 +402,35 @@ public class AddProperty extends AppCompatActivity {
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
             case R.id.checkbox_wifi:
-                if (checked)
-                    booleanCheckBox[0] = true;
-                else
-                    booleanCheckBox[0] = false;
+                booleanCheckBox[0] = checked;
                 break;
 
             case R.id.checkbox_electricity:
-                if (checked)
-                    booleanCheckBox[1] = true;
-                else
-                    booleanCheckBox[1] = false;
+                booleanCheckBox[1] = checked;
                 break;
 
             case R.id.checkbox_water:
-                if (checked)
-                    booleanCheckBox[2] = true;
-                else
-                    booleanCheckBox[2] = false;
+                booleanCheckBox[2] = checked;
                 break;
 
             case R.id.checkbox_laundry:
-                if (checked)
-                    booleanCheckBox[3] = true;
-                else
-                    booleanCheckBox[3] = false;
+                booleanCheckBox[3] = checked;
                 break;
 
             case R.id.checkbox_parking:
-                if (checked)
-                    booleanCheckBox[4] = true;
-                else
-                    booleanCheckBox[4] = false;
+                booleanCheckBox[4] = checked;
                 break;
 
             case R.id.checkbox_cctv:
-                if (checked)
-                    booleanCheckBox[5] = true;
-                else
-                    booleanCheckBox[5] = false;
+                booleanCheckBox[5] = checked;
                 break;
 
             case R.id.checkbox_security:
-                if (checked)
-                    booleanCheckBox[6] = true;
-                else
-                    booleanCheckBox[6] = false;
+                booleanCheckBox[6] = checked;
                 break;
 
             case R.id.checkbox_playground:
-                if (checked)
-                    booleanCheckBox[7] = true;
-                else
-                    booleanCheckBox[7] = false;
+                booleanCheckBox[7] = checked;
                 break;
         }
 

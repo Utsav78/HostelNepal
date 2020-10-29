@@ -27,12 +27,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/hostel_image_view_pager"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
-                android:fontFamily="@font/viga"
                 android:layout_marginStart="8dp"
-                android:text="@string/name_of_hostel"/>
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/viga"
+                android:text="@string/name_of_hostel"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/hostel_type"
                 android:layout_width="wrap_content"
