@@ -1,6 +1,5 @@
 package com.example.hostelnepal.Model;
 
-import com.google.firebase.firestore.Exclude;
 
 public class PropertyModel {
     public String nameOfHostel,hostelType,city,locality;
@@ -262,5 +261,35 @@ public class PropertyModel {
         this.userID = userID;
     }
 
+    public Integer getAvailableBeds1() {
+        return availableBeds1;
+    }
 
+    public void setAvailableBeds1(Integer availableBeds1) {
+        this.availableBeds1 = availableBeds1;
+    }
+
+    public Integer getAvailableBeds2() {
+        return availableBeds2;
+    }
+
+    public void setAvailableBeds2(Integer availableBeds2) {
+        this.availableBeds2 = availableBeds2;
+    }
+
+    public Integer getAvailableBeds3() {
+        return availableBeds3;
+    }
+
+    public void setAvailableBeds3(Integer availableBeds3) {
+        this.availableBeds3 = availableBeds3;
+    }
+
+    public Integer getAvailableBeds4() {
+        return availableBeds4;
+    }
+
+    public void setAvailableBeds4(Integer availableBeds4) {
+        this.availableBeds4 = availableBeds4;
+    }
 }

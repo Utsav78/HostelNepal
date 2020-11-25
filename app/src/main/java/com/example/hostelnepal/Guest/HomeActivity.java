@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hostelnepal.Adapter.HomeAdapter;
 import com.example.hostelnepal.Common.WelcomeActivity;
@@ -73,10 +75,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView rvForYou;
     private CollectionReference colRef;
     HomeAdapter homeAdapter;
+    private static final String TAG = "HomeActivity";
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -164,6 +167,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(DocumentSnapshot documentSnapshot, int position) {
                 Intent newIntent = new Intent(HomeActivity.this,BookingActivity.class);
                 newIntent.putExtra("path",documentSnapshot.getReference().getPath());
+                Log.d(TAG, "onClick: "+documentSnapshot.getReference().getPath());
                 startActivity(newIntent);
             }
         });
