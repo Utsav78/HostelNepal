@@ -46,6 +46,7 @@ public class BookingActivity extends AppCompatActivity {
     Button dialogCancel;
     Button dialogBook;
     DocumentSnapshot snapshot;
+    String price1,price2,price3,price4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,12 +158,23 @@ public class BookingActivity extends AppCompatActivity {
                 imageUrls[6]=value.getString("uriOfRoom4");
                 imageUrls[7]=value.getString("uriOfWashroom");
 
+
+                price1 = String.valueOf(value.getDouble("priceOfRoom1"));
+                price2 = String.valueOf(value.getDouble("priceOfRoom2"));
+                price3 = String.valueOf(value.getDouble("priceOfRoom3"));
+                price4 = String.valueOf(value.getDouble("priceOfRoom4"));
+
+
+
+
                 for (int i =0;i<8;i++){
                     boolean bool = value.getBoolean(field[i]);
                     if (bool)
                         stringBuffer.append(facilities[i]).append("\n");
 
                 }
+
+
                 binding.facilities.setText(stringBuffer.toString());
                 binding.hostelName.setText(value.getString("nameOfHostel"));
                 binding.hostelType.setText(value.getString("hostelType"));
@@ -171,6 +183,8 @@ public class BookingActivity extends AppCompatActivity {
                 documentID = value.getId();
                 Log.d(TAG, "onEvent: "+guestID+"\n"+documentID);
                 snapshot = value;
+
+                stringBuffer.delete(0,stringBuffer.length());
 
 
             }
@@ -181,6 +195,8 @@ public class BookingActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().document("HostelOwner/"+guestID+"/"+
                 "Property Details/"+documentID).update(option,value-1);
         dialog.dismiss();
+
+
     }
 
 
