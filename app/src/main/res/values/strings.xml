@@ -92,6 +92,8 @@
     <string name="search">Search</string>
     <string name="book_now">Book Now</string>
     <string name="map">Map</string>
+    <string name="give_your_review">Give Your Review</string>
+    <string name="see_all_reviews"><u>See all Reviews</u></string>
 
 
 </resources>

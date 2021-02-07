@@ -78,6 +78,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -107,6 +108,296 @@
 
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/facilities_card_view"
+                android:layout_marginTop="16dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reviews and Rating"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/viga"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Cleanliness"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:id="@+id/rating_cleanliness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Security"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+
+                        android:stepSize="0.5"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Food"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Environment"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Staff"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Value For Money"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="4.3"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"/>
+
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/see_all_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See all reviews"
+                android:layout_below="@id/card_view_reviews"
+                android:textSize="24sp"
+                android:onClick="goToReviewsActivity"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/viga"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:textSize="20sp"
+                android:text="Add Your Review"
+                android:textAllCaps="false"
+                android:fontFamily="@font/viga"
+                android:layout_below="@id/see_all_reviews"
+                android:layout_marginStart="20dp"
+                android:onClick="goAddYourOwnReview"/>
+
+
+
+
+
+
+
+            
 
 
         </RelativeLayout>

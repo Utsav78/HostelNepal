@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Guest.BookingActivity"></activity>
+        <activity android:name=".Guest.OwnReviewActivity"></activity>
+        <activity android:name=".Guest.ReviewActivity" />
+        <activity android:name=".Guest.BookingActivity" />
         <activity android:name=".Guest.SearchActivity" />
         <activity android:name=".Guest.RecyclerLocationActivity" />
         <activity android:name=".Owner.PropertyDetails" />

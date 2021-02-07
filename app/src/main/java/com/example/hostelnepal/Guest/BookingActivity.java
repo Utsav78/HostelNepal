@@ -5,12 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hostelnepal.Adapter.BookingViewPagerAdapter;
@@ -19,6 +21,7 @@ import com.example.hostelnepal.R;
 import com.example.hostelnepal.databinding.ActivityBookingBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -39,6 +42,7 @@ public class BookingActivity extends AppCompatActivity {
     int radioID;
     double d=0;
     DocumentReference docRef;
+    FirebaseFirestore firebaseFirestore;
     RadioButton radioButton;
     String option ="";
     String documentID="";
@@ -47,6 +51,8 @@ public class BookingActivity extends AppCompatActivity {
     Button dialogBook;
     DocumentSnapshot snapshot;
     String price1,price2,price3,price4;
+
+    TextView room1,room2,room3,room4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,8 @@ public class BookingActivity extends AppCompatActivity {
         stringBuffer = new StringBuffer();
         dialog = new Dialog(this);
         String path = getIntent().getStringExtra("path");
-        docRef = FirebaseFirestore.getInstance().document(path);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        docRef = firebaseFirestore.document(path);
 
         field = new String[]{"checkBoxOfWifi","checkBoxOfLaundry","checkBoxOfElectricity",
                 "checkBoxOfParking","checkBoxOfCCTV",
@@ -81,6 +88,16 @@ public class BookingActivity extends AppCompatActivity {
 
                 dialogCancel = dialog.findViewById(R.id.cancel);
                 dialogBook = dialog.findViewById(R.id.dialog_book);
+
+                room1 = dialog.findViewById(R.id.room1_price);
+                room2 = dialog.findViewById(R.id.room2_price);
+                room3 = dialog.findViewById(R.id.room3_price);
+                room4 = dialog.findViewById(R.id.room4_price);
+
+                room1.setText(price1);
+                room2.setText(price2);
+                room3.setText(price3);
+                room4.setText(price4);
 
                 dialogCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -164,6 +181,7 @@ public class BookingActivity extends AppCompatActivity {
                 price3 = String.valueOf(value.getDouble("priceOfRoom3"));
                 price4 = String.valueOf(value.getDouble("priceOfRoom4"));
 
+          
 
 
 
@@ -187,6 +205,7 @@ public class BookingActivity extends AppCompatActivity {
                 stringBuffer.delete(0,stringBuffer.length());
 
 
+
             }
         });
     }
@@ -205,5 +224,15 @@ public class BookingActivity extends AppCompatActivity {
         radioID = rg.getCheckedRadioButtonId();
         radioButton = dialog.findViewById(radioID);
         Log.d(TAG, "checkRadioButton: "+radioID);
+    }
+
+    public void goToReviewsActivity(View view) {
+        startActivity(new Intent(this,ReviewActivity.class));
+    }
+
+    public void goAddYourOwnReview(View view) {
+        Intent intent = new Intent(this,OwnReviewActivity.class);
+        intent.putExtra("documentId",documentID);
+        startActivity(intent);
     }
 }
