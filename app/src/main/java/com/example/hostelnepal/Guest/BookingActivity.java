@@ -16,10 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hostelnepal.Adapter.BookingViewPagerAdapter;
+import com.example.hostelnepal.Model.Booking;
+import com.example.hostelnepal.Model.BookingOwner;
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.example.hostelnepal.databinding.ActivityBookingBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,6 +31,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import org.w3c.dom.Document;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BookingActivity extends AppCompatActivity {
@@ -53,6 +62,11 @@ public class BookingActivity extends AppCompatActivity {
     String price1,price2,price3,price4;
 
     TextView room1,room2,room3,room4;
+    String bookingPrice;
+    String hostelName;
+    String roomType;
+    String ownerUserId;
+    String gEmail,gName,gPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +95,7 @@ public class BookingActivity extends AppCompatActivity {
         binding.bookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.setContentView(R.layout.booking_options);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
@@ -113,22 +128,27 @@ public class BookingActivity extends AppCompatActivity {
                         rg = dialog.findViewById(R.id.radio_group);
                         radioID = rg.getCheckedRadioButtonId();
                         radioButton = dialog.findViewById(radioID);
+                        roomType = radioButton.getText().toString();
 
                         switch (radioButton.getText().toString()) {
                             case "1 Sitter":
                                 option = "availableBeds1";
+                                bookingPrice=price1;
                                 break;
 
                             case "2 Sitter":
                                 option = "availableBeds2";
+                                bookingPrice=price2;
                                 break;
 
                             case "3 Sitter":
                                 option = "availableBeds3";
+                                bookingPrice=price3;
                                 break;
 
                             case "4 Sitter":
                                 option = "availableBeds4";
+                                bookingPrice = price4;
                                 break;
                         }
                         d=snapshot.getDouble(option);
@@ -144,6 +164,7 @@ public class BookingActivity extends AppCompatActivity {
 
                         });
                         updateInOwner(guestID,documentID,option, d -1);
+                        saveBooking();
 
                     }
 
@@ -151,6 +172,47 @@ public class BookingActivity extends AppCompatActivity {
 
             }
         });
+
+        DocumentReference guestRef = firebaseFirestore.document("Guest/"+FirebaseAuth.getInstance()
+        .getCurrentUser().getUid());
+        guestRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot snapshot = task.getResult();
+                gEmail =  snapshot.getString("Email");
+                gName = snapshot.getString("FullName");
+                gPhone =  snapshot.getString("PhoneNumber");
+
+            }
+        });
+
+
+    }
+
+    private void saveBooking() {
+        Booking booking = new Booking(documentID,hostelName,roomType,bookingPrice);
+        DocumentReference bookingRefGuest = firebaseFirestore.document("Guest/"+FirebaseAuth.getInstance().getCurrentUser().getUid()
+        +"/"+"Booking/"+System.currentTimeMillis());
+
+        DocumentReference bookingRefOwner = firebaseFirestore.document("HostelOwner/"+ownerUserId+
+                "/"+"Booking/"+System.currentTimeMillis());
+
+        bookingRefGuest.set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(BookingActivity.this, "Booking is successful", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(BookingActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onFailure: "+e.getMessage());
+
+            }
+        });
+
+        BookingOwner bookingOwner = new BookingOwner(documentID,hostelName,gPhone,gEmail,roomType,bookingPrice,gName);
+        bookingRefOwner.set(bookingOwner);
 
     }
 
@@ -181,8 +243,7 @@ public class BookingActivity extends AppCompatActivity {
                 price3 = String.valueOf(value.getDouble("priceOfRoom3"));
                 price4 = String.valueOf(value.getDouble("priceOfRoom4"));
 
-          
-
+                ownerUserId = value.getString("userID");
 
 
                 for (int i =0;i<8;i++){
@@ -195,6 +256,7 @@ public class BookingActivity extends AppCompatActivity {
 
                 binding.facilities.setText(stringBuffer.toString());
                 binding.hostelName.setText(value.getString("nameOfHostel"));
+                hostelName = value.getString("nameOfHostel");
                 binding.hostelType.setText(value.getString("hostelType"));
                 PropertyModel model = value.toObject(PropertyModel.class);
                 guestID = model.getUserID();
@@ -210,11 +272,11 @@ public class BookingActivity extends AppCompatActivity {
         });
     }
 
-    private void updateInOwner(String guestID, String documentID, String option,double value) {
-        FirebaseFirestore.getInstance().document("HostelOwner/"+guestID+"/"+
-                "Property Details/"+documentID).update(option,value-1);
-        dialog.dismiss();
+    private void updateInOwner(String guestID, String documentID, String option, double value) {
 
+        FirebaseFirestore.getInstance().document("HostelOwner/"+guestID+"/"+
+                "Property Details/"+documentID).update(option,value);
+        dialog.dismiss();
 
     }
 

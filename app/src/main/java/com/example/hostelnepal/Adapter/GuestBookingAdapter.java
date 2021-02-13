@@ -8,15 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hostelnepal.Model.PropertyModel;
+import com.example.hostelnepal.Model.Booking;
 import com.example.hostelnepal.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class ViewPropertyAdapter extends FirestoreRecyclerAdapter<PropertyModel,ViewPropertyAdapter.PropertyViewHolder> {
-
-    private OnItemClickListener listener;
+public class GuestBookingAdapter extends FirestoreRecyclerAdapter<Booking,GuestBookingAdapter.GuestBookingViewHolder> {
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -24,35 +22,32 @@ public class ViewPropertyAdapter extends FirestoreRecyclerAdapter<PropertyModel,
      *
      * @param options
      */
-    public ViewPropertyAdapter(@NonNull FirestoreRecyclerOptions<PropertyModel> options) {
+    OnItemClickListener listener;
+    public GuestBookingAdapter(@NonNull FirestoreRecyclerOptions<Booking> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull PropertyViewHolder holder, int position, @NonNull PropertyModel model) {
-        holder.textName.setText(model.getNameOfHostel());
-        holder.textLocality.setText(model.getCity());
-        holder.typeOfHostel.setText(model.getHostelType());
+    protected void onBindViewHolder(@NonNull GuestBookingViewHolder holder, int position, @NonNull Booking model) {
+        holder.hostelName.setText(model.getHostelName());
+        holder.roomType.setText(model.getRoomType());
 
     }
 
     @NonNull
     @Override
-    public PropertyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.view_property_layout,parent,false);
-        return new PropertyViewHolder(view);
-
+    public GuestBookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_guest,parent,false);
+        return new GuestBookingViewHolder(view);
     }
 
-    public class PropertyViewHolder extends RecyclerView.ViewHolder {
-        TextView textName,textLocality,typeOfHostel;
+    public class GuestBookingViewHolder extends RecyclerView.ViewHolder {
+        TextView hostelName,roomType;
 
-        public PropertyViewHolder(@NonNull View itemView) {
+        public GuestBookingViewHolder(@NonNull View itemView) {
             super(itemView);
-            textName = itemView.findViewById(R.id.name_of_hostel);
-            textLocality = itemView.findViewById(R.id.location_of_hostel);
-            typeOfHostel = itemView.findViewById(R.id.type_of_hostel);
+            hostelName = itemView.findViewById(R.id.name_of_hostel_guest);
+            roomType = itemView.findViewById(R.id.type_of_room);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +58,10 @@ public class ViewPropertyAdapter extends FirestoreRecyclerAdapter<PropertyModel,
                     }
                 }
             });
+
+
         }
+
     }
     public interface OnItemClickListener{
         void onItemClick(DocumentSnapshot documentSnapshot , int position);

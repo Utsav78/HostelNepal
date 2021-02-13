@@ -6,10 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
-import com.example.hostelnepal.Model.PropertyModel;
-import com.example.hostelnepal.R;
+import com.example.hostelnepal.Adapter.OwnerBookingAdapter;
 import com.example.hostelnepal.Adapter.ViewPropertyAdapter;
+import com.example.hostelnepal.Model.BookingOwner;
+import com.example.hostelnepal.R;
+import com.example.hostelnepal.databinding.ActivityHoBookingBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,42 +21,43 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class ViewProperty extends AppCompatActivity {
-    private RecyclerView recyclerView;
+public class HoBooking extends AppCompatActivity {
+     ActivityHoBookingBinding binding;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Property Details");
-    private ViewPropertyAdapter adapter;
+    private CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Booking");
+    private OwnerBookingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_property);
+        binding = ActivityHoBookingBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         setRecyclerView();
+
     }
 
     private void setRecyclerView() {
-        Query query = colRef.orderBy("nameOfHostel", Query.Direction.ASCENDING);
-        FirestoreRecyclerOptions<PropertyModel> options = new FirestoreRecyclerOptions.Builder<PropertyModel>().
-                setQuery(query,PropertyModel.class).build();
-        adapter = new ViewPropertyAdapter(options);
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        Query query = colRef.orderBy("guestName", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<BookingOwner> options = new FirestoreRecyclerOptions.Builder<BookingOwner>()
+                .setQuery(query,BookingOwner.class).build();
+        adapter = new OwnerBookingAdapter(options);
 
-
-        adapter.setOnClickListener(new ViewPropertyAdapter.OnItemClickListener() {
+        binding.rvBooking.setHasFixedSize(true);
+        binding.rvBooking.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvBooking.setAdapter(adapter);
+        adapter.setOnClickListener(new OwnerBookingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-
                 String path = documentSnapshot.getReference().getPath();
-                Intent intent = new Intent(ViewProperty.this, PropertyDetails.class);
+                //left to do . Start from here!!
+                Intent intent = new Intent(HoBooking.this,BookingDetailsOwner.class);
                 intent.putExtra("path",path);
                 startActivity(intent);
             }
         });
-
     }
 
     @Override

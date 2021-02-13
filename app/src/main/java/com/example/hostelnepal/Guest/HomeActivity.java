@@ -208,6 +208,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
             finish();
         }
+        if (menuItem.getItemId() == R.id.nav_saved){
+            startActivity(new Intent(this,SavedBookingActivity.class));
+        }
 
         return true;
     }

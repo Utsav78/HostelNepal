@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Owner.BookingDetailsOwner">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_guest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Guest Name"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_guest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="12dp"
+            android:text="Guest Name"
+            android:layout_toEndOf="@id/tv_guest_name"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Phone Number : "
+            android:layout_below="@id/tv_guest_name"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Phone Number"
+            android:layout_toEndOf="@id/tv_phone"
+            android:layout_below="@id/et_guest_name"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_phone"
+            android:layout_marginTop="12dp"
+            android:text="Email : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/et_phone"
+            android:layout_toEndOf="@id/tv_email"
+            android:text="Email"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/tv_hostel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_email"
+            android:layout_marginTop="12dp"
+            android:text="Hostel Name : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_hostel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/et_email"
+            android:layout_toEndOf="@id/tv_hostel_name"
+            android:text="Hostel Name"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/tv_room_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_hostel_name"
+            android:layout_marginTop="12dp"
+            android:text="Room Type : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_room_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/et_hostel_name"
+            android:layout_toEndOf="@id/tv_hostel_name"
+            android:text="Room Type"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_room_type"
+            android:layout_marginTop="12dp"
+            android:text="Price : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/et_room_type"
+            android:layout_toEndOf="@id/tv_price"
+            android:text="Room Type"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_price"
+            android:layout_marginTop="12dp"
+            android:text="Date : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/tv_price"
+            android:layout_toEndOf="@id/tv_date"
+            android:text="Date"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

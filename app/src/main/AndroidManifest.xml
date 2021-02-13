@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Guest.OwnReviewActivity"></activity>
+        <activity android:name=".Guest.BookingDetailGuest"></activity>
+        <activity android:name=".Guest.GuestBookingDetails" />
+        <activity android:name=".Guest.SavedBookingActivity" />
+        <activity android:name=".Owner.BookingDetailsOwner" />
+        <activity android:name=".Guest.OwnReviewActivity" />
         <activity android:name=".Guest.ReviewActivity" />
         <activity android:name=".Guest.BookingActivity" />
         <activity android:name=".Guest.SearchActivity" />
@@ -23,7 +27,7 @@
         <activity android:name=".Owner.EditProfileActivity" />
         <activity android:name=".Owner.DashboardHO" />
         <activity android:name=".Owner.HoReviews" />
-        <activity android:name=".Owner.HoNotification" />
+        <activity android:name=".Owner.HoBooking" />
         <activity android:name=".Owner.AllUsers" />
         <activity android:name=".Owner.AddProperty" />
         <activity android:name=".Owner.ViewProperty" />

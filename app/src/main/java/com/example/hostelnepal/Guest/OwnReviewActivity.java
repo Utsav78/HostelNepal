@@ -3,6 +3,7 @@ package com.example.hostelnepal.Guest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class OwnReviewActivity extends AppCompatActivity {
+    public static final String TAG = "TAG";
     private ActivityOwnReviewBinding binding;
     private float ratingCleanliness,ratingFood,ratingSecurity,ratingEnvironment,
             ratingStaff,ratingFacilities,ratingValueForMoney;
@@ -42,6 +44,8 @@ public class OwnReviewActivity extends AppCompatActivity {
     private DocumentReference allHostelReview;
     private FirebaseAuth firebaseAuth;
     private String userId;
+    private float umCleanliness,umSecurity,umFood,umValueForMoney,umEnvironment,umStaff,umFacilities,count;
+    private MeanRating meanRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,21 +137,6 @@ public class OwnReviewActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(OwnReviewActivity.this, "Your review is posted successfully",
                                 Toast.LENGTH_SHORT).show();
-                        /*allHostelRefRating.addSnapshotListener(OwnReviewActivity.this, new EventListener<DocumentSnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if (value.exists()){
-                                    MeanRating meanRating = value.toObject(MeanRating.class);
-                                    float count = meanRating.getCount();
-                                    float updatedCleanliness = meanRating.getMeanCleanliness()*count+ratingModel.getRatingCleanliness();
-
-
-
-                                }
-                            }
-                        });*/
-
-                        startActivity(new Intent(OwnReviewActivity.this,BookingActivity.class));
 
                     }
                 }).addOnFailureListener(OwnReviewActivity.this,new OnFailureListener() {
@@ -158,7 +147,66 @@ public class OwnReviewActivity extends AppCompatActivity {
 
                     }
                 });
+                allHostelRefRating.addSnapshotListener(OwnReviewActivity.this, new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (value.exists()){
+                            meanRating = value.toObject(MeanRating.class);
+                            count = meanRating.getCount();
+                            umCleanliness = (meanRating.getMeanCleanliness()*count+
+                                    ratingModel.getRatingCleanliness())/(count+1);
+                            umSecurity = (meanRating.getMeanSecurity()*count
+                                    +ratingModel.getRatingSecurity())/(count+1);
+
+                            umFacilities = (meanRating.getMeanFacilities()*count
+                                    +ratingModel.getRatingFacilities())/(count+1);
+
+                            umFood = (meanRating.getMeanFood()*count+
+                                    ratingModel.getRatingFood())/(count+1);
+
+                            umStaff = (meanRating.getMeanFood()*count+
+                                    ratingModel.getRatingFood())/(count+1);
+
+                            umValueForMoney =(meanRating.getMeanValueForMoney()*count+
+                                    ratingModel.getRatingValueForMoney())/(count+1);
+
+                            umFacilities = (meanRating.getMeanFacilities()*count+
+                                    ratingModel.getRatingFacilities())/(count+1);
+                            umEnvironment = (meanRating.getMeanEnvironment()*count+
+                                    ratingModel.getRatingEnvironment())/(count+1);
+
+                            count = count+1;
+                            allHostelRefRating.update("meanCleanliness",umCleanliness,
+                                    "meanSecurity",umSecurity,
+                                    "meanFacilities",umFacilities,
+                                    "meanFood",umFood,
+                                    "meanStaff",umStaff,
+                                    "meanEnvironment",umEnvironment,
+                                    "meanValueForMoney",umValueForMoney,
+                                    "count",count);
+
+                        }else{
+                            meanRating = new MeanRating(ratingCleanliness,ratingSecurity,ratingFood,
+                                    ratingStaff,ratingEnvironment,
+                                    ratingFacilities,ratingValueForMoney,1);
+                            allHostelRefRating.set(meanRating).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: ");
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: "+e.getMessage());
+
+                                }
+                            });
+                        }
+                    }
+                });
             }
+
         });
 
 

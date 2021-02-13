@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hostelnepal.Common.WelcomeActivity;
 import com.example.hostelnepal.R;
+import com.example.hostelnepal.Services.ListenBooking;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,5 +94,9 @@ public class DashboardHO extends AppCompatActivity {
 
     public void viewProperty(View view) {
         startActivity(new Intent(this,ViewProperty.class));
+    }
+
+    public void notification(View view) {
+        startActivity(new Intent(this, HoBooking.class));
     }
 }
