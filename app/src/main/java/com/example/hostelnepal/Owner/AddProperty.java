@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Map.HostelLocationMap;
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -70,6 +74,7 @@ public class AddProperty extends AppCompatActivity {
     PropertyModel propertyModel;
     Dialog dialog;
     public static final String TAGGY = "AddProperty";
+    String documentId;
 
 
     @Override
@@ -194,6 +199,12 @@ public class AddProperty extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddProperty.this, "Your Hostel is added Successfully in our App.", Toast.LENGTH_SHORT).show();
+                             documentId = allHostel.getId();
+                            Log.d(TAG, "Getting documentId :"+documentId);
+                            Toast.makeText(AddProperty.this, documentId, Toast.LENGTH_SHORT).show();
+                            Intent mapIntent = new Intent(AddProperty.this, HostelLocationMap.class);
+                            mapIntent.putExtra("documentId",allHostel.getId());
+                            startActivity(mapIntent);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -203,6 +214,9 @@ public class AddProperty extends AppCompatActivity {
 
                         }
                     });
+
+
+
 
                 } else {
                     Toast.makeText(AddProperty.this, "Some Field are missing", Toast.LENGTH_SHORT).show();

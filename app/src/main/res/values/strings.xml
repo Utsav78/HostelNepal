@@ -94,6 +94,8 @@
     <string name="map">Map</string>
     <string name="give_your_review">Give Your Review</string>
     <string name="see_all_reviews"><u>See all Reviews</u></string>
+    <string name="title_activity_hostel_location_map">Map</string>
+    <string name="title_activity_retrieve_map_location">Map</string>
 
 
 </resources>

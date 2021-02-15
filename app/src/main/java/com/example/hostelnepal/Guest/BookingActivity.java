@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hostelnepal.Adapter.BookingViewPagerAdapter;
+import com.example.hostelnepal.Map.RetrieveMapLocation;
 import com.example.hostelnepal.Model.Booking;
 import com.example.hostelnepal.Model.BookingOwner;
 import com.example.hostelnepal.Model.PropertyModel;
@@ -296,5 +297,13 @@ public class BookingActivity extends AppCompatActivity {
         Intent intent = new Intent(this,OwnReviewActivity.class);
         intent.putExtra("documentId",documentID);
         startActivity(intent);
+    }
+
+    public void mapLocationHostel(View view) {
+        Intent mapIntent = new Intent(this, RetrieveMapLocation.class);
+        mapIntent.putExtra("guestId",guestID).putExtra("documentId",documentID);
+        startActivity(mapIntent);
+
+
     }
 }

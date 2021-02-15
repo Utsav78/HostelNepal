@@ -814,13 +814,12 @@
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:text="Next Add Location"
             android:padding="15dp"
             android:textSize="24sp"
             android:layout_below="@id/card_view_facilities"
-            android:background="@drawable/button_style"
             android:textStyle="bold"
             android:fontFamily="@font/viga"
             android:textColor="@color/colorWhite"
