@@ -31,6 +31,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class OwnReviewActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     private ActivityOwnReviewBinding binding;
@@ -50,6 +53,11 @@ public class OwnReviewActivity extends AppCompatActivity {
     private DocumentSnapshot documentSnapshot;
     private CommentModel commentModel;
 
+    private DocumentReference personalInfo;
+
+    String date;
+    String guestName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +74,18 @@ public class OwnReviewActivity extends AppCompatActivity {
 
         allHostelRefRating = fireStore.document("All Hostels/"+documentId+"/"+"ReviewsAndRating/"+documentId);
         allHostelReview = fireStore.document("All Hostels/"+documentId+"/"+"Review/"+userId);
+        personalInfo = fireStore.document("Guest/"+userId);
+
+        personalInfo.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                assert value != null;
+                guestName = value.getString("FullName");
+            }
+        });
+
+
+
 
         binding.ratingCleanliness.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             ratingCleanliness = rating;
@@ -173,7 +193,10 @@ public class OwnReviewActivity extends AppCompatActivity {
             }
 
             if (comment != null){
-                commentModel = new CommentModel(comment);
+                Calendar calendar = Calendar.getInstance();
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a");
+                date = dateFormat.format(calendar.getTime());
+                commentModel = new CommentModel(comment,date,System.currentTimeMillis(),guestName);
                 allHostelReview.set(commentModel);
             }
         });

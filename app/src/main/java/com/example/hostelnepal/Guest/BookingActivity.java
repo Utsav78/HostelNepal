@@ -37,6 +37,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import org.w3c.dom.Document;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +74,7 @@ public class BookingActivity extends AppCompatActivity {
     String ownerUserId;
     String gEmail,gName,gPhone;
     DocumentReference allHostelRefRating;
-    private Formatter formatter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class BookingActivity extends AppCompatActivity {
         String path = getIntent().getStringExtra("path");
         firebaseFirestore = FirebaseFirestore.getInstance();
         docRef = firebaseFirestore.document(path);
+
 
         field = new String[]{"checkBoxOfWifi","checkBoxOfLaundry","checkBoxOfElectricity",
                 "checkBoxOfParking","checkBoxOfCCTV",
@@ -318,7 +321,9 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     public void goToReviewsActivity(View view) {
-        startActivity(new Intent(this,ReviewActivity.class));
+        Intent allReviews = new Intent(this,ReviewActivity.class);
+        allReviews.putExtra("documentId",documentID);
+        startActivity(allReviews);
     }
 
     public void goAddYourOwnReview(View view) {
@@ -335,9 +340,5 @@ public class BookingActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-    }
 }
