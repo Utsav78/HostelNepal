@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.hostelnepal.Adapter.BookingViewPagerAdapter;
 import com.example.hostelnepal.Map.RetrieveMapLocation;
 import com.example.hostelnepal.Model.Booking;
 import com.example.hostelnepal.Model.BookingOwner;
+import com.example.hostelnepal.Model.MeanRating;
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.example.hostelnepal.databinding.ActivityBookingBinding;
@@ -35,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import org.w3c.dom.Document;
 
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +71,8 @@ public class BookingActivity extends AppCompatActivity {
     String roomType;
     String ownerUserId;
     String gEmail,gName,gPhone;
+    DocumentReference allHostelRefRating;
+    private Formatter formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,59 +120,50 @@ public class BookingActivity extends AppCompatActivity {
                 room3.setText(price3);
                 room4.setText(price4);
 
-                dialogCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
+                dialogCancel.setOnClickListener(v1 -> dialog.dismiss());
+
+                dialogBook.setOnClickListener(v12 -> {
+
+                    rg = dialog.findViewById(R.id.radio_group);
+                    radioID = rg.getCheckedRadioButtonId();
+                    radioButton = dialog.findViewById(radioID);
+                    roomType = radioButton.getText().toString();
+
+                    switch (radioButton.getText().toString()) {
+                        case "1 Sitter":
+                            option = "availableBeds1";
+                            bookingPrice=price1;
+                            break;
+
+                        case "2 Sitter":
+                            option = "availableBeds2";
+                            bookingPrice=price2;
+                            break;
+
+                        case "3 Sitter":
+                            option = "availableBeds3";
+                            bookingPrice=price3;
+                            break;
+
+                        case "4 Sitter":
+                            option = "availableBeds4";
+                            bookingPrice = price4;
+                            break;
                     }
-                });
+                    d=snapshot.getDouble(option);
 
-                dialogBook.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        rg = dialog.findViewById(R.id.radio_group);
-                        radioID = rg.getCheckedRadioButtonId();
-                        radioButton = dialog.findViewById(radioID);
-                        roomType = radioButton.getText().toString();
-
-                        switch (radioButton.getText().toString()) {
-                            case "1 Sitter":
-                                option = "availableBeds1";
-                                bookingPrice=price1;
-                                break;
-
-                            case "2 Sitter":
-                                option = "availableBeds2";
-                                bookingPrice=price2;
-                                break;
-
-                            case "3 Sitter":
-                                option = "availableBeds3";
-                                bookingPrice=price3;
-                                break;
-
-                            case "4 Sitter":
-                                option = "availableBeds4";
-                                bookingPrice = price4;
-                                break;
+                    docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                                Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
                         }
-                        d=snapshot.getDouble(option);
 
-                        docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful())
-                                    Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        });
-                        updateInOwner(guestID,documentID,option, d -1);
-                        saveBooking();
-
-                    }
+                    });
+                    updateInOwner(guestID,documentID,option, d -1);
+                    saveBooking();
 
                 });
 
@@ -187,6 +183,36 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void fillRating(String documentID) {
+        allHostelRefRating =firebaseFirestore.document("All Hostels/"+documentID+"/"+"ReviewsAndRating/"+documentID);
+        allHostelRefRating.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null){
+                    MeanRating meanRating = value.toObject(MeanRating.class);
+                    assert meanRating != null;
+                    binding.meanCleanliness.setText(String.format("%1.1f",meanRating.getMeanCleanliness()));
+                    binding.meanEnvironment.setText(String.format("%1.1f",meanRating.getMeanEnvironment()));
+                    binding.meanFood.setText(String.format("%1.1f",meanRating.getMeanFood()));
+                    binding.meanSecurity.setText(String.format("%1.1f",meanRating.getMeanSecurity()));
+                    binding.meanStaff.setText(String.format("%1.1f",meanRating.getMeanStaff()));
+                    binding.meanValueForMoney.setText(String.format("%1.1f",meanRating.getMeanValueForMoney()));
+
+                    binding.ratingCleanliness.setRating(meanRating.getMeanCleanliness());
+                    binding.ratingEnvironment.setRating(meanRating.getMeanEnvironment());
+                    binding.ratingFood.setRating(meanRating.getMeanFood());
+                    binding.ratingSecurity.setRating(meanRating.getMeanSecurity());
+                    binding.ratingStaff.setRating(meanRating.getMeanStaff());
+                    binding.ratingValueForMoney.setRating(meanRating.getMeanValueForMoney());
+
+                }
+
+            }
+        });
 
     }
 
@@ -267,6 +293,8 @@ public class BookingActivity extends AppCompatActivity {
 
                 stringBuffer.delete(0,stringBuffer.length());
 
+                fillRating(documentID);
+
 
 
             }
@@ -304,6 +332,12 @@ public class BookingActivity extends AppCompatActivity {
         mapIntent.putExtra("guestId",guestID).putExtra("documentId",documentID);
         startActivity(mapIntent);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 }

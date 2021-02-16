@@ -150,6 +150,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_cleanliness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -171,7 +172,7 @@
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -188,6 +189,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_security"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -203,13 +205,14 @@
 
 
                     <RatingBar
+                        android:id="@+id/rating_security"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
 
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -226,6 +229,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_food"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -241,12 +245,13 @@
 
 
                     <RatingBar
+                        android:id="@+id/rating_food"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -263,6 +268,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_environment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -278,12 +284,13 @@
 
 
                     <RatingBar
+                        android:id="@+id/rating_environment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -300,6 +307,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_staff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -315,12 +323,13 @@
 
 
                     <RatingBar
+                        android:id="@+id/rating_staff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -337,6 +346,7 @@
                             android:padding="8dp"/>
 
                         <TextView
+                            android:id="@+id/mean_value_for_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorAccent"
@@ -352,12 +362,13 @@
 
 
                     <RatingBar
+                        android:id="@+id/rating_value_for_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:numStars="5"
                         android:isIndicator="true"
-                        android:stepSize="0.5"/>
+                        android:stepSize="0.1"/>
 
 
 

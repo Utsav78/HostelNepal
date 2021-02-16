@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.hostelnepal.Model.CommentModel;
 import com.example.hostelnepal.Model.MeanRating;
 import com.example.hostelnepal.Model.RatingModel;
 import com.example.hostelnepal.R;
@@ -46,6 +47,8 @@ public class OwnReviewActivity extends AppCompatActivity {
     private String userId;
     private float umCleanliness,umSecurity,umFood,umValueForMoney,umEnvironment,umStaff,umFacilities,count;
     private MeanRating meanRating;
+    private DocumentSnapshot documentSnapshot;
+    private CommentModel commentModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,149 +67,115 @@ public class OwnReviewActivity extends AppCompatActivity {
         allHostelRefRating = fireStore.document("All Hostels/"+documentId+"/"+"ReviewsAndRating/"+documentId);
         allHostelReview = fireStore.document("All Hostels/"+documentId+"/"+"Review/"+userId);
 
-        binding.ratingCleanliness.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingCleanliness = rating;
-                checkButton();
-            }
+        binding.ratingCleanliness.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingCleanliness = rating;
+            checkButton();
         });
 
-        binding.ratingEnvironment.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingEnvironment =rating;
-                checkButton();
-            }
+        binding.ratingEnvironment.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingEnvironment =rating;
+            checkButton();
         });
 
-        binding.ratingFood.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingFood = rating;
-                checkButton();
-            }
+        binding.ratingFood.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingFood = rating;
+            checkButton();
         });
 
-        binding.ratingFacilities.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingFacilities = rating;
-                checkButton();
-            }
+        binding.ratingFacilities.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingFacilities = rating;
+            checkButton();
         });
-        binding.ratingStaff.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingStaff= rating;
-                checkButton();
-            }
+        binding.ratingStaff.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingStaff= rating;
+            checkButton();
         });
 
-        binding.ratingValueForMoney.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingValueForMoney = rating;
-                checkButton();
-            }
+        binding.ratingValueForMoney.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingValueForMoney = rating;
+            checkButton();
         });
 
-        binding.ratingSecurity.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingSecurity = rating;
-                checkButton();
-            }
+        binding.ratingSecurity.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            ratingSecurity = rating;
+            checkButton();
         });
 
-        binding.post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                comment = binding.comment.getText().toString().trim();
-                if (TextUtils.isEmpty(comment)){
-                    ratingModel = new RatingModel(ratingCleanliness,ratingSecurity,ratingEnvironment,
-                            ratingFacilities,ratingFood,ratingStaff,ratingValueForMoney);
+        binding.post.setOnClickListener(v -> {
+            comment = binding.comment.getText().toString().trim();
+            if (TextUtils.isEmpty(comment)){
+                ratingModel = new RatingModel(ratingCleanliness,ratingSecurity,ratingEnvironment,
+                        ratingFacilities,ratingFood,ratingStaff,ratingValueForMoney);
 
-                }else{
-                    ratingModel = new RatingModel(ratingCleanliness,ratingSecurity,ratingEnvironment,ratingFacilities,
-                            ratingFood,ratingStaff,ratingValueForMoney,comment);
-                }
+            }else{
+                ratingModel = new RatingModel(ratingCleanliness,ratingSecurity,ratingEnvironment,ratingFacilities,
+                        ratingFood,ratingStaff,ratingValueForMoney,comment);
+            }
 
-                docRef.set(ratingModel).addOnSuccessListener(OwnReviewActivity.this, new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(OwnReviewActivity.this, "Your review is posted successfully",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                }).addOnFailureListener(OwnReviewActivity.this,new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+            docRef.set(ratingModel).addOnSuccessListener(OwnReviewActivity.this, aVoid ->
+                    Toast.makeText(OwnReviewActivity.this, "Your review is posted successfully",
+                    Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(OwnReviewActivity.this, e -> {
                         Toast.makeText(OwnReviewActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(OwnReviewActivity.this,BookingActivity.class));
 
+                    });
+            allHostelRefRating.addSnapshotListener(OwnReviewActivity.this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    documentSnapshot = value;
+                    if (!value.exists()){
+                        meanRating = new MeanRating(ratingCleanliness,ratingSecurity,ratingFood,
+                                ratingStaff,ratingEnvironment,
+                                ratingFacilities,ratingValueForMoney,1);
+                        allHostelRefRating.set(meanRating)
+                                .addOnSuccessListener(aVoid -> Log.d(TAG, "onSuccess: "))
+                                .addOnFailureListener(e -> Log.d(TAG, "onFailure: "+e.getMessage()));
                     }
-                });
-                allHostelRefRating.addSnapshotListener(OwnReviewActivity.this, new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (value.exists()){
-                            meanRating = value.toObject(MeanRating.class);
-                            count = meanRating.getCount();
-                            umCleanliness = (meanRating.getMeanCleanliness()*count+
-                                    ratingModel.getRatingCleanliness())/(count+1);
-                            umSecurity = (meanRating.getMeanSecurity()*count
-                                    +ratingModel.getRatingSecurity())/(count+1);
+                }
+            });
 
-                            umFacilities = (meanRating.getMeanFacilities()*count
-                                    +ratingModel.getRatingFacilities())/(count+1);
+            if (documentSnapshot != null){
+                meanRating = documentSnapshot.toObject(MeanRating.class);
+                count = meanRating.getCount();
+                umCleanliness = (meanRating.getMeanCleanliness()*count+
+                        ratingModel.getRatingCleanliness())/(count+1);
+                umSecurity = (meanRating.getMeanSecurity()*count
+                        +ratingModel.getRatingSecurity())/(count+1);
 
-                            umFood = (meanRating.getMeanFood()*count+
-                                    ratingModel.getRatingFood())/(count+1);
+                umFacilities = (meanRating.getMeanFacilities()*count
+                        +ratingModel.getRatingFacilities())/(count+1);
 
-                            umStaff = (meanRating.getMeanFood()*count+
-                                    ratingModel.getRatingFood())/(count+1);
+                umFood = (meanRating.getMeanFood()*count+
+                        ratingModel.getRatingFood())/(count+1);
 
-                            umValueForMoney =(meanRating.getMeanValueForMoney()*count+
-                                    ratingModel.getRatingValueForMoney())/(count+1);
+                umStaff = (meanRating.getMeanFood()*count+
+                        ratingModel.getRatingFood())/(count+1);
 
-                            umFacilities = (meanRating.getMeanFacilities()*count+
-                                    ratingModel.getRatingFacilities())/(count+1);
-                            umEnvironment = (meanRating.getMeanEnvironment()*count+
-                                    ratingModel.getRatingEnvironment())/(count+1);
+                umValueForMoney =(meanRating.getMeanValueForMoney()*count+
+                        ratingModel.getRatingValueForMoney())/(count+1);
 
-                            count = count+1;
-                            allHostelRefRating.update("meanCleanliness",umCleanliness,
-                                    "meanSecurity",umSecurity,
-                                    "meanFacilities",umFacilities,
-                                    "meanFood",umFood,
-                                    "meanStaff",umStaff,
-                                    "meanEnvironment",umEnvironment,
-                                    "meanValueForMoney",umValueForMoney,
-                                    "count",count);
+                umFacilities = (meanRating.getMeanFacilities()*count+
+                        ratingModel.getRatingFacilities())/(count+1);
+                umEnvironment = (meanRating.getMeanEnvironment()*count+
+                        ratingModel.getRatingEnvironment())/(count+1);
 
-                        }else{
-                            meanRating = new MeanRating(ratingCleanliness,ratingSecurity,ratingFood,
-                                    ratingStaff,ratingEnvironment,
-                                    ratingFacilities,ratingValueForMoney,1);
-                            allHostelRefRating.set(meanRating).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: ");
+                count = count+1;
+                allHostelRefRating.update("meanCleanliness",umCleanliness,
+                        "meanSecurity",umSecurity,
+                        "meanFacilities",umFacilities,
+                        "meanFood",umFood,
+                        "meanStaff",umStaff,
+                        "meanEnvironment",umEnvironment,
+                        "meanValueForMoney",umValueForMoney,
+                        "count",count);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: "+e.getMessage());
-
-                                }
-                            });
-                        }
-                    }
-                });
             }
 
+            if (comment != null){
+                commentModel = new CommentModel(comment);
+                allHostelReview.set(commentModel);
+            }
         });
 
 
