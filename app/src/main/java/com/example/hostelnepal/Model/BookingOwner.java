@@ -1,7 +1,7 @@
 package com.example.hostelnepal.Model;
 
 public class BookingOwner {
-    private String documentId;
+    private String hostelId;
     private String hostelName;
     private String phoneNumber;
     private String email;
@@ -9,31 +9,39 @@ public class BookingOwner {
     private String bookingPrice;
     private String guestName;
 
+    private String date;
+    private long timestamp;
+    private String guestId;
+
+
     public BookingOwner() {
         //no argument constructor
     }
 
-    public BookingOwner(String documentId, String hostelName,
+    public BookingOwner(String hostelId, String hostelName,
                         String phoneNumber,
                         String email, String roomType,
-                        String bookingPrice, String guestName) {
+                        String bookingPrice, String guestName,String date,long timestamp,String guestId) {
 
-        this.documentId = documentId;
+        this.hostelId = hostelId;
         this.hostelName = hostelName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.roomType = roomType;
         this.bookingPrice = bookingPrice;
         this.guestName = guestName;
+        this.date = date;
+        this.timestamp = timestamp;
+        this.guestId = guestId;
 
     }
 
-    public String getDocumentId() {
-        return documentId;
+    public String getHostelId() {
+        return hostelId;
     }
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
+    public void setHostelId(String documentId) {
+        this.hostelId= documentId;
     }
 
     public String getHostelName() {
@@ -82,5 +90,29 @@ public class BookingOwner {
 
     public void setGuestName(String guestName) {
         this.guestName = guestName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getGuestId() {
+        return guestId;
+    }
+
+    public void setGuestId(String guestId) {
+        this.guestId = guestId;
     }
 }

@@ -156,6 +156,7 @@ public class GuestRegister extends AppCompatActivity {
 
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                            finish();
 
                         }
                         else{

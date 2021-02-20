@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Guest.BookingDetailGuest">
+    tools:context=".Guest.BookingDetailGuest"
+    android:layout_margin="15dp"
+    android:padding="12dp"
+    android:elevation="15dp"
+    app:cardCornerRadius="12dp"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="15dp"
-        android:padding="8dp">
+        android:layout_margin="12dp"
+        android:padding="5dp"
+        >
 
 
 
@@ -103,6 +109,42 @@
             android:text="Date"
             android:fontFamily="@font/viga"
             android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_date"
+            android:layout_marginTop="12dp"
+            android:text="Status : "
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/et_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/et_date"
+            android:layout_toEndOf="@id/tv_status"
+            android:text="Status"
+            android:fontFamily="@font/viga"
+            android:textColor="@color/colorBlack"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_status"
+            android:layout_marginTop="15dp"
+            android:padding="12dp"
+            android:text="Cancel"
+            android:onClick="cancelBooking"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:fontFamily="@font/viga"/>
 
     </RelativeLayout>
 

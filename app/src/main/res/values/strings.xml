@@ -96,6 +96,7 @@
     <string name="see_all_reviews"><u>See all Reviews</u></string>
     <string name="title_activity_hostel_location_map">Map</string>
     <string name="title_activity_retrieve_map_location">Map</string>
+    <string name="nameofhostel"><u>NameOfHostel</u></string>
 
 
 </resources>

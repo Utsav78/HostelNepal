@@ -146,6 +146,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
 
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(getApplicationContext(),DashboardHO.class));
+                            finish();
 
                         }
                         else{

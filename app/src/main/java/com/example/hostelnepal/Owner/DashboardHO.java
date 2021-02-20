@@ -99,4 +99,14 @@ public class DashboardHO extends AppCompatActivity {
     public void notification(View view) {
         startActivity(new Intent(this, HoBooking.class));
     }
+
+    public void showReviewsOfAllHostel(View view) {
+        startActivity(new Intent(this,HostelListForReviews.class));
+        
+    }
+
+    public void showAvailableBed(View view) {
+        startActivity(new Intent(this,HostelListForAvailabilityActivity.class));
+
+    }
 }

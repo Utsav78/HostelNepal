@@ -60,8 +60,8 @@ public class BookingActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     RadioButton radioButton;
     String option ="";
-    String documentID="";
-    String guestID="";
+    String hostelId="";
+    String ownerId="";
     Button dialogCancel;
     Button dialogBook;
     DocumentSnapshot snapshot;
@@ -74,6 +74,14 @@ public class BookingActivity extends AppCompatActivity {
     String ownerUserId;
     String gEmail,gName,gPhone;
     DocumentReference allHostelRefRating;
+
+    private Calendar calendar;
+    private String date;
+    private SimpleDateFormat dateFormat;
+    private long timestamp;
+    private String guestId;
+    public static final String INITIAL_STATUS = "Pending";
+
 
 
     @Override
@@ -88,6 +96,8 @@ public class BookingActivity extends AppCompatActivity {
         String path = getIntent().getStringExtra("path");
         firebaseFirestore = FirebaseFirestore.getInstance();
         docRef = firebaseFirestore.document(path);
+
+        guestId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         field = new String[]{"checkBoxOfWifi","checkBoxOfLaundry","checkBoxOfElectricity",
@@ -165,7 +175,7 @@ public class BookingActivity extends AppCompatActivity {
                         }
 
                     });
-                    updateInOwner(guestID,documentID,option, d -1);
+                    updateInOwner(ownerId,hostelId,option, d -1);
                     saveBooking();
 
                 });
@@ -173,17 +183,13 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-        DocumentReference guestRef = firebaseFirestore.document("Guest/"+FirebaseAuth.getInstance()
-        .getCurrentUser().getUid());
-        guestRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot snapshot = task.getResult();
-                gEmail =  snapshot.getString("Email");
-                gName = snapshot.getString("FullName");
-                gPhone =  snapshot.getString("PhoneNumber");
+        DocumentReference guestRef = firebaseFirestore.document("Guest/"+guestId);
+        guestRef.get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            gEmail =  snapshot.getString("Email");
+            gName = snapshot.getString("FullName");
+            gPhone =  snapshot.getString("PhoneNumber");
 
-            }
         });
 
 
@@ -195,15 +201,16 @@ public class BookingActivity extends AppCompatActivity {
             @SuppressLint("DefaultLocale")
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value != null){
+                if (value.exists()){
                     MeanRating meanRating = value.toObject(MeanRating.class);
-                    assert meanRating != null;
+
                     binding.meanCleanliness.setText(String.format("%1.1f",meanRating.getMeanCleanliness()));
                     binding.meanEnvironment.setText(String.format("%1.1f",meanRating.getMeanEnvironment()));
                     binding.meanFood.setText(String.format("%1.1f",meanRating.getMeanFood()));
                     binding.meanSecurity.setText(String.format("%1.1f",meanRating.getMeanSecurity()));
                     binding.meanStaff.setText(String.format("%1.1f",meanRating.getMeanStaff()));
                     binding.meanValueForMoney.setText(String.format("%1.1f",meanRating.getMeanValueForMoney()));
+
 
                     binding.ratingCleanliness.setRating(meanRating.getMeanCleanliness());
                     binding.ratingEnvironment.setRating(meanRating.getMeanEnvironment());
@@ -219,13 +226,20 @@ public class BookingActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void saveBooking() {
-        Booking booking = new Booking(documentID,hostelName,roomType,bookingPrice);
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a");
+        date = dateFormat.format(calendar.getTime());
+        timestamp = System.currentTimeMillis();
+
+        Booking booking = new Booking(hostelId,hostelName,
+                roomType,bookingPrice,date,timestamp,INITIAL_STATUS,ownerId);
         DocumentReference bookingRefGuest = firebaseFirestore.document("Guest/"+FirebaseAuth.getInstance().getCurrentUser().getUid()
-        +"/"+"Booking/"+System.currentTimeMillis());
+        +"/"+"Booking/"+timestamp);
 
         DocumentReference bookingRefOwner = firebaseFirestore.document("HostelOwner/"+ownerUserId+
-                "/"+"Booking/"+System.currentTimeMillis());
+                "/"+"Booking/"+timestamp);
 
         bookingRefGuest.set(booking).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -241,7 +255,10 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-        BookingOwner bookingOwner = new BookingOwner(documentID,hostelName,gPhone,gEmail,roomType,bookingPrice,gName);
+        BookingOwner bookingOwner = new BookingOwner(hostelId,hostelName,gPhone,
+                                                        gEmail,roomType,
+                                                        bookingPrice,
+                                                        gName,date,timestamp,guestId);
         bookingRefOwner.set(bookingOwner);
 
     }
@@ -258,6 +275,7 @@ public class BookingActivity extends AppCompatActivity {
                     Log.d(TAG, "onEvent: "+error.getMessage());
                     return;
                 }
+                assert value != null;
                 imageUrls[0]=value.getString("uriOfBuilding");
                 imageUrls[1]=value.getString("uriOfEnvironment");
                 imageUrls[2]=value.getString("uriOfKitchen");
@@ -289,14 +307,14 @@ public class BookingActivity extends AppCompatActivity {
                 hostelName = value.getString("nameOfHostel");
                 binding.hostelType.setText(value.getString("hostelType"));
                 PropertyModel model = value.toObject(PropertyModel.class);
-                guestID = model.getUserID();
-                documentID = value.getId();
-                Log.d(TAG, "onEvent: "+guestID+"\n"+documentID);
+                ownerId = model.getUserID();
+                hostelId = value.getId();
+                Log.d(TAG, "onEvent: "+ownerId+"\n"+hostelId);
                 snapshot = value;
 
                 stringBuffer.delete(0,stringBuffer.length());
 
-                fillRating(documentID);
+                fillRating(hostelId);
 
 
 
@@ -304,9 +322,9 @@ public class BookingActivity extends AppCompatActivity {
         });
     }
 
-    private void updateInOwner(String guestID, String documentID, String option, double value) {
+    private void updateInOwner(String ownerId, String documentID, String option, double value) {
 
-        FirebaseFirestore.getInstance().document("HostelOwner/"+guestID+"/"+
+        FirebaseFirestore.getInstance().document("HostelOwner/"+ownerId+"/"+
                 "Property Details/"+documentID).update(option,value);
         dialog.dismiss();
 
@@ -322,21 +340,20 @@ public class BookingActivity extends AppCompatActivity {
 
     public void goToReviewsActivity(View view) {
         Intent allReviews = new Intent(this,ReviewActivity.class);
-        allReviews.putExtra("documentId",documentID);
+        allReviews.putExtra("documentId",hostelId);
         startActivity(allReviews);
     }
 
     public void goAddYourOwnReview(View view) {
         Intent intent = new Intent(this,OwnReviewActivity.class);
-        intent.putExtra("documentId",documentID);
+        intent.putExtra("documentId",hostelId);
         startActivity(intent);
     }
 
     public void mapLocationHostel(View view) {
         Intent mapIntent = new Intent(this, RetrieveMapLocation.class);
-        mapIntent.putExtra("guestId",guestID).putExtra("documentId",documentID);
+        mapIntent.putExtra("ownerId",ownerId).putExtra("documentId",hostelId);
         startActivity(mapIntent);
-
 
     }
 

@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.hostelnepal.Adapter.GuestBookingAdapter;
 import com.example.hostelnepal.Model.Booking;
@@ -22,6 +24,7 @@ import com.google.firebase.firestore.Query;
 
 public class SavedBookingActivity extends AppCompatActivity {
     ActivitySavedBookingBinding binding;
+    private static final String TAG = "SavedBookingActivity";
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference colRef = db.collection("Guest/"+fAuth.getCurrentUser().getUid()+
@@ -51,6 +54,8 @@ public class SavedBookingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String path = documentSnapshot.getReference().getPath();
+                String documentId = documentSnapshot.getReference().getId();
+                Log.d(TAG, "onItemClick: DocumentId"+documentId);
                 Intent intent = new Intent(SavedBookingActivity.this, BookingDetailGuest.class);
                 intent.putExtra("path",path);
                 startActivity(intent);

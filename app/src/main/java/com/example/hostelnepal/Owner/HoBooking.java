@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,11 +24,13 @@ import com.google.firebase.firestore.Query;
 
 public class HoBooking extends AppCompatActivity {
      ActivityHoBookingBinding binding;
+    private static final String TAG = "HoBooking";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Booking");
     private OwnerBookingAdapter adapter;
+    private String guestId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class HoBooking extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        Query query = colRef.orderBy("guestName", Query.Direction.ASCENDING);
+        Query query = colRef.orderBy("timestamp", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<BookingOwner> options = new FirestoreRecyclerOptions.Builder<BookingOwner>()
                 .setQuery(query,BookingOwner.class).build();
         adapter = new OwnerBookingAdapter(options);
@@ -52,9 +55,12 @@ public class HoBooking extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String path = documentSnapshot.getReference().getPath();
+                String bookingId = documentSnapshot.getReference().getId();
+                BookingOwner model =documentSnapshot.toObject(BookingOwner.class);
+                String hostelId = model.getHostelId();
                 //left to do . Start from here!!
                 Intent intent = new Intent(HoBooking.this,BookingDetailsOwner.class);
-                intent.putExtra("path",path);
+                intent.putExtra("path",path).putExtra("hostelId",hostelId);
                 startActivity(intent);
             }
         });

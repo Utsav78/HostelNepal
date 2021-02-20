@@ -38,4 +38,8 @@ public class BookingDetailGuest extends AppCompatActivity {
         });
 
     }
+
+    public void cancelBooking(View view) {
+
+    }
 }
