@@ -3,6 +3,7 @@ package com.example.hostelnepal.Owner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -35,7 +36,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
     Button hoRegisterBtn;
     TextView hoLoginBtn;
     FirebaseAuth fAuthHO;
-    ProgressBar progressBar;
+    ProgressDialog pd;
     FirebaseFirestore fStore;
     DocumentReference documentReference;
     String userID;
@@ -51,7 +52,12 @@ public class HostelOwnerRegister extends AppCompatActivity {
         hoPhoneNumber = findViewById(R.id.ownerPhoneNumber);
         hoRegisterBtn = findViewById(R.id.hoRegisterBtn);
 
-        progressBar = findViewById(R.id.progressBarOwnerRegister);
+        pd = new ProgressDialog(this);
+        pd.setTitle("Register");
+        pd.setMessage("Registering User...");
+        pd.setCanceledOnTouchOutside(false);
+
+
         fAuthHO = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
@@ -90,7 +96,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
                     hoPassword.setError("Password is less than 6 Character");
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                pd.show();
 
                 //register the user in firebase
 
@@ -144,7 +150,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
 
 
 
-                            progressBar.setVisibility(View.GONE);
+                            pd.dismiss();
                             startActivity(new Intent(getApplicationContext(),DashboardHO.class));
                             finish();
 
@@ -152,7 +158,7 @@ public class HostelOwnerRegister extends AppCompatActivity {
                         else{
 
                             Toast.makeText(HostelOwnerRegister.this, "Error:"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
+                            pd.dismiss();
                         }
 
                     }

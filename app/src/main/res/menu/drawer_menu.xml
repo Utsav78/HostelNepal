@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title ="General">
+    <item android:title ="@string/general">
 
         <menu>
 
-            <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_home_black_24dp"
-                android:title="@string/home"/>
-            <item
-                android:id="@+id/nav_notification"
-                android:icon="@drawable/ic_notifications_active_black_24dp"
-                android:title="@string/notification"/>
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_settings_black_24dp"
@@ -41,14 +33,20 @@
                 android:title="@string/logout"/>
 
             <item
-                android:id="@+id/nav_help"
+                android:id="@+id/nav_terms"
                 android:icon="@drawable/ic_help_black_24dp"
-                android:title="@string/help"/>
+                android:title="Terms and Condition"/>
 
             <item
                 android:id="@+id/nav_aboutUs"
                 android:icon="@drawable/ic_info_black_24dp"
                 android:title="@string/about_us"/>
+
+
+            <item
+                android:title="@string/contact_us"
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_contacts"/>
 
 
         </menu>

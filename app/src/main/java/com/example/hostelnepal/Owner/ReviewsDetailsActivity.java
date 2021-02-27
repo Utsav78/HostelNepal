@@ -41,18 +41,22 @@ public class ReviewsDetailsActivity extends AppCompatActivity {
 
         ratingRef= db.document("All Hostels/"+hostelId+"/"+"ReviewsAndRating/"
         +hostelId);
+        Log.d(TAG, "onCreate: RatingRef:"+ratingRef.getPath());
 
         ratingRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                MeanRating rating = value.toObject(MeanRating.class);
-                binding.meanCleanliness.setText(String.valueOf(rating.getMeanCleanliness()));
-                binding.meanFood.setText(String.valueOf(rating.getMeanCleanliness()));
-                binding.meanEnvironment.setText(String.valueOf(rating.getMeanEnvironment()));
-                binding.meanStaff.setText(String.valueOf(rating.getMeanStaff()));
-                binding.meanSecurity.setText(String.valueOf(rating.getMeanSecurity()));
-                binding.meanValueForMoney.setText(String.valueOf(rating.getMeanValueForMoney()));
-                binding.meanFacilities.setText(String.valueOf(rating.getMeanFacilities()));
+                if (value.exists()) {
+                    MeanRating rating = value.toObject(MeanRating.class);
+                    binding.meanCleanliness.setText(String.valueOf(rating.getMeanCleanliness()));
+                    binding.meanFood.setText(String.valueOf(rating.getMeanCleanliness()));
+                    binding.meanEnvironment.setText(String.valueOf(rating.getMeanEnvironment()));
+                    binding.meanStaff.setText(String.valueOf(rating.getMeanStaff()));
+                    binding.meanSecurity.setText(String.valueOf(rating.getMeanSecurity()));
+                    binding.meanValueForMoney.setText(String.valueOf(rating.getMeanValueForMoney()));
+                    binding.meanFacilities.setText(String.valueOf(rating.getMeanFacilities()));
+
+                }
 
             }
         });

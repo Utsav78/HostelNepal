@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +38,7 @@ public class BookingDetailsOwner extends AppCompatActivity {
     private String roomType;
     private String ownerId;
     private DocumentReference allHostelRef,ownerSideHostelRef;
+    private DocumentReference bookingOwnerSideRef;
     private String bookedBed;
 
     //availableBed ma value aairako xaina
@@ -43,6 +46,7 @@ public class BookingDetailsOwner extends AppCompatActivity {
     double  availableBed=0;
     private String status;
     private DocumentSnapshot snapshot;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -51,6 +55,10 @@ public class BookingDetailsOwner extends AppCompatActivity {
         binding = ActivityBookingDetailsOwnerBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Delete");
+        progressDialog.setMessage("Deleting....");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         db= FirebaseFirestore.getInstance();
         //we can also get documentId,guestId,roomType from the model class
@@ -72,8 +80,8 @@ public class BookingDetailsOwner extends AppCompatActivity {
             }
         });
 
-
-        db.document(path).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+        bookingOwnerSideRef = db.document(path);
+        bookingOwnerSideRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 BookingOwner model = value.toObject(BookingOwner.class);
@@ -85,6 +93,10 @@ public class BookingDetailsOwner extends AppCompatActivity {
                 binding.etPrice.setText(model.getBookingPrice());
                 binding.etRoomType.setText(model.getRoomType());
                 binding.etDate.setText(model.getDate());
+                binding.etStatus.setText(model.getStatus());//this may bring problem.not updated in database.
+
+                status = model.getStatus();
+
                 roomType = model.getRoomType();
                 hostelId = model.getHostelId();
                 guestId= model.getGuestId();
@@ -92,6 +104,12 @@ public class BookingDetailsOwner extends AppCompatActivity {
                 Log.d(TAG, "onEvent: HostelId and timestamp:"+hostelId+"\n"+timestamp);
 
                 docRef = db.document("Guest/"+guestId+"/"+"Booking/"+timestamp);
+
+                if (status.equals("Confirmed") || status.equals("Cancelled")){
+                    binding.btnConfirm.setEnabled(false);
+                    binding.btnCancel.setEnabled(false);
+                    binding.btnDelete.setEnabled(true);
+                }
 
 
 
@@ -145,6 +163,22 @@ public class BookingDetailsOwner extends AppCompatActivity {
             }
         });
 
+        bookingOwnerSideRef.update("status","Confirmed").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "onSuccess: update is successful");
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: failure on update");
+
+            }
+        });
+
+
+
 
     }
 
@@ -186,9 +220,47 @@ public class BookingDetailsOwner extends AppCompatActivity {
 
             }
         });
+        bookingOwnerSideRef.update("status","Cancelled")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "onSuccess: ");
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: ");
+
+                    }
+                });
     }
 
     public void deleteBooking(View view) {
+        progressDialog.show();
+        docRef.delete();
+        bookingOwnerSideRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(BookingDetailsOwner.this, "Booking is deleted", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                startActivity(new Intent(BookingDetailsOwner.this,DashboardHO.class));
+                finish();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(BookingDetailsOwner.this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                startActivity(new Intent(BookingDetailsOwner.this,DashboardHO.class));
+                finish();
+
+
+            }
+        });
+
 
     }
 }

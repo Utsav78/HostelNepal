@@ -38,6 +38,7 @@ public class DashboardHO extends AppCompatActivity {
     StorageReference storageReference;
     ScrollView scrollView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,9 @@ public class DashboardHO extends AppCompatActivity {
             }
         });
 
+        Intent service = new Intent(this,ListenBooking.class);
+        startService(service);
+
     }
 
     public void logout(View view) {
@@ -107,6 +111,12 @@ public class DashboardHO extends AppCompatActivity {
 
     public void showAvailableBed(View view) {
         startActivity(new Intent(this,HostelListForAvailabilityActivity.class));
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 }

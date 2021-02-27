@@ -103,7 +103,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         header = view.findViewById(R.id.header);
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_home);
         //hamburgerIcon reaction
         hamburgerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,9 +198,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        if (menuItem.getItemId() == R.id.nav_home){
-
-        }
 
         if (menuItem.getItemId() == R.id.nav_logout){
             mFirebaseAuth.signOut();
@@ -211,6 +207,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (menuItem.getItemId() == R.id.nav_saved){
             startActivity(new Intent(this,SavedBookingActivity.class));
         }
+        if (menuItem.getItemId() == R.id.nav_aboutUs){
+            startActivity(new Intent(HomeActivity.this,AboutUsActivity.class));
+        }
+        if (menuItem.getItemId() == R.id.nav_contact){
+            startActivity(new Intent(HomeActivity.this,ContactUs.class));
+        }
+        if (menuItem.getItemId() == R.id.nav_terms){
+            startActivity(new Intent(HomeActivity.this,TermsActivity.class));
+        }
+        if (menuItem.getItemId() == R.id.nav_setting){
+            startActivity(new Intent(HomeActivity.this,EditProfileOfGuest.class));
+        }
+
 
         return true;
     }

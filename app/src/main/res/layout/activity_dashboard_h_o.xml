@@ -225,7 +225,7 @@
                         android:fontFamily="@font/viga"
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
-                        android:text="@string/notification"/>
+                        android:text="@string/booking"/>
                 </LinearLayout>
 
 

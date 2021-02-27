@@ -97,6 +97,26 @@
     <string name="title_activity_hostel_location_map">Map</string>
     <string name="title_activity_retrieve_map_location">Map</string>
     <string name="nameofhostel"><u>NameOfHostel</u></string>
+    <string name="booking">Booking</string>
+
+    <string name="about">The HostelNepal is an Android Application that helps the user to cut their time and efforts to find right hostel. People have a hard time when they cannot find the right hostel, especially for those who come to the city areas to study and work. This app provides the solution to this problem. It provides easy to use mobile friendly graphical-UI oriented system. This app will offer the hostel owners to add their property, providing details such as prices, number of available beds, pictures, location, along with the available facilities. This system helps the user to view details about hostels, its location through map and allow them to book it as per their requirements by knowing its availability. The rooms which are available can be booked. The hostel owner will get the notification about the booking with all the contact information of the user and can confirm or cancel the status of the booked beds. Seekers can read the review and ratings which helps to know the atmosphere of the hostel from hosteller’s point of view. Furthermore, the user can cancel their booking and can add their own review if they find any problem about their booking. Ultimately, HostelNepal act as a bridge between the hostel and the hostel inquirer.</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="contact">If there is any problem or any misleading information given by Hostel,
+Kindly contact with us about hostel name and your inquiry.</string>
+
+    <string name="terms">
+These terms shall govern the use of the mobile application which enables the User to connect with HostelNepal in relation to the services offered through the Platform.
+Please read all these terms carefully before using, obtaining or availing any products or services. If you do not agree with these Terms of Use you may refrain from using our Services. These conditions must be read in conjunction with any other applicable terms and conditions governing the use of the Platform.
+
+HostelNepal reserves the right to modify these Terms of Use at any time at its sole decision. It will be your responsibility to keep yourself updated with the Terms of Use from time to time. There will be following major Terms and Conditions:
+
+The hostellers should pay their monthly fees in time otherwise the property reserves the rights to take fines.
+The Property Owner should follow the company’s policy before membership with HostelNepal.
+The Company can make dynamic terms and conditions for different fields.
+The main focus of HostelNepal is to fulfill the seats of member hostels in different locations. So, the company will make different plans and effective packages to take students from other sides.
+After booking from a hosteller, the company takes the hosteller to the particular hostel. All the responsibilities should take by the Hostel after booking. If the hosteller become ill, accident, any physical damage or died, the company does not take any type of responsibilities.
+The company helps to grow the hostel business by digital marketing, online and offline marketing in different platform.</string>
+    <string name="general">General</string>
 
 
 </resources>

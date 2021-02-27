@@ -3,6 +3,7 @@ package com.example.hostelnepal.Guest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,18 +31,23 @@ public class LoginActivityG extends AppCompatActivity {
     FirebaseAuth fAuth;
     EditText gEmail,gPassword;
     Button gLoginBtn;
-    ProgressBar progressBar;
     FirebaseFirestore db;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_g);
+        pd = new ProgressDialog(this);
+
+        pd.setTitle("Login");
+        pd.setMessage("Processing...");
+        pd.setCanceledOnTouchOutside(false);
 
         gEmail = findViewById(R.id.emailGuest);
         gPassword = findViewById(R.id.passwordGuestLogin);
         gLoginBtn = findViewById(R.id.loginG);
-        progressBar = findViewById(R.id.progressBarLoginGuest);
+
 
         fAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -67,7 +73,7 @@ public class LoginActivityG extends AppCompatActivity {
                 }
 
 
-                progressBar.setVisibility(View.VISIBLE);
+                pd.show();
                 loginUser(email,password);
 
 
@@ -87,7 +93,7 @@ public class LoginActivityG extends AppCompatActivity {
                             fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    progressBar.setVisibility(View.GONE);
+                                    pd.dismiss();
 
                                     startActivity(new Intent(LoginActivityG.this, HomeActivity.class));
 
@@ -96,13 +102,13 @@ public class LoginActivityG extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.GONE);
+                                    pd.dismiss();
                                     Toast.makeText(LoginActivityG.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
                                 }
                             });
                     }else{
-                            progressBar.setVisibility(View.GONE);
+                            pd.dismiss();
                             Toast.makeText(LoginActivityG.this, "User Credential is invalid", Toast.LENGTH_SHORT).show();
                         }
 
@@ -110,7 +116,7 @@ public class LoginActivityG extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.GONE);
+                pd.dismiss();
                 Toast.makeText(LoginActivityG.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }

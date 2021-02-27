@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Owner.AllCommentsActivity"></activity>
+        <activity android:name=".Guest.TermsActivity"></activity>
+        <activity android:name=".Guest.ContactUs" />
+        <activity android:name=".Guest.AboutUsActivity" />
+        <activity android:name=".Owner.EditPropertyActivity" />
+        <activity android:name=".Owner.AllCommentsActivity" />
         <activity android:name=".Owner.ReviewsDetailsActivity" />
         <activity android:name=".Owner.HostelListForReviews" />
         <activity android:name=".Owner.AvailabilityDetailsActivity" />
@@ -77,6 +81,11 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <service
+            android:name=".Services.ListenBooking"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

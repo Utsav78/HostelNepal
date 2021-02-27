@@ -42,7 +42,7 @@ public class SavedBookingActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        Query query = colRef.orderBy("hostelName", Query.Direction.ASCENDING);
+        Query query = colRef.orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Booking> options = new FirestoreRecyclerOptions.Builder<Booking>()
                 .setQuery(query,Booking.class).build();
         adapter = new GuestBookingAdapter(options);

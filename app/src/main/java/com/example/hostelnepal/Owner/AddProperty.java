@@ -49,7 +49,8 @@ public class AddProperty extends AppCompatActivity {
     public static final int REQUEST_CODE_KITCHEN = 8;
     public static final int REQUEST_CODE_SURROUNDING = 9;
     public static final String TAG = "TAG";
-    private EditText editTextNameOfHostel, editTextLocality, editTextCity, editTextPrice1, editTextPrice2, editTextPrice3, editTextPrice4;
+    private EditText editTextNameOfHostel, editTextLocality, editTextCity, editTextPrice1,
+            editTextPrice2, editTextPrice3, editTextPrice4,editTextPropertyDescription;
     private ImageView imageViewRoom1, imageViewRoom2, imageViewRoom3, imageViewRoom4, imageViewDocument, imageViewWashroom, imageViewSurrounding, imageViewKitchen, imageViewBuilding;
     // private CheckBox checkBoxWifi,checkBoxLaundry,checkBoxElectricity,checkBoxParking,checkBoxCCTV,checkBoxWater,checkBoxPlayground,checkBoxSecurity;
     private Button buttonSave;
@@ -60,6 +61,7 @@ public class AddProperty extends AppCompatActivity {
     private String nameOfHostel, locality, city, typeOfHostel;
     private Integer priceOfRoom1, priceOfRoom2, priceOfRoom3, priceOfRoom4;
     private Integer availableBeds1,availableBeds2,availableBeds3,availableBeds4;
+    private String propertyDescription;
     private String[] imagesName;
 
     private String[] downloadableUri;
@@ -91,6 +93,7 @@ public class AddProperty extends AppCompatActivity {
         editTextPrice2 = findViewById(R.id.edit_text_price2);
         editTextPrice3 = findViewById(R.id.edit_text_price3);
         editTextPrice4 = findViewById(R.id.edit_text_price4);
+        editTextPropertyDescription = findViewById(R.id.edit_text_description);
 
         room1Beds = findViewById(R.id.room1_available_beds);
         room2Beds = findViewById(R.id.room2_available_beds);
@@ -136,6 +139,7 @@ public class AddProperty extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
 
 
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +158,8 @@ public class AddProperty extends AppCompatActivity {
                 availableBeds3 = Integer.parseInt(room3Beds.getText().toString());
                 availableBeds4 = Integer.parseInt(room4Beds.getText().toString());
 
+                propertyDescription = editTextPropertyDescription.getText().toString();
+
                 if (editTextNameOfHostel.getText().toString().trim().length() != 0 && editTextCity.getText().toString().trim().length() != 0 &&
                         editTextLocality.getText().toString().trim().length() != 0 && editTextPrice1.getText().toString().length() != 0
                         && editTextPrice2.getText().toString().trim().length() != 0 && editTextPrice3.getText().toString().trim().length() != 0
@@ -163,7 +169,7 @@ public class AddProperty extends AppCompatActivity {
                         && !TextUtils.isEmpty(String.valueOf(availableBeds1))
                         && !TextUtils.isEmpty(String.valueOf(availableBeds2))
                         && !TextUtils.isEmpty(String.valueOf(availableBeds3))
-                        && !TextUtils.isEmpty(String.valueOf(availableBeds4))) {
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds4)) && !TextUtils.isEmpty(propertyDescription)) {
 
 
                     dialog.show();
@@ -171,7 +177,8 @@ public class AddProperty extends AppCompatActivity {
                     propertyModel = new PropertyModel(nameOfHostel, typeOfHostel, city, locality, priceOfRoom1, priceOfRoom2, priceOfRoom3, priceOfRoom4,
                             downloadableUri[0], downloadableUri[1], downloadableUri[2], downloadableUri[3], downloadableUri[4], downloadableUri[5], downloadableUri[6],
                             downloadableUri[7], downloadableUri[8], booleanCheckBox[0], booleanCheckBox[1], booleanCheckBox[2], booleanCheckBox[3], booleanCheckBox[4], booleanCheckBox[5],
-                            booleanCheckBox[6], booleanCheckBox[7],userID,availableBeds1,availableBeds2,availableBeds3,availableBeds4);
+                            booleanCheckBox[6], booleanCheckBox[7],userID,availableBeds1,availableBeds2,availableBeds3,availableBeds4,
+                            propertyDescription);
 
                     addPropertyDocumentReference.set(propertyModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -230,6 +237,7 @@ public class AddProperty extends AppCompatActivity {
     }
 
     public void openGallery(View view) {
+
         Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         switch (view.getId()) {
             case R.id.image_view_1:
@@ -447,6 +455,12 @@ public class AddProperty extends AppCompatActivity {
                 booleanCheckBox[7] = checked;
                 break;
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 }

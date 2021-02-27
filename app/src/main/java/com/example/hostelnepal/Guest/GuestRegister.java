@@ -3,6 +3,7 @@ package com.example.hostelnepal.Guest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,11 +40,10 @@ public class GuestRegister extends AppCompatActivity {
     Button gRegisterBtn;
     TextView gLoginBtn;
     FirebaseAuth fAuth;
-    ProgressBar progressBar;
+    ProgressDialog pd;
     FirebaseFirestore fStoreGuest;
     String userID;
     DocumentReference documentReference;
-
 
 
     @Override
@@ -57,7 +57,12 @@ public class GuestRegister extends AppCompatActivity {
         gPhoneNumber = findViewById(R.id.phoneNumber);
         gRegisterBtn = findViewById(R.id.gRegisterBtn);
 
-        progressBar = findViewById(R.id.progressBar);
+        pd = new ProgressDialog(this);
+        pd.setTitle("Register");
+        pd.setMessage("Registering User...");
+        pd.setCanceledOnTouchOutside(false);
+
+
         fStoreGuest = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
 
@@ -98,7 +103,7 @@ public class GuestRegister extends AppCompatActivity {
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                pd.dismiss();
 
                 //register the user in firebase
 
@@ -140,6 +145,7 @@ public class GuestRegister extends AppCompatActivity {
                             guest.put(EMAIL,email);
                             guest.put(PHONE_NUMBER,phonenumber);
                             guest.put(PASSWORD,password);
+
                             documentReference.set(guest).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -154,7 +160,7 @@ public class GuestRegister extends AppCompatActivity {
                                 }
                             });
 
-                            progressBar.setVisibility(View.GONE);
+                            pd.dismiss();
                             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                             finish();
 
@@ -162,14 +168,11 @@ public class GuestRegister extends AppCompatActivity {
                         else{
 
                             Toast.makeText(GuestRegister.this, "Error:"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
+                            pd.dismiss();
                         }
 
                     }
                 });
-
-
-
 
             }
         });

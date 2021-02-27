@@ -12,6 +12,7 @@ import com.example.hostelnepal.Adapter.HomeAdapter;
 import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -42,6 +43,18 @@ public class RecyclerLocationActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(RecyclerLocationActivity.this,2,GridLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnClickListener(new HomeAdapter.OnClickListener() {
+            @Override
+            public void onClick(DocumentSnapshot documentSnapshot, int position) {
+                String path = documentSnapshot.getReference().getPath();
+                Intent pathIntent = new Intent(RecyclerLocationActivity.this,BookingActivity.class);
+                pathIntent.putExtra("path",path);
+                startActivity(pathIntent);
+            }
+        });
+
+
 
     }
 

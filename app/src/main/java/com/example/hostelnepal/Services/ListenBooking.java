@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.example.hostelnepal.Owner.BookingDetailsOwner;
+import com.example.hostelnepal.Owner.HoBooking;
 import com.example.hostelnepal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,18 +38,25 @@ public class ListenBooking extends Service implements EventListener {
 
     }
 
-    @Nullable
+
     @Override
     public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
         return null;
     }
+
+
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         firebaseAuth = FirebaseAuth.getInstance();
+        userId = firebaseAuth.getCurrentUser().getUid();
         fStore= FirebaseFirestore.getInstance();
-        collectionReference = fStore.collection("");//not implemented
+        collectionReference = fStore.collection("HostelOwner").document(userId).collection("Booking");
+        Toast.makeText(this, collectionReference.getPath(), Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -57,41 +66,9 @@ public class ListenBooking extends Service implements EventListener {
         return super.onStartCommand(intent, flags, startId);
     }
 
-
-    @Override
-    public void onEvent(@Nullable Object value, @Nullable FirebaseFirestoreException error) {
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                Log.d("My Activity","Inside OnEvent");
-                if(e!=null){
-                    Log.d("My Activity", Objects.requireNonNull(e.getMessage()));
-                }else {
-                    assert queryDocumentSnapshots != null;
-                    for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
-                        switch (doc.getType()){
-                            case ADDED:
-                                //showNotification();
-                                Log.d("My Activity","Document Added");
-                                break;
-                            case REMOVED:
-                                Log.d("My Activity","Document Removed");
-                                break;
-                            case MODIFIED:
-                                showNotification();
-                                break;
-                        }
-
-                    }
-                }
-
-            }
-        });//.remove();
-    }
-
     public void showNotification(){
 
-        Intent intent=new Intent(getBaseContext(), BookingDetailsOwner.class);
+        Intent intent=new Intent(getBaseContext(), HoBooking.class);
         // intent.putExtra("userPhone",request.getPhone());
 
         PendingIntent contentIntent=PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -130,4 +107,38 @@ public class ListenBooking extends Service implements EventListener {
 
 
     }
+
+
+    @Override
+    public void onEvent(@Nullable Object value, @Nullable FirebaseFirestoreException error) {
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                Log.d("My Activity","Inside OnEvent");
+                if(e!=null){
+                    Log.d("My Activity", Objects.requireNonNull(e.getMessage()));
+                }else {
+                    assert queryDocumentSnapshots != null;
+                    for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                        switch (doc.getType()){
+                            case ADDED:
+                                showNotification();
+                                Log.d("My Activity","Document Added");
+                                break;
+                            case REMOVED:
+                                Log.d("My Activity","Document Removed");
+                                break;
+                            case MODIFIED:
+                                //showNotification();
+                                break;
+                        }
+
+                    }
+                }
+
+            }
+        });//.remove();
+    }
+
+
 }

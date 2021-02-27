@@ -47,8 +47,9 @@ public class ViewProperty extends AppCompatActivity {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
 
                 String path = documentSnapshot.getReference().getPath();
+                String hostelId = documentSnapshot.getReference().getId();
                 Intent intent = new Intent(ViewProperty.this, PropertyDetails.class);
-                intent.putExtra("path",path);
+                intent.putExtra("path",path).putExtra("hostelId",hostelId);
                 startActivity(intent);
             }
         });

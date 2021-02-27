@@ -258,7 +258,7 @@ public class BookingActivity extends AppCompatActivity {
         BookingOwner bookingOwner = new BookingOwner(hostelId,hostelName,gPhone,
                                                         gEmail,roomType,
                                                         bookingPrice,
-                                                        gName,date,timestamp,guestId);
+                                                        gName,date,timestamp,guestId,"Pending");
         bookingRefOwner.set(bookingOwner);
 
     }
@@ -297,15 +297,17 @@ public class BookingActivity extends AppCompatActivity {
                 for (int i =0;i<8;i++){
                     boolean bool = value.getBoolean(field[i]);
                     if (bool)
-                        stringBuffer.append(facilities[i]).append("\n");
+                        stringBuffer.append(facilities[i]).append("\n\n");
 
                 }
 
-
+                binding.textViewDescription.setText(value.getString("propertyDescription"));
                 binding.facilities.setText(stringBuffer.toString());
                 binding.hostelName.setText(value.getString("nameOfHostel"));
                 hostelName = value.getString("nameOfHostel");
                 binding.hostelType.setText(value.getString("hostelType"));
+                binding.city.setText(value.getString("city"));
+                binding.locality.setText(value.getString("locality"));
                 PropertyModel model = value.toObject(PropertyModel.class);
                 ownerId = model.getUserID();
                 hostelId = value.getId();

@@ -26,14 +26,15 @@ public class HoBooking extends AppCompatActivity {
      ActivityHoBookingBinding binding;
     private static final String TAG = "HoBooking";
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Booking");
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Booking");
     private OwnerBookingAdapter adapter;
     private String guestId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         binding = ActivityHoBookingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -43,7 +44,7 @@ public class HoBooking extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        Query query = colRef.orderBy("timestamp", Query.Direction.ASCENDING);
+        Query query = colRef.orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<BookingOwner> options = new FirestoreRecyclerOptions.Builder<BookingOwner>()
                 .setQuery(query,BookingOwner.class).build();
         adapter = new OwnerBookingAdapter(options);
@@ -57,7 +58,9 @@ public class HoBooking extends AppCompatActivity {
                 String path = documentSnapshot.getReference().getPath();
                 String bookingId = documentSnapshot.getReference().getId();
                 BookingOwner model =documentSnapshot.toObject(BookingOwner.class);
+
                 String hostelId = model.getHostelId();
+
                 //left to do . Start from here!!
                 Intent intent = new Intent(HoBooking.this,BookingDetailsOwner.class);
                 intent.putExtra("path",path).putExtra("hostelId",hostelId);
@@ -70,6 +73,7 @@ public class HoBooking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         adapter.startListening();
+
     }
 
     @Override

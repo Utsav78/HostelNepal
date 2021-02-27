@@ -8,17 +8,14 @@
     android:layout_margin="15dp"
     android:padding="12dp"
     android:elevation="15dp"
-    app:cardCornerRadius="12dp"
-    >
+    app:cardCornerRadius="12dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="12dp"
-        android:padding="5dp"
-        >
-
-
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_hostel_name"
@@ -140,11 +137,27 @@
             android:layout_below="@id/tv_status"
             android:layout_marginTop="15dp"
             android:padding="12dp"
-            android:text="Cancel"
+            android:text="Cancel Booking"
             android:onClick="cancelBooking"
+            android:layout_centerHorizontal="true"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:fontFamily="@font/viga"/>
+
+        <!--<Button
+            android:id="@+id/btn_view_hostel_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_cancel"
+            android:layout_marginTop="15dp"
+            android:padding="12dp"
+            android:text="View Hostel Details"
+            android:onClick="ViewHostelDetails"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:fontFamily="@font/viga"/>
+            -->
 
     </RelativeLayout>
 

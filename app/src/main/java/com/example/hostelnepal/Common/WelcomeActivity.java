@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     String userID;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +41,17 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_activity);
         firebaseAuth = FirebaseAuth.getInstance();
         db= FirebaseFirestore.getInstance();
+        pd = new ProgressDialog(this);
+        pd.setTitle("Login");
+        pd.setMessage("Processing...");
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
 
     }
 
 
     public void hostelOwnerLogin(View view){
+        pd.show();
         if (firebaseAuth.getCurrentUser() != null){
             userID = firebaseAuth.getCurrentUser().getUid();
             DocumentReference docRef = db.document("HostelOwner"+"/"+userID);
@@ -57,11 +65,13 @@ public class WelcomeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 startActivity(new Intent(WelcomeActivity.this, DashboardHO.class));
+                                pd.dismiss();
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                pd.dismiss();
                                 new AlertDialog.Builder(WelcomeActivity.this).setTitle("Error").setMessage(e.toString())
                                         .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                             @Override
@@ -78,11 +88,13 @@ public class WelcomeActivity extends AppCompatActivity {
                     }else{
 
                         startActivity(new Intent(WelcomeActivity.this, LoginActivityHO.class));
+                        pd.dismiss();
                     }
                 }
             });
         }else{
             startActivity(new Intent(WelcomeActivity.this,LoginActivityHO.class));
+            pd.dismiss();
         }
 
 
@@ -90,6 +102,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
     public void guestLogin(View view) {
+        pd.show();
         if (firebaseAuth.getCurrentUser() != null){
             userID = firebaseAuth.getCurrentUser().getUid();
             DocumentReference docRef = db.document("Guest"+"/"+userID);
@@ -103,6 +116,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+                                pd.dismiss();
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -113,6 +127,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
+                                                pd.dismiss();
 
                                             }
                                         });
@@ -123,12 +138,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     }else{
                         startActivity(new Intent(WelcomeActivity.this, LoginActivityG.class));
+                        pd.dismiss();
 
                     }
                 }
             });
         }else{
             startActivity(new Intent(WelcomeActivity.this,LoginActivityG.class));
+            pd.dismiss();
         }
 
     }

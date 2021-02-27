@@ -8,6 +8,7 @@ public class BookingOwner {
     private String roomType;
     private String bookingPrice;
     private String guestName;
+    private String status;
 
     private String date;
     private long timestamp;
@@ -21,7 +22,7 @@ public class BookingOwner {
     public BookingOwner(String hostelId, String hostelName,
                         String phoneNumber,
                         String email, String roomType,
-                        String bookingPrice, String guestName,String date,long timestamp,String guestId) {
+                        String bookingPrice, String guestName,String date,long timestamp,String guestId,String status) {
 
         this.hostelId = hostelId;
         this.hostelName = hostelName;
@@ -33,6 +34,7 @@ public class BookingOwner {
         this.date = date;
         this.timestamp = timestamp;
         this.guestId = guestId;
+        this.status = status;
 
     }
 
@@ -114,5 +116,13 @@ public class BookingOwner {
 
     public void setGuestId(String guestId) {
         this.guestId = guestId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

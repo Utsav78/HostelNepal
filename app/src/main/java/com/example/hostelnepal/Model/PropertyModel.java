@@ -2,6 +2,7 @@ package com.example.hostelnepal.Model;
 
 
 public class PropertyModel {
+    private String propertyDescription;
     public String nameOfHostel,hostelType,city,locality;
     public Integer priceOfRoom1,priceOfRoom2,priceOfRoom3,priceOfRoom4;
     public String userID;
@@ -20,7 +21,8 @@ public class PropertyModel {
                          Boolean checkBoxOfWifi, Boolean checkBoxOfElectricity, Boolean checkBoxOfWater,
                          Boolean checkBoxOfLaundry, Boolean checkBoxOfParking, Boolean checkBoxOfCCTV,
                          Boolean checkBoxOfSecurity, Boolean checkBoxOfPlayground,String userID,Integer availableBeds1
-                        ,Integer availableBeds2,Integer availableBeds3,Integer availableBeds4) {
+                        ,Integer availableBeds2,Integer availableBeds3,Integer availableBeds4,
+                         String propertyDescription) {
         this.nameOfHostel = nameOfHostel;
         this.hostelType = hostelType;
         this.city = city;
@@ -51,6 +53,7 @@ public class PropertyModel {
         this.availableBeds2=availableBeds2;
         this.availableBeds3 = availableBeds3;
         this.availableBeds4=availableBeds4;
+        this.propertyDescription = propertyDescription;
     }
 
     public String getNameOfHostel() {
@@ -291,5 +294,13 @@ public class PropertyModel {
 
     public void setAvailableBeds4(Integer availableBeds4) {
         this.availableBeds4 = availableBeds4;
+    }
+
+    public String getPropertyDescription() {
+        return propertyDescription;
+    }
+
+    public void setPropertyDescription(String propertyDescription) {
+        this.propertyDescription = propertyDescription;
     }
 }

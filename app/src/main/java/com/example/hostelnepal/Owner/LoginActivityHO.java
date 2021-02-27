@@ -3,6 +3,7 @@ package com.example.hostelnepal.Owner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,8 +29,8 @@ public class LoginActivityHO extends AppCompatActivity {
     FirebaseAuth fAuthHO;
     EditText hoEmail,hoPassword;
     Button hoLoginBtn;
-    ProgressBar progressBar;
     private static final String TAG = "LoginActivityHO";
+    private ProgressDialog pd;
 
 
 
@@ -41,13 +42,18 @@ public class LoginActivityHO extends AppCompatActivity {
         hoEmail = findViewById(R.id.emailOwner);
         hoPassword = findViewById(R.id.passwordOwnerLogin);
         hoLoginBtn = findViewById(R.id.loginHO);
-        progressBar = findViewById(R.id.progressBarOwnerLogin);
 
         fAuthHO = FirebaseAuth.getInstance();
+
+        pd= new ProgressDialog(this);
+        pd.setTitle("Login");
+        pd.setMessage("Processing...");
+        pd.setCanceledOnTouchOutside(false);
 
         hoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String emailho = hoEmail.getText().toString().trim();
                 String passwordho = hoPassword.getText().toString().trim();
 
@@ -62,7 +68,7 @@ public class LoginActivityHO extends AppCompatActivity {
                     hoPassword.setError("Password is Required ");
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
+                pd.show();
 
                 loginUser(emailho, passwordho);
             }
@@ -82,27 +88,29 @@ public class LoginActivityHO extends AppCompatActivity {
                             fAuthHO.signInWithEmailAndPassword(emailho, passwordho).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    progressBar.setVisibility(View.GONE);
+
                                     Toast.makeText(LoginActivityHO.this, "" +
                                             "Login is successful", Toast.LENGTH_SHORT).show();
 
                                     startActivity(new Intent(LoginActivityHO.this, DashboardHO.class));
+                                    pd.dismiss();
 
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.GONE);
+
                                     Toast.makeText(LoginActivityHO.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, "onFailure: on signin "+e.getMessage());
+                                    pd.dismiss();
 
                                 }
                             });
                     }else{
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(LoginActivityHO.this, "User credentials is invalid", Toast.LENGTH_SHORT).show();
 
+                            Toast.makeText(LoginActivityHO.this, "User credentials is invalid", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
 
                         }
 
@@ -110,7 +118,7 @@ public class LoginActivityHO extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.GONE);
+                pd.dismiss();
                 Toast.makeText(LoginActivityHO.this, "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
