@@ -177,9 +177,6 @@ public class BookingDetailsOwner extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     public void cancelBooking(View view) {

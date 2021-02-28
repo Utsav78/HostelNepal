@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.hostelnepal.Model.Booking;
+import com.example.hostelnepal.Model.PropertyModel;
 import com.example.hostelnepal.databinding.ActivityBookingDetailGuestBinding;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,7 +24,13 @@ public class BookingDetailGuest extends AppCompatActivity {
     String ownerId;
     long timestamp;
     DocumentReference ownerBookingRef,guestBookingRef;
+    DocumentReference allHostelRef,ownerRef;
     FirebaseFirestore db;
+    private String hostelId;
+    DocumentSnapshot snapshot;
+    private double availableBed;
+    private String bookedBed;
+    private String roomType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +40,18 @@ public class BookingDetailGuest extends AppCompatActivity {
         setContentView(view);
         db= FirebaseFirestore.getInstance();
         String path = getIntent().getStringExtra("path");
+        hostelId = getIntent().getStringExtra("hostelId");
         guestBookingRef = db.document(path);
+
+        allHostelRef = db.document("All Hostels/"+hostelId);
+        allHostelRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                snapshot = value;
+            }
+        });
+
+
 
 
 
@@ -47,6 +66,9 @@ public class BookingDetailGuest extends AppCompatActivity {
                 binding.etDate.setText(model.getDate());
                 status = model.getStatus();
                 ownerId = model.getOwnerId();
+                roomType =  model.getRoomType();
+
+
                 timestamp = model.getTimestamp();
 
                 if (status.equals("Cancelled") || status.equals("Confirmed")){
@@ -54,6 +76,8 @@ public class BookingDetailGuest extends AppCompatActivity {
                 }
                 ownerBookingRef = db.document("HostelOwner/"+ownerId+"/"+"Booking/"+timestamp);
 
+                ownerRef = db.document("HostelOwner/"+ownerId+"/"+
+                        "Property Details/"+hostelId);
             }
         });
 
@@ -68,6 +92,28 @@ public class BookingDetailGuest extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         guestBookingRef.update("status","Cancelled");
                         ownerBookingRef.update("status","Cancelled");
+
+                        //yeha kam garna baki cha
+                        switch (roomType){
+                            case "1 Sitter":
+                                bookedBed ="availableBeds1";
+                                break;
+
+                            case "2 Sitter":
+                                bookedBed = "availableBeds2";
+                                break;
+
+                            case "3 Sitter":
+                                bookedBed="availableBeds3";
+                                break;
+
+                            case "4 Sitter":
+                                bookedBed = "availableBeds4";
+                                break;
+                        }
+                        availableBed = snapshot.getDouble(bookedBed);
+                        allHostelRef.update(bookedBed,availableBed+1);
+                        ownerRef.update(bookedBed,availableBed+1);
 
 
 
@@ -87,4 +133,8 @@ public class BookingDetailGuest extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }

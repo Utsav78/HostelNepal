@@ -23,11 +23,11 @@ public class Booking {
         this.ownerId = ownerId;
     }
 
-    public String getDocumentId() {
+    public String getHostelId() {
         return hostelId;
     }
 
-    public void setDocumentId(String hostelId) {
+    public void setHostelId(String hostelId) {
         this.hostelId = hostelId;
     }
 

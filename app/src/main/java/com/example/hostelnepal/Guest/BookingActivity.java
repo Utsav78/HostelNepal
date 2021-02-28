@@ -82,6 +82,8 @@ public class BookingActivity extends AppCompatActivity {
     private String guestId;
     public static final String INITIAL_STATUS = "Pending";
 
+    private double availableBed1,availableBed2,availableBed3,availableBed4;
+
 
 
     @Override
@@ -165,18 +167,25 @@ public class BookingActivity extends AppCompatActivity {
                     }
                     d=snapshot.getDouble(option);
 
-                    docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful())
-                                Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
-                        }
+                    if (d>0){
+                        docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                    Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
+                            }
 
-                    });
-                    updateInOwner(ownerId,hostelId,option, d -1);
-                    saveBooking();
+                        });
+                        updateInOwner(ownerId,hostelId,option, d -1);
+                        saveBooking();
+
+                    }else{
+                        Toast.makeText(BookingActivity.this, "Sorry the room is already packed.", Toast.LENGTH_SHORT).show();
+                    }
+
+
 
                 });
 
@@ -313,7 +322,10 @@ public class BookingActivity extends AppCompatActivity {
                 hostelId = value.getId();
                 Log.d(TAG, "onEvent: "+ownerId+"\n"+hostelId);
                 snapshot = value;
-
+                availableBed1= model.getAvailableBeds1();
+                availableBed2 = model.getAvailableBeds2();
+                availableBed3 = model.getAvailableBeds3();
+                availableBed4 = model.getAvailableBeds4();
                 stringBuffer.delete(0,stringBuffer.length());
 
                 fillRating(hostelId);

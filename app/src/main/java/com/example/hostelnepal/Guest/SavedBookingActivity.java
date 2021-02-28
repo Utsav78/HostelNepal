@@ -53,11 +53,13 @@ public class SavedBookingActivity extends AppCompatActivity {
         adapter.setOnClickListener(new GuestBookingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Booking model = documentSnapshot.toObject(Booking.class);
+                String hostelId = model.getHostelId();
                 String path = documentSnapshot.getReference().getPath();
                 String documentId = documentSnapshot.getReference().getId();
                 Log.d(TAG, "onItemClick: DocumentId"+documentId);
                 Intent intent = new Intent(SavedBookingActivity.this, BookingDetailGuest.class);
-                intent.putExtra("path",path);
+                intent.putExtra("path",path).putExtra("hostelId",hostelId);
                 startActivity(intent);
             }
         });
