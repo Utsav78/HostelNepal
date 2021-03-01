@@ -242,6 +242,7 @@ public class EditPropertyActivity extends AppCompatActivity {
                         dialog.dismiss();
                         Toast.makeText(EditPropertyActivity.this, "Update is Successful.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(),ViewProperty.class));
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

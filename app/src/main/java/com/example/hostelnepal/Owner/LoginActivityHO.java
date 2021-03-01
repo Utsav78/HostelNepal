@@ -33,8 +33,6 @@ public class LoginActivityHO extends AppCompatActivity {
     private ProgressDialog pd;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +91,9 @@ public class LoginActivityHO extends AppCompatActivity {
                                             "Login is successful", Toast.LENGTH_SHORT).show();
 
                                     startActivity(new Intent(LoginActivityHO.this, DashboardHO.class));
+
                                     pd.dismiss();
+                                    finish();
 
 
                                 }

@@ -96,6 +96,7 @@ public class LoginActivityG extends AppCompatActivity {
                                     pd.dismiss();
 
                                     startActivity(new Intent(LoginActivityG.this, HomeActivity.class));
+                                    finish();
 
 
                                 }
@@ -104,7 +105,6 @@ public class LoginActivityG extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                     pd.dismiss();
                                     Toast.makeText(LoginActivityG.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
                                 }
                             });
                     }else{

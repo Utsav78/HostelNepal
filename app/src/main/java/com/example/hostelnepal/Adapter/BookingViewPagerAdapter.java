@@ -15,13 +15,17 @@ public class BookingViewPagerAdapter extends PagerAdapter {
     private String[] imageUrls;
 
     public BookingViewPagerAdapter(Context context, String[] imageUrls) {
+
         this.context = context;
         this.imageUrls = imageUrls;
+
     }
 
     @Override
     public int getCount() {
+
         return imageUrls.length;
+
     }
 
     @Override
@@ -39,6 +43,7 @@ public class BookingViewPagerAdapter extends PagerAdapter {
                 .centerCrop()
                 .into(imageView);
         container.addView(imageView);
+
         return imageView;
     }
 

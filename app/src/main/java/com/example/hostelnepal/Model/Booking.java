@@ -6,6 +6,7 @@ public class Booking {
     private long timestamp;
     private String status;
     private String ownerId;
+    private String phoneNumber;
 
     public Booking() {
         //no argument constructor

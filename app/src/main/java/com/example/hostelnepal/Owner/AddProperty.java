@@ -78,6 +78,9 @@ public class AddProperty extends AppCompatActivity {
     public static final String TAGGY = "AddProperty";
     String documentId;
 
+    String priceRoom1,priceRoom2,priceRoom3,priceRoom4;
+    String avBed1,avBed2,avBed3,avBed4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,31 +151,63 @@ public class AddProperty extends AppCompatActivity {
                 nameOfHostel = editTextNameOfHostel.getText().toString();
                 locality = editTextLocality.getText().toString();
                 city = editTextCity.getText().toString();
-                priceOfRoom1 = Integer.parseInt(editTextPrice1.getText().toString());
+
+                priceRoom1 = editTextPrice1.getText().toString();
+                priceRoom2 = editTextPrice2.getText().toString();
+                priceRoom3 = editTextPrice3.getText().toString();
+                priceRoom4 = editTextPrice4.getText().toString();
+
+
+                /*priceOfRoom1 = Integer.parseInt(editTextPrice1.getText().toString());
                 priceOfRoom2 = Integer.parseInt(editTextPrice2.getText().toString());
                 priceOfRoom3 = Integer.parseInt(editTextPrice3.getText().toString());
                 priceOfRoom4 = Integer.parseInt(editTextPrice4.getText().toString());
+
+                 */
                 typeOfHostel = radioButton.getText().toString();
+
+                avBed1 = room1Beds.getText().toString();
+                avBed2 = room2Beds.getText().toString();
+                avBed3 = room3Beds.getText().toString();
+                avBed4 = room4Beds.getText().toString();
+
+                /*
                 availableBeds1 = Integer.parseInt(room1Beds.getText().toString());
                 availableBeds2 = Integer.parseInt(room2Beds.getText().toString());
                 availableBeds3 = Integer.parseInt(room3Beds.getText().toString());
                 availableBeds4 = Integer.parseInt(room4Beds.getText().toString());
 
+                 */
+
                 propertyDescription = editTextPropertyDescription.getText().toString();
 
-                if (editTextNameOfHostel.getText().toString().trim().length() != 0 && editTextCity.getText().toString().trim().length() != 0 &&
-                        editTextLocality.getText().toString().trim().length() != 0 && editTextPrice1.getText().toString().length() != 0
-                        && editTextPrice2.getText().toString().trim().length() != 0 && editTextPrice3.getText().toString().trim().length() != 0
-                        && editTextPrice4.getText().toString().trim().length() != 0 && downloadableUri[0] != null && downloadableUri[1] != null && downloadableUri[2] != null && downloadableUri[3] != null &&
-                        downloadableUri[4] != null && downloadableUri[5] != null && downloadableUri[6] != null &&
+                if (!TextUtils.isEmpty(nameOfHostel) && !city.isEmpty() &&
+                        !locality.isEmpty() && !priceRoom1.isEmpty()
+                        && !priceRoom2.isEmpty()  && !priceRoom3.isEmpty()
+                        && !priceRoom4.isEmpty() && downloadableUri[0] != null &&
+                        downloadableUri[1] != null && downloadableUri[2] != null &&
+                        downloadableUri[3] != null && downloadableUri[4] != null &&
+                        downloadableUri[5] != null && downloadableUri[6] != null &&
                         downloadableUri[7] != null && downloadableUri[8] != null
                         && !TextUtils.isEmpty(String.valueOf(availableBeds1))
                         && !TextUtils.isEmpty(String.valueOf(availableBeds2))
                         && !TextUtils.isEmpty(String.valueOf(availableBeds3))
-                        && !TextUtils.isEmpty(String.valueOf(availableBeds4)) && !TextUtils.isEmpty(propertyDescription)) {
+                        && !TextUtils.isEmpty(String.valueOf(availableBeds4)) &&
+                        !TextUtils.isEmpty(propertyDescription)) {
 
 
                     dialog.show();
+
+                    priceOfRoom1 = Integer.parseInt(editTextPrice1.getText().toString());
+                    priceOfRoom2 = Integer.parseInt(editTextPrice2.getText().toString());
+                    priceOfRoom3 = Integer.parseInt(editTextPrice3.getText().toString());
+                    priceOfRoom4 = Integer.parseInt(editTextPrice4.getText().toString());
+
+                    availableBeds1 = Integer.parseInt(room1Beds.getText().toString());
+                    availableBeds2 = Integer.parseInt(room2Beds.getText().toString());
+                    availableBeds3 = Integer.parseInt(room3Beds.getText().toString());
+                    availableBeds4 = Integer.parseInt(room4Beds.getText().toString());
+
 
                     propertyModel = new PropertyModel(nameOfHostel, typeOfHostel, city, locality, priceOfRoom1, priceOfRoom2, priceOfRoom3, priceOfRoom4,
                             downloadableUri[0], downloadableUri[1], downloadableUri[2], downloadableUri[3], downloadableUri[4], downloadableUri[5], downloadableUri[6],

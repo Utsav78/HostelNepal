@@ -93,38 +93,50 @@ public class PropertyDetails extends AppCompatActivity {
         docRef.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                tvNameOfHostel.setText(documentSnapshot.getString("nameOfHostel"));
-                tvTypeOfHostel.setText(documentSnapshot.getString("hostelType"));
-                tvLocality.setText(documentSnapshot.getString("locality"));
-                tvCity.setText(documentSnapshot.getString("city"));
-                tvPrice1.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom1")));
-                tvPrice2.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom2")));
-                tvPrice3.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom3")));
-                tvPrice4.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom4")));
-                tvDescription.setText(documentSnapshot.getString("propertyDescription"));
+
+                if (documentSnapshot.exists()){
+                    tvNameOfHostel.setText(documentSnapshot.getString("nameOfHostel"));
+                    tvTypeOfHostel.setText(documentSnapshot.getString("hostelType"));
+                    tvLocality.setText(documentSnapshot.getString("locality"));
+                    tvCity.setText(documentSnapshot.getString("city"));
+                    tvPrice1.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom1")));
+                    tvPrice2.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom2")));
+                    tvPrice3.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom3")));
+                    tvPrice4.setText(String.valueOf(documentSnapshot.getDouble("priceOfRoom4")));
+                    tvDescription.setText(documentSnapshot.getString("propertyDescription"));
 
 
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom1"))).into(ivRoom1);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom2"))).into(ivRoom2);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom3"))).into(ivRoom3);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom4"))).into(ivRoom4);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfDocument"))).into(ivDocument);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfWashroom"))).into(ivWashroom);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfBuilding"))).into(ivBuilding);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfKitchen"))).into(ivKitchen);
-                Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfEnvironment"))).into(ivSurrounding);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom1"))).into(ivRoom1);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom2"))).into(ivRoom2);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom3"))).into(ivRoom3);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfRoom4"))).into(ivRoom4);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfDocument"))).into(ivDocument);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfWashroom"))).into(ivWashroom);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfBuilding"))).into(ivBuilding);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfKitchen"))).into(ivKitchen);
+                    Picasso.get().load(Uri.parse(documentSnapshot.getString("uriOfEnvironment"))).into(ivSurrounding);
 
-                for (int i=0;i<8;i++){
-                    boolean bool = documentSnapshot.getBoolean(field[i]);
-                    if (bool){
-                        stringBuffer.append(facilities[i]).append("\n");
+                    for (int i=0;i<8;i++){
+                        boolean bool = documentSnapshot.getBoolean(field[i]);
+                        if (bool){
+                            stringBuffer.append(facilities[i]).append("\n");
+                        }
+
                     }
+                    tvFacilities.setText(stringBuffer.toString());
+
 
                 }
-                tvFacilities.setText(stringBuffer.toString());
+                else{
+                    startActivity(new Intent(PropertyDetails.this,DashboardHO.class));
+                    finish();
 
+                }
 
             }
+
+
+
         });
 
     }
@@ -165,7 +177,7 @@ public class PropertyDetails extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Toast.makeText(PropertyDetails.this, "Yes is clicked", Toast.LENGTH_SHORT).show();
-                       docRef.delete();
+
 
 
                        FirebaseFirestore.getInstance().document("All Hostels/"+hostelId)
@@ -173,8 +185,8 @@ public class PropertyDetails extends AppCompatActivity {
                            @Override
                            public void onSuccess(Void aVoid) {
                                Toast.makeText(PropertyDetails.this, "Hostel deleted successfully.", Toast.LENGTH_SHORT).show();
-                               startActivity(new Intent(PropertyDetails.this,DashboardHO.class));
-                               finish();
+                               //startActivity(new Intent(PropertyDetails.this,DashboardHO.class));
+                               //finish();
 
                            }
                        }).addOnFailureListener(new OnFailureListener() {
@@ -184,6 +196,8 @@ public class PropertyDetails extends AppCompatActivity {
                                Log.d(TAG, "onFailure: Delete document:"+e.getMessage());
                            }
                        });
+
+                        docRef.delete();
 
                     }
                 })

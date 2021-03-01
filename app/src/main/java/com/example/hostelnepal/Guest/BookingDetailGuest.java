@@ -2,15 +2,22 @@ package com.example.hostelnepal.Guest;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.hostelnepal.Model.Booking;
 import com.example.hostelnepal.Model.PropertyModel;
+import com.example.hostelnepal.Owner.BookingDetailsOwner;
 import com.example.hostelnepal.databinding.ActivityBookingDetailGuestBinding;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,18 +26,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class BookingDetailGuest extends AppCompatActivity {
+    private static final String TAG = "BookingDetailGuest";
     ActivityBookingDetailGuestBinding binding;
     String status;
     String ownerId;
     long timestamp;
     DocumentReference ownerBookingRef,guestBookingRef;
     DocumentReference allHostelRef,ownerRef;
+    DocumentReference ownerInfoRef;
     FirebaseFirestore db;
     private String hostelId;
     DocumentSnapshot snapshot;
     private double availableBed;
     private String bookedBed;
     private String roomType;
+    private String phoneNumber;
+    private String ownerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +89,33 @@ public class BookingDetailGuest extends AppCompatActivity {
 
                 ownerRef = db.document("HostelOwner/"+ownerId+"/"+
                         "Property Details/"+hostelId);
+
+                ownerInfoRef = db.document("HostelOwner/"+ownerId);
+                addPersonalInfoOfOwner();
             }
         });
 
+    }
+
+    private void addPersonalInfoOfOwner() {
+        ownerInfoRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error !=null){
+                    Log.d(TAG, "onEvent: FirebaseFireStoreException :"+error.getMessage());
+                    return;
+                }
+
+                phoneNumber = value.getString("PhoneNumber");
+                ownerName = value.getString("FullName");
+                binding.etOwnerName.setText(ownerName);
+                binding.etPhone.setText(phoneNumber);
+
+
+
+
+            }
+        });
     }
 
     public void cancelBooking(View view) {
@@ -136,5 +171,28 @@ public class BookingDetailGuest extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public void callOwner(View view) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+phoneNumber));
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(BookingDetailGuest.this, "Please give required permission to use this service", Toast.LENGTH_SHORT).show();
+            askForPermission();
+
+
+        }else{
+            startActivity(callIntent);
+        }
+
+
+    }
+
+    private void askForPermission() {
+        ActivityCompat.requestPermissions(this,new String[] {Manifest.permission
+        .CALL_PHONE},1010);
+
     }
 }

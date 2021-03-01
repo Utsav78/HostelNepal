@@ -5,9 +5,13 @@ package com.example.hostelnepal.Owner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +44,7 @@ public class BookingDetailsOwner extends AppCompatActivity {
     private DocumentReference allHostelRef,ownerSideHostelRef;
     private DocumentReference bookingOwnerSideRef;
     private String bookedBed;
+    private String phoneNumber;
 
     //availableBed ma value aairako xaina
     //work to do : cancel garda no of bed +1 hunu paro ...
@@ -84,31 +89,62 @@ public class BookingDetailsOwner extends AppCompatActivity {
         bookingOwnerSideRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                BookingOwner model = value.toObject(BookingOwner.class);
-                binding.etEmail.setText(model.getEmail());
-                email = model.getEmail();
-                binding.etGuestName.setText(model.getGuestName());
-                binding.etHostelName.setText(model.getHostelName());
-                binding.etPhone.setText(model.getPhoneNumber());
-                binding.etPrice.setText(model.getBookingPrice());
-                binding.etRoomType.setText(model.getRoomType());
-                binding.etDate.setText(model.getDate());
-                binding.etStatus.setText(model.getStatus());//this may bring problem.not updated in database.
+                if (value.exists()){
+                    BookingOwner model = value.toObject(BookingOwner.class);
+                    binding.etEmail.setText(model.getEmail());
+                    email = model.getEmail();
+                    binding.etGuestName.setText(model.getGuestName());
+                    binding.etHostelName.setText(model.getHostelName());
+                    binding.etPhone.setText(model.getPhoneNumber());
+                    binding.etPrice.setText(model.getBookingPrice());
+                    binding.etRoomType.setText(model.getRoomType());
+                    binding.etDate.setText(model.getDate());
+                    binding.etStatus.setText(model.getStatus());//this may bring problem.not updated in database.
 
-                status = model.getStatus();
+                    status = model.getStatus();
 
-                roomType = model.getRoomType();
-                hostelId = model.getHostelId();
-                guestId= model.getGuestId();
-                long timestamp = model.getTimestamp();
-                Log.d(TAG, "onEvent: HostelId and timestamp:"+hostelId+"\n"+timestamp);
+                    roomType = model.getRoomType();
+                    hostelId = model.getHostelId();
+                    guestId= model.getGuestId();
+                    long timestamp = model.getTimestamp();
 
-                docRef = db.document("Guest/"+guestId+"/"+"Booking/"+timestamp);
+                    phoneNumber = model.getPhoneNumber();
 
-                if (status.equals("Confirmed") || status.equals("Cancelled")){
-                    binding.btnConfirm.setEnabled(false);
-                    binding.btnCancel.setEnabled(false);
-                    binding.btnDelete.setEnabled(true);
+                    Log.d(TAG, "onEvent: HostelId and timestamp:"+hostelId+"\n"+timestamp);
+
+                    docRef = db.document("Guest/"+guestId+"/"+"Booking/"+timestamp);
+
+                    if (status.equals("Confirmed") || status.equals("Cancelled")){
+                        binding.btnConfirm.setEnabled(false);
+                        binding.btnCancel.setEnabled(false);
+                        binding.btnDelete.setEnabled(true);
+                    }
+
+
+
+
+                }else{
+                    startActivity(new Intent(BookingDetailsOwner.this,DashboardHO.class));
+                    finish();
+                }
+
+
+            }
+        });
+        binding.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+phoneNumber));
+
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(BookingDetailsOwner.this, "Please give required permission to use this service", Toast.LENGTH_SHORT).show();
+                    askForPermission();
+
+
+                }else{
+                    startActivity(callIntent);
                 }
 
 
@@ -119,6 +155,10 @@ public class BookingDetailsOwner extends AppCompatActivity {
 
 
 
+    }
+
+    private void askForPermission() {
+        ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CALL_PHONE},1010);
     }
 
     private void findStatus(DocumentReference docRef) {

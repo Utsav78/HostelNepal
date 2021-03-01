@@ -168,18 +168,27 @@ public class BookingActivity extends AppCompatActivity {
                     d=snapshot.getDouble(option);
 
                     if (d>0){
-                        docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful())
-                                    Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
-                            }
+                        //to check the user email verification..left to do same in owner add property section
+                        if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+                            docRef.update(option,d-1 ).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                        Toast.makeText(BookingActivity.this, "Booking is completed.", Toast.LENGTH_SHORT).show();
+                                    else
+                                        Toast.makeText(BookingActivity.this, "Something went Wrong.", Toast.LENGTH_SHORT).show();
+                                }
 
-                        });
-                        updateInOwner(ownerId,hostelId,option, d -1);
-                        saveBooking();
+                            });
+                            updateInOwner(ownerId,hostelId,option, d -1);
+                            saveBooking();
+
+                        }else{
+                            Toast.makeText(BookingActivity.this, "Please verify your email before proceeding", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
 
                     }else{
                         Toast.makeText(BookingActivity.this, "Sorry the room is already packed.", Toast.LENGTH_SHORT).show();
