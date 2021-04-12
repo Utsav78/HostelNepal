@@ -161,7 +161,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reviews and Rating"
+                        android:text="Rating and Feedback"
                         android:textColor="@color/colorBlack"
                         android:textSize="24sp"
                         android:fontFamily="@font/viga"
@@ -401,8 +401,54 @@
 
 
 
+
+
+
                     <RatingBar
                         android:id="@+id/rating_value_for_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.1"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="Facilities"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/viga"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/mean_facilities"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="No Rating yet"
+                            android:fontFamily="@font/viga"
+                            android:layout_marginStart="5dp"
+                            android:padding="8dp"
+                            android:textColor="@color/colorWhite"/>
+
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <RatingBar
+                        android:id="@+id/rating_facilities"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -422,7 +468,7 @@
                 android:id="@+id/see_all_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See all reviews"
+                android:text="See all Feedback"
                 android:layout_below="@id/card_view_reviews"
                 android:textSize="24sp"
                 android:onClick="goToReviewsActivity"
@@ -437,7 +483,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:textSize="20sp"
-                android:text="Add Your Review"
+                android:text="Add Your Feedback Here"
                 android:textAllCaps="false"
                 android:fontFamily="@font/viga"
                 android:layout_below="@id/see_all_reviews"

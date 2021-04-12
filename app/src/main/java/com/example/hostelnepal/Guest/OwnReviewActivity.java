@@ -92,6 +92,7 @@ public class OwnReviewActivity extends AppCompatActivity {
             checkButton();
         });
 
+
         binding.ratingEnvironment.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             ratingEnvironment =rating;
             checkButton();

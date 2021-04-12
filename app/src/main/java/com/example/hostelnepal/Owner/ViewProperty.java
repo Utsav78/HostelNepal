@@ -21,7 +21,8 @@ public class ViewProperty extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private CollectionReference colRef = db.collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Property Details");
+    private CollectionReference colRef = db.
+            collection("HostelOwner/"+firebaseAuth.getCurrentUser().getUid()+"/"+"Property Details");
     private ViewPropertyAdapter adapter;
 
     @Override

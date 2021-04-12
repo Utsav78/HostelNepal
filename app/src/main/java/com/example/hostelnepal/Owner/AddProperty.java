@@ -39,6 +39,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class AddProperty extends AppCompatActivity {
+
     public static final int REQUEST_CODE_ROOM1 = 1;
     public static final int REQUEST_CODE_ROOM2 = 2;
     public static final int REQUEST_CODE_ROOM3 = 3;
@@ -438,14 +439,7 @@ public class AddProperty extends AppCompatActivity {
                                 break;
                         }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddProperty.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                    }
-                });
+                }).addOnFailureListener(e -> Toast.makeText(AddProperty.this, e.getMessage(), Toast.LENGTH_SHORT).show());
             }
         });
     }

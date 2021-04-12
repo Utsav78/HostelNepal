@@ -266,7 +266,7 @@
             android:id="@+id/see_all_reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See all Comments"
+            android:text="See all Feedback"
             android:layout_marginTop="12dp"
             android:padding="10dp"
             android:fontFamily="@font/viga"

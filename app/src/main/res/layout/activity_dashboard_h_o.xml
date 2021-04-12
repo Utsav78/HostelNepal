@@ -266,7 +266,8 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="12dp"
                         android:textSize="18sp"
-                        android:text="@string/reviews"/>
+                        android:text="Rating"/>
+
                 </LinearLayout>
 
 

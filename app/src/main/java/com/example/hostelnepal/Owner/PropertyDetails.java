@@ -41,6 +41,7 @@ public class PropertyDetails extends AppCompatActivity {
     String[] field;
     StringBuffer stringBuffer;
 
+
     //for hostelId and path;
     String path;
     String hostelId;

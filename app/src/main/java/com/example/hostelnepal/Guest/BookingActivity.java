@@ -228,6 +228,7 @@ public class BookingActivity extends AppCompatActivity {
                     binding.meanSecurity.setText(String.format("%1.1f",meanRating.getMeanSecurity()));
                     binding.meanStaff.setText(String.format("%1.1f",meanRating.getMeanStaff()));
                     binding.meanValueForMoney.setText(String.format("%1.1f",meanRating.getMeanValueForMoney()));
+                    binding.meanFacilities.setText(String.format("%1.1f",meanRating.getMeanFacilities()));
 
 
                     binding.ratingCleanliness.setRating(meanRating.getMeanCleanliness());
@@ -236,6 +237,7 @@ public class BookingActivity extends AppCompatActivity {
                     binding.ratingSecurity.setRating(meanRating.getMeanSecurity());
                     binding.ratingStaff.setRating(meanRating.getMeanStaff());
                     binding.ratingValueForMoney.setRating(meanRating.getMeanValueForMoney());
+                    binding.ratingFacilities.setRating(meanRating.getMeanFacilities());
 
                 }
 
